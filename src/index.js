@@ -20,11 +20,11 @@ root.render(
   <BrowserRouter>
     <Header />
     <Routes>
-      <Route path="/" element={<Calendar/>} />
-      <Route path="/create" element={<Create/>} />
-      <Route path="/" element={<Event />} />
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/signup" element={<Signup/>}/>
+      <Route path="/"       element={<Calendar />} />
+      <Route path="/:id"    element={<Event />}    />
+      <Route path="/create" element={<Create />}   />
+      <Route path="/login"  element={<Login />}    />
+      <Route path="/signup" element={<Signup />}   />
     </Routes>
     <Footer />
   </BrowserRouter>
