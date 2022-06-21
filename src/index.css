@@ -1,0 +1,26 @@
+/* Mobile first */
+
+html {
+    font-size: 62,5%;
+}
+body {
+    margin: 0;
+    padding: 1rem;
+    
+}
+
+
+
+/* Tablet Landscape */
+@media (min-width: 90rem) {
+ #root {
+    display: flex;
+    flex-direction: row;
+ }
+}
+
+
+/* Desktop */
+@media (min-width: 102rem) {
+    
+}
