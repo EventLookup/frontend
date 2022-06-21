@@ -1,0 +1,38 @@
+div.single-event {
+    margin: 0 auto;
+}
+section.back {
+    padding: 1.5em 0;
+    text-decoration: none;
+    ;
+}
+section.back span {
+    background-color: black;
+    color: white;
+    margin:0.3em;
+    padding: 0.4em 0.4em;
+}
+section.back span:first-child{
+    border-radius: 50%;
+    padding: 0.4rem 0.5em;
+}
+.active {
+    text-decoration: none;
+}
+
+div.description {
+    background-color: rgb(242, 243, 244);
+
+    border-radius: 5px;
+
+    padding: 1em .9em;
+}
+div.description time,
+div.description h4,
+div.description p:first-of-type {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+div.description time{
+    color: teal;
+}
