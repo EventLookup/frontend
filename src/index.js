@@ -9,11 +9,12 @@ import Signup from './pages/Signup';
 import Create from "./pages/Create";
 import Event from './pages/Event';
 import Calendar from './pages/Calendar';
+import Impressum from './pages/Impressum';
 
 
 // components 
 import Header from "./components/header/Header";
-import Footer from './components/Footer';
+import Footer from './components/Footer/Footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,6 +26,7 @@ root.render(
       <Route path="/create" element={<Create />}   />
       <Route path="/login"  element={<Login />}    />
       <Route path="/signup" element={<Signup />}   />
+      <Route path="/impressum" element={<Impressum/>}   />
     </Routes>
     <Footer />
   </BrowserRouter>
