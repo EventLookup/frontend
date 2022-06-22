@@ -4,13 +4,19 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // pages
+<<<<<<< HEAD
 import Calendar from './pages/Calendar';
+=======
+>>>>>>> dev
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Create from "./pages/Create";
+import Event from './pages/Event';
+import Calendar from './pages/Calendar';
 
 
 // components 
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import Footer from './components/Footer';
 import SideNav from './components/SideNav';
 
@@ -20,9 +26,11 @@ root.render(
     <Header />
     <SideNav />
     <Routes>
-      <Route path="/" element={<Calendar/>} />
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/signup" element={<Signup/>}/>
+      <Route path="/"       element={<Calendar />} />
+      <Route path="/:id"    element={<Event />}    />
+      <Route path="/create" element={<Create />}   />
+      <Route path="/login"  element={<Login />}    />
+      <Route path="/signup" element={<Signup />}   />
     </Routes>
     <Footer />
   </BrowserRouter>
