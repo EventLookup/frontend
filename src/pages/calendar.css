@@ -1,0 +1,13 @@
+/* Tablet Landscape */
+@media (min-width: 90em) {
+    .Calendar #Sidebar_Cal {
+       display: flex;
+       flex-direction: row;
+    }
+   }
+   
+   
+   /* Desktop */
+   @media (min-width: 102em) {
+       
+   }
