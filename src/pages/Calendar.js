@@ -1,3 +1,5 @@
+import SideNav from "../components/SideNav";
+
 const calArray = [
     {
       title: "Matrix 4",
@@ -157,7 +159,10 @@ const calArray = [
           <main>
           <h2>CalendarToday</h2>
           <h3>{`${wochentag[day]}, ${dateToday}`}</h3>
-          <CalendarToday calendar={todayCal} />
+          <section>
+            <CalendarToday calendar={todayCal} />
+            <SideNav />
+          </section>
           </main>
         </div>
       );

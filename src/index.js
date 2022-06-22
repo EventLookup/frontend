@@ -1,3 +1,6 @@
+// design
+import "./index.css";
+
 // react stuff
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -10,7 +13,6 @@ import Create from "./pages/Create";
 import Event from './pages/Event';
 import Calendar from './pages/Calendar';
 import Impressum from './pages/Impressum';
-
 
 // components 
 import Header from "./components/header/Header";
