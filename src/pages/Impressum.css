@@ -17,3 +17,17 @@ main.impressum h3 {
 main.impressum .impressum-sec p:first-of-type {
     margin: 0 0 20px 0;
 }
+
+@media screen and (min-width: 90rem) {
+    main.impressum {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .impressum-sec,
+    .disclaimer-sec {
+        max-width: 500px;
+    }
+}

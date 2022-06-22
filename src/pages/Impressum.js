@@ -20,7 +20,9 @@ const Impressum = () => {
           Umsatzsteuer-Identifikationsnummer gemäß §27a Umsatzsteuergesetz:
           Musterustid.
         </p>
-        <h3>Wirtschafts-ID: Musterwirtschaftsid Aufsichtsbehörde:</h3>
+        <h3>Wirtschafts-ID:  </h3>
+        <p>Musterwirtschaftsid</p>
+        <h3>Aufsichtsbehörde:</h3>
         <p>Musteraufsicht Musterstadt</p>
       </section>
       <section className="disclaimer-sec">
