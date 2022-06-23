@@ -30,10 +30,14 @@ function Calendar() {
     return (
       <div className="Calendar">
         <main>
+        <section id="Sidebar_Cal">
         <SideNav/>
+        <div>
         <h2>Calendar today</h2>
         <h3>{`${wochentag[day]}, ${dateToday}`}</h3>
         <div>{events.map( event => <p key={event._id}>{event.title}</p> ) } </div>
+        </div>
+        </section>
         </main>
         </div>
     );
