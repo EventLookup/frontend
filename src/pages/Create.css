@@ -1,0 +1,69 @@
+.create {
+    position: relative;
+}
+
+.create main {
+    background-color:  #e7e7e7;
+    margin:1em;
+    margin-bottom: 100px;
+    border-radius: 5px;
+    padding: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2  {
+    margin-bottom: 1em;
+    font-weight: 200;
+    letter-spacing: 3px;
+       
+}
+
+h5 {
+    font-weight: 200;
+    align-self: flex-start;
+
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+textarea {
+    height: 200px;
+}
+input, textarea {
+    width: 100%;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+}
+
+input::placeholder, textarea::placeholder {
+    color:#8d8d8d;
+}
+
+button {
+    border: none;
+    background-color: #bcbcbc;
+
+    padding: .3rem 1.5rem;
+
+    align-self: center;
+
+    letter-spacing: 3px;
+    font-weight: 300;  
+}
+
+
+@media (min-width: 500px) {
+    .create {
+        display: flex;
+        justify-content: center;
+    }
+    main {
+        width: 500px ;
+    }
+    
+}
