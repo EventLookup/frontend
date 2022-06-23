@@ -42,69 +42,50 @@ const Create = () => {
         setInputStadt(e.target.value)
     }
     
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-     
-        //   let res = await axios.put('https://eventlookup/herokuapp.com/events', {
-        //     title: inputVeranstaltungsName,
-        //     description: inputBeschreibung,
-        //     location: {
-        //         street: inputStraße,
-        //         houseNr: inputHausnr,
-        //         city: inputStadt,
-        //         zip: inputPLZ
-        //     },
-        //     host: inputLocation,
-        //     eventTime: inputUhrzeit,
-        //     eventDate: inputDatum,
-        //     cancelled: false,
-        //     postponend: false,
-        //     participants: [],
-        //     website: ""
-            
-        // }, {
-        //     headers: {
-        //         authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE4NTIwNTdhZWM4NjY3MTE1YTE1NDEiLCJuYW1lIjoiRGltYSIsInJvbGVzIjpbNTA1MCwxMTExXSwiaWF0IjoxNjU1OTg0OTI0LCJleHAiOjE2NTU5ODYxMjR9.-QMiSdpzUYayOMCK5SReoUE_DwEybAUVNFAYdxQyLaE" 
-        //     },
-        //     withCredentials: true
-        // } );
-         const res = await fetch("https://eventlookup/herokuapp.com/events", {
-             method: "GET",
-             mode:"cors",
-             credentials: "include",
-             headers: {
-                 "Content-Type": "application/json"
-             },
-             body: JSON.stringify({
-                    title: inputVeranstaltungsName,
-                    description: inputBeschreibung,
-                    location: {
-                        street: inputStraße,
-                        houseNr: inputHausnr,
-                        city: inputStadt,
-                        zip: inputPLZ
-                    },
-                    host: inputLocation,
-                    eventTime: inputUhrzeit,
-                    eventDate: inputDatum,
-                    cancelled: false,
-                    postponend: false,
-                    participants: [],
-                    website: ""
-                    
-                })
-         })
-         
-            let data = await res.data;
-            console.log(data);
-       
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      try {
+      const { data } = await axios.put('https://eventlookup.herokuapp.com/events', {
+        title: inputVeranstaltungsName,
+        description: inputBeschreibung,
+        location: {
+            street: inputStraße,
+            houseNr: inputHausnr,
+            city: inputStadt,
+            zip: inputPLZ
+        },
+        host: inputLocation,
+        eventTime: inputUhrzeit, // Uhrzeit darf nicht 06.40 lauten, sondern ohne die 0; Nur 6.40, werde ich versuchen anzupassen im Backend
+        eventDate: inputDatum,
+        cancelled: false,
+        postponed: false,
+        website: "frontend-test.de" // Muss in der Form noch abgefragt werden.
+        
+      }, 
+      {
+        headers: {
+            // achte darauf, das der token nur 20 minuten gültig ist, bei jedem Seitenaufruf sollte auch https://eventlookup.herokuapp.com/refresh
+            // aufgerufen werden, wodurch man einen neuen Token erhält und dieser sollte wieder in Context rein um diesen dann bei den 
+            // Abfragen wie hier wieder zu haben
+            // Unter anderem deshalb ist ein eigener hook sinnvoll um das nicht in jedem Seitenaufruf immer neu schreiben zu müssen
+            // kann jedoch nicht sagen wie genau dieser auszusehen hat, habe mir dazu noch keine detailierteren Gedanken gemacht, viel Erfolg
+            authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE4NTIwNTdhZWM4NjY3MTE1YTE1NDEiLCJuYW1lIjoiRGltYSIsInJvbGVzIjpbNTA1MCwxMTExXSwiaWF0IjoxNjU1OTk1ODQ3LCJleHAiOjE2NTU5OTcwNDd9.o0Ux47-6PTfpYBSFyToz0I6Y5TZWpT9SRjCaYwpway0"
+        },
+        withCredentials: true
+      });
+      console.log(data); // Damit kannst du weiter arbeiten, der response lautet hier {msg: 'Event wurde erstellt}
+      } catch (error) {
+      console.error(error.response.data.errors);
+      }
+
     }
 
     return ( 
         <div className="create">
             <main>
                 <h2>Trage eine Veranstaltung ein</h2>
-                <form onSubmit={handleSubmit} action="" method="POST">
+                <form onSubmit={handleSubmit}>
                     <input onChange={onChangeHandlerVeranstaltungsName} type="text" placeholder="Name der Veranstaltung" required></input>
                     <input onChange={onChangeHandlerLocation} type="text" placeholder="Location" required></input>
                     <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" required></input>
