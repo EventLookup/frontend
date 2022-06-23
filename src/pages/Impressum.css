@@ -1,5 +1,12 @@
 main.impressum {
     font-family: Arial, Helvetica, sans-serif;
+    /* height: 100vh !important; */
+    height: 100vh;
+    
+}
+main.impressum .impressum-scroll {
+    height: 95vh;
+    overflow: scroll !important;
 }
 main.impressum h2 {
     margin: 0 0 .5rem 0;
@@ -7,7 +14,9 @@ main.impressum h2 {
 .impressum-sec,
 .disclaimer-sec {
     background-color: #e7e7e7;
-    margin: 1.5rem .6rem;
+    /* margin: 1.5rem .6rem; old */
+    margin: 0 .6rem 1.5rem;
+    /* margin: 0 .6rem 0rem; */
     padding: 1rem .7rem;
     border-radius: 5px;
 }
@@ -24,8 +33,13 @@ main.impressum .impressum-sec p:first-of-type {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        
+
+        height: 90vh !important;
     }
+    main.impressum .impressum-scroll {
+        overflow: scroll !important;
+    }
+
     .impressum-sec,
     .disclaimer-sec {
         max-width: 500px;
