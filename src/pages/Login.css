@@ -1,5 +1,8 @@
 .main-login {
     height: 90vh;
+    width: 500px;
+
+    margin: 0 auto;
 }
 form.login {
     font-family: Arial, Helvetica, sans-serif;
