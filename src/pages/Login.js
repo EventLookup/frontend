@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
-import { LoginAuthContext } from "../context/LoginAuthContext";
+import {/*  useContext, */ useState } from "react";
+// import { LoginAuthContext } from "../context/LoginAuthContext";
 import axios from "axios";
 
 import "./Login.css";
 
 const Login = () => {
-  const { setToken } = useContext(LoginAuthContext);
+  // const { setToken } = useContext(LoginAuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
