@@ -44,4 +44,6 @@ form.login button {
 
     letter-spacing: 3px;
     font-weight: 300;
+
+    cursor: pointer;
 }
