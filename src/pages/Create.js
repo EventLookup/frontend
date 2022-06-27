@@ -14,6 +14,25 @@ const Create = () => {
     const [inputPLZ, setInputPLZ] = useState("")
     const [inputStadt, setInputStadt] = useState("")
 
+    let body = {
+            title: inputVeranstaltungsName,
+            description: inputBeschreibung,
+            location: {
+                street: inputStraße,
+                houseNr: inputHausnr,
+                city: inputStadt,
+                zip: inputPLZ
+            },
+            host: inputLocation,
+            eventTime: inputUhrzeit,
+            eventDate: inputDatum,
+            cancelled: false,
+            postponend: false,
+            participants: [],
+            website: ""
+
+        }
+
     const onChangeHandlerVeranstaltungsName = (e) => {
         setInputVeranstaltungsName(e.target.value)
     }
@@ -41,66 +60,32 @@ const Create = () => {
     const onChangeHandlerStadt = (e) => {
         setInputStadt(e.target.value)
     }
-    
-    const handleSubmit = async(e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-     
-        //   let res = await axios.put('https://eventlookup/herokuapp.com/events', {
-        //     title: inputVeranstaltungsName,
-        //     description: inputBeschreibung,
-        //     location: {
-        //         street: inputStraße,
-        //         houseNr: inputHausnr,
-        //         city: inputStadt,
-        //         zip: inputPLZ
-        //     },
-        //     host: inputLocation,
-        //     eventTime: inputUhrzeit,
-        //     eventDate: inputDatum,
-        //     cancelled: false,
-        //     postponend: false,
-        //     participants: [],
-        //     website: ""
-            
-        // }, {
-        //     headers: {
-        //         authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE4NTIwNTdhZWM4NjY3MTE1YTE1NDEiLCJuYW1lIjoiRGltYSIsInJvbGVzIjpbNTA1MCwxMTExXSwiaWF0IjoxNjU1OTg0OTI0LCJleHAiOjE2NTU5ODYxMjR9.-QMiSdpzUYayOMCK5SReoUE_DwEybAUVNFAYdxQyLaE" 
-        //     },
-        //     withCredentials: true
-        // } );
-         const res = await fetch("https://eventlookup/herokuapp.com/events", {
-             method: "GET",
-             mode:"cors",
-             credentials: "include",
-             headers: {
-                 "Content-Type": "application/json"
-             },
-             body: JSON.stringify({
-                    title: inputVeranstaltungsName,
-                    description: inputBeschreibung,
-                    location: {
-                        street: inputStraße,
-                        houseNr: inputHausnr,
-                        city: inputStadt,
-                        zip: inputPLZ
-                    },
-                    host: inputLocation,
-                    eventTime: inputUhrzeit,
-                    eventDate: inputDatum,
-                    cancelled: false,
-                    postponend: false,
-                    participants: [],
-                    website: ""
-                    
-                })
-         })
+
+
+        const client = await axios.create({
+            baseURL: "https://eventlookup.herokuapp.com/events" 
+         });
+
+         const getEvents = async () => {
+            let response = await client.put("/", {
+                body
+            }, {
+                headers: {
+                            authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE4NTIwNTdhZWM4NjY3MTE1YTE1NDEiLCJuYW1lIjoiRGltYSIsInJvbGVzIjpbNTA1MCwxMTExXSwiaWF0IjoxNjU2MzIxOTkyLCJleHAiOjE2NTYzMjMxOTJ9.0H7h0p4QgXLkgqUh4ReEK_TKPHjhnoHUNhfUdqirbEo" 
+                        },
+                        withCredentials: true 
+            });
+            console.log(response);
+         };
+         getEvents();
          
-            let data = await res.data;
-            console.log(data);
-       
+         
     }
 
-    return ( 
+    return (
         <div className="create">
             <main>
                 <h2>Trage eine Veranstaltung ein</h2>
