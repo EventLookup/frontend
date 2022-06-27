@@ -8,7 +8,7 @@ const Create = () => {
   const { token, setToken } = useContext(LoginAuthContext);
 
   useEffect(() => {
-    const getData = async () => {
+   /*  const getData = async () => {
       try {
         const res = await axios.get(
           "https://eventlookup.herokuapp.com/refresh"
@@ -19,7 +19,8 @@ const Create = () => {
         console.error(err);
       }
     };
-    getData()
+    getData(); */
+    console.log('create', axios.defaults.headers.authorization || token);
   }, []);
 
   return (

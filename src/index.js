@@ -21,18 +21,18 @@ import { LoginAuthContextProvider } from "./context/LoginAuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <BrowserRouter>
+    <Header />
     <LoginAuthContextProvider>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Calendar />} />
-          <Route path="/:id" element={<Event />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/impressum" element={<Impressum />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Calendar />} />
+        <Route path="/:id" element={<Event />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/impressum" element={<Impressum />} />
+      </Routes>
     </LoginAuthContextProvider>
+    <Footer />
+  </BrowserRouter>
 );

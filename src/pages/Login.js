@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { LoginAuthContext } from "../context/LoginAuthContext";
-import axios from "axios";
+import axios from "../api/axios";
 
 import "./Login.css";
 
@@ -9,19 +9,22 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const loginFunc = async () => {
     try {
       const res = await axios.post(
-        "https://eventlookup.herokuapp.com/login",
+        "/login",
         {
-          email: email,
-          password: password,
+          email,
+          password,
         }, {
-          withCredentials: true,
-          headers: {"Content-Type": "application/json"}
+          withCredentials: true
         }
       );
-      setToken(res.data.accessToken);
+      
+
+    console.log( res.data );
+
     } catch (err) {
       console.error(err);
     }
@@ -32,12 +35,16 @@ const Login = () => {
 
     if (email && password) {
       loginFunc();
+    } else {
+      // Hier sollte man dem Nutzer mitteilen was passiert wenn NICHT
+      // log reicht nicht
+      console.log('Bitte Email und/ oder Passwort eingeben!');
     }
   };
 
   return (
     <main className="main-login">
-      <form action="" method="POST" className="login">
+      <form className="login">
         <h2>Login</h2>
         <input
           type="email"
