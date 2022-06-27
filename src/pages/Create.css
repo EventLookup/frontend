@@ -54,6 +54,7 @@ button {
 
     letter-spacing: 3px;
     font-weight: 300;  
+    z-index: +3;
 }
 
 
@@ -62,7 +63,7 @@ button {
         display: flex;
         justify-content: center;
     }
-    main {
+    .create main {
         width: 500px ;
     }
     
