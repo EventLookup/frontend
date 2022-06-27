@@ -1,8 +1,9 @@
 import "./Create.css"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from "axios";
 
 const Create = () => {
+  const {token,setToken } = useContext(AuthContext)
 
     const [inputVeranstaltungsName, setInputVeranstaltungsName] = useState("")
     const [inputLocation, setInputLocation] = useState("")
@@ -41,6 +42,12 @@ const Create = () => {
     const onChangeHandlerStadt = (e) => {
         setInputStadt(e.target.value)
     }
+
+   /*  useEffect(async () => {
+      const client = axios.create('http://unsereseite.de')
+      const token = await client.get('/refresh')
+      setToken(token)
+    }, []); */
     
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -64,10 +71,11 @@ const Create = () => {
             
         // }, {
         //     headers: {
-        //         authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE4NTIwNTdhZWM4NjY3MTE1YTE1NDEiLCJuYW1lIjoiRGltYSIsInJvbGVzIjpbNTA1MCwxMTExXSwiaWF0IjoxNjU1OTg0OTI0LCJleHAiOjE2NTU5ODYxMjR9.-QMiSdpzUYayOMCK5SReoUE_DwEybAUVNFAYdxQyLaE" 
+        //         authorization: `Bearer ${token}` 
         //     },
         //     withCredentials: true
-        // } );
+        // } )
+
          const res = await fetch("https://eventlookup/herokuapp.com/events", {
              method: "GET",
              mode:"cors",
@@ -100,6 +108,7 @@ const Create = () => {
        
     }
 
+   
     return ( 
         <div className="create">
             <main>
