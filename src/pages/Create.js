@@ -3,7 +3,7 @@ import { useContext, useState } from "react"
 import axios from "axios";
 
 const Create = () => {
-  const {token,setToken } = useContext(AuthContext)
+  // const {token,setToken } = useContext(AuthContext)
 
     const [inputVeranstaltungsName, setInputVeranstaltungsName] = useState("")
     const [inputLocation, setInputLocation] = useState("")
