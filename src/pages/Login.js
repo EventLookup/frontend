@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { LoginAuthContext } from "../context/LoginAuthContext";
-import axios from "../api/axios";
+import axios from "axios";
 
 import "./Login.css";
 
@@ -13,7 +13,7 @@ const Login = () => {
   const loginFunc = async () => {
     try {
       const res = await axios.post(
-        "/login",
+        "https://eventlookup.herokuapp.com/login",
         {
           email,
           password,
