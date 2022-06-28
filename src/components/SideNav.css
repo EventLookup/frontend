@@ -1,0 +1,11 @@
+.SideNav > aside {
+    color: white;
+    background: rgba(0,0,0,0.8);
+    padding: 2em;
+    margin-right: 2em;
+    min-width: 18vW;
+}
+.SideNav > aside #Suche {
+    margin-top: 1em;
+    width: 1em;
+}
