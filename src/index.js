@@ -17,6 +17,8 @@ import Impressum from "./pages/Impressum";
 // components
 import Header from "./components/header/Header";
 import Footer from "./components/Footer/Footer";
+
+// context
 import { LoginAuthContextProvider } from "./context/LoginAuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

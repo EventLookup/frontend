@@ -1,11 +1,11 @@
-import {/*  useContext, */ useState } from "react";
-// import { LoginAuthContext } from "../context/LoginAuthContext";
+import { useState } from "react";
+import { Navigate } from 'react-router-dom';
 import axios from "../api/axios";
+import { setJWTToken, getJWTToken } from "../util/tokenFunctions";
 
 import "./Login.css";
 
 const Login = () => {
-  // const { setToken } = useContext(LoginAuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,9 +21,10 @@ const Login = () => {
           withCredentials: true
         }
       );
-      
 
-    console.log( res.data );
+      if(res.data.accessToken){
+        axios.defaults.headers.common['authorization'] = `Bearer ${res.data.accessToken}`;
+      }
 
     } catch (err) {
       console.error(err);

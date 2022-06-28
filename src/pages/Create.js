@@ -1,9 +1,9 @@
 import "./Create.css"
-import { useState } from "react"
-import axios from "axios";
+import { useState , useEffect } from "react"
+import axios from "../api/axios";
+import { createGetAndSetRefreshToken } from "../util/tokenFunctions";
 
 const Create = () => {
-
     const [inputVeranstaltungsName, setInputVeranstaltungsName] = useState("")
     const [inputLocation, setInputLocation] = useState("")
     const [inputDatum, setInputDatum] = useState("")
@@ -61,35 +61,36 @@ const Create = () => {
         setInputStadt(e.target.value)
     }
 
+
+    useEffect(() => {
+      
+      createGetAndSetRefreshToken()
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
-        const client = await axios.create({
-            baseURL: "https://eventlookup.herokuapp.com/events" 
-         });
-
-         const getEvents = async () => {
-            let response = await client.put("/", {
-                body
-            }, {
-                headers: {
-                            authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE4NTIwNTdhZWM4NjY3MTE1YTE1NDEiLCJuYW1lIjoiRGltYSIsInJvbGVzIjpbNTA1MCwxMTExXSwiaWF0IjoxNjU2MzIxOTkyLCJleHAiOjE2NTYzMjMxOTJ9.0H7h0p4QgXLkgqUh4ReEK_TKPHjhnoHUNhfUdqirbEo" 
-                        },
-                        withCredentials: true 
-            });
-            console.log(response);
-         };
-         getEvents();
-         
-         
+        try {
+          let response = await axios.put("/events", {
+              body
+            }, 
+            {
+              withCredentials: true 
+            }
+          );
+          console.log(response);
+        } catch (error) {
+          // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
+          // hier mach ich das erstmal nur mit einem console.error
+          console.error(error);
+        }
     }
 
     return (
         <div className="create">
             <main>
                 <h2>Trage eine Veranstaltung ein</h2>
-                <form onSubmit={handleSubmit} action="" method="POST">
+                <form onSubmit={handleSubmit}>
                     <input onChange={onChangeHandlerVeranstaltungsName} type="text" placeholder="Name der Veranstaltung" required></input>
                     <input onChange={onChangeHandlerLocation} type="text" placeholder="Location" required></input>
                     <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" required></input>
