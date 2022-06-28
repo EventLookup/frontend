@@ -78,8 +78,6 @@ const Create = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(body.location.street)
-
          try{
             const client = await axios.create({
                 baseURL: "https://eventlookup.herokuapp.com/events" 
