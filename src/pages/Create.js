@@ -82,7 +82,7 @@ const Create = () => {
         } catch (error) {
           // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
           // hier mach ich das erstmal nur mit einem console.error
-          console.error(error);
+          console.error(error.response.data.errors);
         }
     }
 

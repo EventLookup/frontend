@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://eventlookup.herokuapp.com/',
   headers: {
     'Access-Control-Allow-Origin': true
   }
