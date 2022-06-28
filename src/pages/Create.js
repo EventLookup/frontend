@@ -1,5 +1,5 @@
 import "./Create.css"
-import { useState } from "react"
+import { useState , useContext} from "react"
 import axios from "axios";
 
 const Create = () => {
@@ -14,16 +14,23 @@ const Create = () => {
     const [inputPLZ, setInputPLZ] = useState("")
     const [inputStadt, setInputStadt] = useState("")
 
+    //const {token, setToken} = useContext(LoginAuthContext);
+    
+    const capitalize = (string) => {
+        let capitalized = string.charAt(0).toUpperCase() + string.slice(1);
+        return capitalized
+    }
+
     let body = {
-            title: inputVeranstaltungsName,
-            description: inputBeschreibung,
+            title: capitalize(inputVeranstaltungsName),
+            description: capitalize(inputBeschreibung),
             location: {
-                street: inputStraße,
+                street: capitalize(inputStraße),
                 houseNr: inputHausnr,
-                city: inputStadt,
+                city: capitalize(inputStadt),
                 zip: inputPLZ
             },
-            host: inputLocation,
+            host: capitalize(inputLocation),
             eventTime: inputUhrzeit,
             eventDate: inputDatum,
             cancelled: false,
@@ -32,6 +39,10 @@ const Create = () => {
             website: ""
 
         }
+
+    
+
+
 
     const onChangeHandlerVeranstaltungsName = (e) => {
         setInputVeranstaltungsName(e.target.value)
@@ -61,26 +72,34 @@ const Create = () => {
         setInputStadt(e.target.value)
     }
 
+    
+    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        console.log(body.location.street)
 
-        const client = await axios.create({
-            baseURL: "https://eventlookup.herokuapp.com/events" 
-         });
-
-         const getEvents = async () => {
-            let response = await client.put("/", {
-                body
-            }, {
-                headers: {
-                            authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE4NTIwNTdhZWM4NjY3MTE1YTE1NDEiLCJuYW1lIjoiRGltYSIsInJvbGVzIjpbNTA1MCwxMTExXSwiaWF0IjoxNjU2MzIxOTkyLCJleHAiOjE2NTYzMjMxOTJ9.0H7h0p4QgXLkgqUh4ReEK_TKPHjhnoHUNhfUdqirbEo" 
-                        },
-                        withCredentials: true 
-            });
-            console.log(response);
-         };
-         getEvents();
+         try{
+            const client = await axios.create({
+                baseURL: "https://eventlookup.herokuapp.com/events" 
+             });
+    
+             const getEvents = async () => {
+                let response = await client.put("", {
+                    body
+                }, {
+                    headers: {
+                                authorization: `Bearer ` 
+                            },
+                            withCredentials: true 
+                });
+                console.log(response);
+             };
+             getEvents();
+         }catch(err){
+            console.error(err)
+         }
          
          
     }
