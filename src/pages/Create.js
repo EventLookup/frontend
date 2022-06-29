@@ -20,16 +20,23 @@ const Create = () => {
     const [inputPLZ, setInputPLZ] = useState("")
     const [inputStadt, setInputStadt] = useState("")
 
+    //const {token, setToken} = useContext(LoginAuthContext);
+    
+    const capitalize = (string) => {
+        let capitalized = string.charAt(0).toUpperCase() + string.slice(1);
+        return capitalized
+    }
+
     let body = {
-            title: inputVeranstaltungsName,
-            description: inputBeschreibung,
+            title: capitalize(inputVeranstaltungsName),
+            description: capitalize(inputBeschreibung),
             location: {
-                street: inputStraße,
+                street: capitalize(inputStraße),
                 houseNr: inputHausnr,
-                city: inputStadt,
+                city: capitalize(inputStadt),
                 zip: inputPLZ
             },
-            host: inputLocation,
+            host: capitalize(inputLocation),
             eventTime: inputUhrzeit,
             eventDate: inputDatum,
             cancelled: false,
@@ -38,6 +45,10 @@ const Create = () => {
             website: ""
 
         }
+
+    
+
+
 
     const onChangeHandlerVeranstaltungsName = (e) => {
         setInputVeranstaltungsName(e.target.value)
