@@ -43,7 +43,7 @@ const useAuth = () => {
         axios.defaults.headers.common['authorization'] = "";
         await axios.get('/logout');
         console.log('ausgeloggt');
-      }, 8000);
+      }, timeTillExpInMs);
   
     } else {
       navigate('/login');
