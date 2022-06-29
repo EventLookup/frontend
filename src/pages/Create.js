@@ -1,9 +1,15 @@
 import "./Create.css"
-import { useState , useEffect } from "react"
+import { useState , useEffect, useContext } from "react"
 import axios from "../api/axios";
-import { createGetAndSetRefreshToken } from "../util/tokenFunctions";
+import useAuth from '../hooks/useAuth';
+import { AuthContext } from "../context/LoginAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
+    const navigate = useNavigate();
+    const { setAuthOption } = useAuth();
+    const { loggedIn } = useContext(AuthContext);
+
     const [inputVeranstaltungsName, setInputVeranstaltungsName] = useState("")
     const [inputLocation, setInputLocation] = useState("")
     const [inputDatum, setInputDatum] = useState("")
@@ -63,9 +69,11 @@ const Create = () => {
 
 
     useEffect(() => {
-      
-      createGetAndSetRefreshToken()
-    }, []);
+      if(!loggedIn){
+         navigate('/login')
+      }
+      setAuthOption('refresh');
+    }, [loggedIn]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -82,11 +90,12 @@ const Create = () => {
         } catch (error) {
           // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
           // hier mach ich das erstmal nur mit einem console.error
-          console.error(error.response.data.errors);
+          console.error(error?.response?.data?.errors);
         }
     }
 
     return (
+      loggedIn &&
         <div className="create">
             <main>
                 <h2>Trage eine Veranstaltung ein</h2>

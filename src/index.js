@@ -19,13 +19,13 @@ import Header from "./components/header/Header";
 import Footer from "./components/Footer/Footer";
 
 // context
-import { LoginAuthContextProvider } from "./context/LoginAuthContext";
+import { AuthContextProvider } from "./context/LoginAuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Header />
-    <LoginAuthContextProvider>
+    <AuthContextProvider>
       <Routes>
         <Route path="/" element={<Calendar />} />
         <Route path="/:id" element={<Event />} />
@@ -34,7 +34,7 @@ root.render(
         <Route path="/signup" element={<Signup />} />
         <Route path="/impressum" element={<Impressum />} />
       </Routes>
-    </LoginAuthContextProvider>
+    </AuthContextProvider>
     <Footer />
   </BrowserRouter>
 );
