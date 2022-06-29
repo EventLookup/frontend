@@ -140,8 +140,8 @@ const calArray = [
         `0${month}`:
         `${month}`
       }.${year}`;
-      console.log(datum);
-      console.log(dateToday);
+      // console.log(datum);
+      // console.log(dateToday);
     
       const todayCal = CALENDAR.filter( (event) => {
         if(event.date === dateToday) {

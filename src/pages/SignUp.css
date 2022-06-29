@@ -1,10 +1,11 @@
-.main-login {
+main.main-signup {
     height: 90vh;
     max-width: 500px;
 
     margin: 0 auto;
 }
-form.login {
+
+form.form-signup {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #e7e7e7;
 
@@ -15,16 +16,24 @@ form.login {
 
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
-    
 }
-form.login h2 {
+form.form-signup h2 {
     margin: 0 .5rem;
     font-weight: 200;
     letter-spacing: 3px;
     text-transform: uppercase;
 }
-form.login input {
+form.form-signup label {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+
+    font-weight: 100;
+ }
+ /* same style as login.css */
+ form.form-signup input {
     padding: .5rem .5rem;
 
     border-radius: 7px;
@@ -32,7 +41,7 @@ form.login input {
     font-weight: 250;
     letter-spacing: 2px;
 }
-form.login button {
+form.form-signup  button {
     width: max-content;
 
     border: none;
@@ -45,4 +54,11 @@ form.login button {
     letter-spacing: 3px;
     font-weight: 300;
     cursor: pointer;
+}
+/* wenn das p element für die error msg leer ist */
+form.form-signup p.err-msg:empty {
+    display: none;
+}
+form.form-signup p.err-msg {
+    color: rgba(255, 0, 0, 0.641);
 }

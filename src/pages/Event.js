@@ -3,6 +3,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import './Event.css';
 
 const Event = (props) => {
+  
   return (
     <>
       <div className="single-event">
