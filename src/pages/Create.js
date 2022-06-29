@@ -19,33 +19,16 @@ const Create = () => {
     const [inputHausnr, setInputHausnr] = useState("")
     const [inputPLZ, setInputPLZ] = useState("")
     const [inputStadt, setInputStadt] = useState("")
+    const [inputEmail, setInputEmail] = useState("")
 
-    //const {token, setToken} = useContext(LoginAuthContext);
+    const[message, setMessage] = useState("");
     
     const capitalize = (string) => {
         let capitalized = string.charAt(0).toUpperCase() + string.slice(1);
         return capitalized
     }
 
-    let body = {
-            title: capitalize(inputVeranstaltungsName),
-            description: capitalize(inputBeschreibung),
-            location: {
-                street: capitalize(inputStraße),
-                houseNr: inputHausnr,
-                city: capitalize(inputStadt),
-                zip: inputPLZ
-            },
-            host: capitalize(inputLocation),
-            eventTime: inputUhrzeit,
-            eventDate: inputDatum,
-            cancelled: false,
-            postponend: false,
-            participants: [],
-            website: ""
-
-        }
-
+    
     
 
 
@@ -77,6 +60,9 @@ const Create = () => {
     const onChangeHandlerStadt = (e) => {
         setInputStadt(e.target.value)
     }
+    const onChangeHandlerEmail = (e) => {
+        setInputEmail(e.target.value)
+    }
 
 
     useEffect(() => {
@@ -86,18 +72,38 @@ const Create = () => {
       setAuthOption('refresh');
     }, [loggedIn]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    let body = {
+        title: capitalize(inputVeranstaltungsName),
+        description: capitalize(inputBeschreibung),
+        location: {
+            street: capitalize(inputStraße),
+            houseNr: inputHausnr,
+            city: capitalize(inputStadt),
+            zip: inputPLZ
+        },
+        host: capitalize(inputLocation),
+        eventTime: inputUhrzeit,
+        eventDate: inputDatum,
+        cancelled: false,
+        postponed: false,
+        participants: [],
+        website: inputEmail
 
+    }
+
+    const handleSubmit = async (e) => {
+        setMessage("");
+        e.preventDefault();
         try {
-          let response = await axios.put("/events", {
+          let response = await axios.put("/events",
               body
-            }, 
+            , 
             {
               withCredentials: true 
             }
           );
           console.log(response);
+          setMessage(response.data.msg)
         } catch (error) {
           // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
           // hier mach ich das erstmal nur mit einem console.error
@@ -116,6 +122,7 @@ const Create = () => {
                     <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" required></input>
                     <input onChange={onChangeHandlerUhrzeit} type="text" placeholder="Uhrzeit" required></input>
                     <textarea onChange={onChangeHandlerBeschreibung} placeholder="Beschreibung" required></textarea>
+                    <input onChange={onChangeHandlerEmail} type="text" placeholder="Email (Optional)" required></input>
                     <h5>Adresse</h5>
                     <input onChange={onChangeHandlerStraße} type="text" placeholder="Straße" required></input>
                     <input onChange={onChangeHandlerHausnr} type="text" placeholder="Hausnr." required></input>
@@ -124,6 +131,7 @@ const Create = () => {
                     <button type="submit">Absenden</button>
                 </form>
             </main>
+            <h4 style= {{color: "red"}}>{message}</h4>
         </div>
     );
 }
