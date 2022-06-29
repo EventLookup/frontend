@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import axios from "../api/axios";
 
@@ -95,7 +94,7 @@ const Signup = () => {
   };
   const onSignUpHandler = (e) => {
     if (!username || !email || !password) {
-      setGenerallErr('im frontend ist eine error man')
+      setGenerallErr('im frontend ist ein error man')
       if(!username){
         setGenerallErr('Wie ist Ihr Name?');
       } else if(!email){
