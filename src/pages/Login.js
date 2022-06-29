@@ -1,40 +1,26 @@
-import {/*  useContext, */ useState } from "react";
-// import { LoginAuthContext } from "../context/LoginAuthContext";
-import axios from "../api/axios";
-
+// css
 import "./Login.css";
 
+// custom hook
+import useAuth from "../hooks/useAuth";
+
 const Login = () => {
-  // const { setToken } = useContext(LoginAuthContext);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const loginFunc = async () => {
-    try {
-      const res = await axios.post(
-        "/login",
-        {
-          email,
-          password,
-        }, {
-          withCredentials: true
-        }
-      );
-      
-
-    console.log( res.data );
-
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const {
+    // optionen sind login, refresh, logout 
+    setAuthOption, 
+    email, 
+    setEmail,
+    password,
+    setPassword,
+    // falls fehler existieren, gibt errors diese zurück
+    loginErrors 
+  } = useAuth();
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
     if (email && password) {
-      loginFunc();
+      setAuthOption('login');
     } else {
       // Hier sollte man dem Nutzer mitteilen was passiert wenn NICHT
       // log reicht nicht

@@ -1,8 +1,14 @@
 import "./Create.css"
-import { useState , useContext} from "react"
-import axios from "axios";
+import { useState , useEffect, useContext } from "react"
+import axios from "../api/axios";
+import useAuth from '../hooks/useAuth';
+import { AuthContext } from "../context/LoginAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
+    const navigate = useNavigate();
+    const { setAuthOption } = useAuth();
+    const { loggedIn } = useContext(AuthContext);
 
     const [inputVeranstaltungsName, setInputVeranstaltungsName] = useState("")
     const [inputLocation, setInputLocation] = useState("")
@@ -72,43 +78,39 @@ const Create = () => {
         setInputStadt(e.target.value)
     }
 
-    
-    
+
+    useEffect(() => {
+      if(!loggedIn){
+         navigate('/login')
+      }
+      setAuthOption('refresh');
+    }, [loggedIn]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(body.location.street)
-
-         try{
-            const client = await axios.create({
-                baseURL: "https://eventlookup.herokuapp.com/events" 
-             });
-    
-             const getEvents = async () => {
-                let response = await client.put("", {
-                    body
-                }, {
-                    headers: {
-                                authorization: `Bearer ` 
-                            },
-                            withCredentials: true 
-                });
-                console.log(response);
-             };
-             getEvents();
-         }catch(err){
-            console.error(err)
-         }
-         
-         
+        try {
+          let response = await axios.put("/events", {
+              body
+            }, 
+            {
+              withCredentials: true 
+            }
+          );
+          console.log(response);
+        } catch (error) {
+          // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
+          // hier mach ich das erstmal nur mit einem console.error
+          console.error(error?.response?.data?.errors);
+        }
     }
 
     return (
+      loggedIn &&
         <div className="create">
             <main>
                 <h2>Trage eine Veranstaltung ein</h2>
-                <form onSubmit={handleSubmit} action="" method="POST">
+                <form onSubmit={handleSubmit}>
                     <input onChange={onChangeHandlerVeranstaltungsName} type="text" placeholder="Name der Veranstaltung" required></input>
                     <input onChange={onChangeHandlerLocation} type="text" placeholder="Location" required></input>
                     <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" required></input>
