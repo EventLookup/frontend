@@ -9,6 +9,10 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // input errors im frontend
+  const [frontendErr , setFrontendErr] = useState("");
+
+ 
 
   const loginFunc = async () => {
     try {
@@ -31,14 +35,18 @@ const Login = () => {
   };
 
   const onSubmitHandler = (e) => {
-    e.preventDefault();
-
-    if (email && password) {
-      loginFunc();
+    
+    if (!email || !password) {
+      setFrontendErr('Fehler im Client');
+      if(!email){
+        setFrontendErr("Fügen Sie bitte eine Email Adresse ein");
+      } else if(!password){
+        setFrontendErr("Vergessen Sie Ihren Passwort bitte nicht")
+      }
+      return;
     } else {
-      // Hier sollte man dem Nutzer mitteilen was passiert wenn NICHT
-      // log reicht nicht
-      console.log('Bitte Email und/ oder Passwort eingeben!');
+      loginFunc();
+      e.preventDefault();
     }
   };
 
@@ -62,6 +70,7 @@ const Login = () => {
           required
           onChange={(e) => setPassword(e.target.value)}
         />
+        <p className="err-msg">{frontendErr}</p>
         <button onClick={onSubmitHandler}>Login</button>
       </form>
     </main>
