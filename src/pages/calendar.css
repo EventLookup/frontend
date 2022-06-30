@@ -9,6 +9,9 @@
    color: black;
    margin-top: 1em;
 }
+.Calendar h3 {
+  color: #fff;
+}
 
 /* Mobile */
 .Calendar #SideNav {
