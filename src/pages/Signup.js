@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import axios from "../api/axios";
 
@@ -39,6 +40,45 @@ const Signup = () => {
   const fullnameHandler = (e) => {
     setFullname(e.target.value);
   }
+
+  useEffect( () => {
+    // Error updating beim ersten klick
+    if(errMsg) {
+      console.log(errMsg);
+      // Username error ============
+      const userErr = errMsg.find((obj) => obj.param === "username");
+      if(userErr){
+        console.log(userErr)
+      }
+      // Email error ==========
+      const emailErr = errMsg.find( (obj) => obj.param === "email");
+      if(emailErr){
+        console.log(emailErr)
+      }
+      // Password error =======
+      const passwordErr = errMsg.find( (obj) => obj.param === "password");
+      console.log(passwordErr)
+
+
+      if(passwordErr){
+        const passwordErrMsgString = passwordErr?.msg;
+        console.log("passwordErrMsgString" ,passwordErrMsgString);
+        setPasswordErr(passwordErrMsgString);
+        console.log(passwordErrMsgString);
+      }
+      if(emailErr){
+        const emailErrMsgString = emailErr?.msg;
+        setEmailErr(emailErrMsgString);
+        console.log(emailErrMsgString);
+      } 
+      if(userErr){
+        const userErrMsgString = userErr?.msg;
+        setUsernameErr(userErrMsgString);
+        console.log("userErrMsgString",userErrMsgString)
+      }
+    }
+  }, [errMsg])
+
   const signUpFunc = async () => {
     try {
       const res = await axios.post(
@@ -57,47 +97,15 @@ const Signup = () => {
       );
       console.log(res.data);
     } catch (err) {
-      setErrMsg(err)
-      console.log(errMsg);
+      console.log(err);
       setErrMsg(err?.response?.data?.errors)
+      // console.log(errMsg);
       // console.log(err.response); //allgemeiner error
       // setErrMsg(err.response.data.errors[1].msg); //error msg
       // setErrMsg(err.response.data.errors); //alle error msgs
       // console.log(errMsg);
       // versuch1
-      if(errMsg) {
-        // Username error ============
-        const userErr = errMsg.find((obj) => obj.param === "username");
-        if(userErr){
-          console.log(userErr)
-        }
-        // Email error ==========
-        const emailErr = errMsg.find( (obj) => obj.param === "email");
-        if(emailErr){
-          console.log(emailErr)
-        }
-        // Password error =======
-        const passwordErr = errMsg.find( (obj) => obj.param === "password");
-        console.log(passwordErr)
 
-
-        if(passwordErr){
-          const passwordErrMsgString = passwordErr?.msg;
-          console.log("passwordErrMsgString" ,passwordErrMsgString);
-          setPasswordErr(passwordErrMsgString);
-          console.log(passwordErrMsgString);
-        }
-        if(emailErr){
-          const emailErrMsgString = emailErr?.msg;
-          setEmailErr(emailErrMsgString);
-          console.log(emailErrMsgString);
-        } 
-        if(userErr){
-          const userErrMsgString = userErr?.msg;
-          setUsernameErr(userErrMsgString);
-          console.log("userErrMsgString",userErrMsgString)
-        }
-      }
 
 
     }
@@ -114,7 +122,7 @@ const Signup = () => {
       }
       return;
     } else {
-      console.log(signUpFunc());
+      signUpFunc();
       e.preventDefault();
     }
   };

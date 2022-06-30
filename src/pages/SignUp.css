@@ -56,9 +56,13 @@ form.form-signup  button {
     cursor: pointer;
 }
 /* wenn das p element für die error msg leer ist */
-form.form-signup p.err-msg:empty {
+form.form-signup p.err-msg:empty,
+form.form-signup p.registered-msg:empty {
     display: none;
 }
 form.form-signup p.err-msg {
     color: rgba(255, 0, 0, 0.641);
+}
+form.form-signup p.registered-msg {
+    color: rgba(0, 128, 0, 0.694);
 }
