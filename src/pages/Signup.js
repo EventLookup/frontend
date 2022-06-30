@@ -16,8 +16,11 @@ const Signup = () => {
   const [usernameErr , setUsernameErr] = useState(""); 
   const [emailErr , setEmailErr] = useState(""); 
   const [passwordErr , setPasswordErr] = useState("");
-  const [frontendErr , setFrontendErr] = useState('');
+  const [frontendErr , setFrontendErr] = useState("");
+  //successful registered message
+  const [registeredMsg , setRegisteredMsg] = useState("");
 
+  // handlers
   const usernameHandler = (e) => {
     setUsername(e.target.value);
     setUsernameErr('');
@@ -77,7 +80,15 @@ const Signup = () => {
         console.log("userErrMsgString",userErrMsgString)
       }
     }
-  }, [errMsg])
+  }, [errMsg]);
+
+  // useEffect( () => {
+  //   if(registeredMsg){
+  //     const registeredMsgString = registeredMsg.find((obj) => obj === "msg");
+  //     setRegisteredMsg(registeredMsgString);
+  //     console.log(registeredMsg)
+  //   }
+  // }, [registeredMsg]);
 
   const signUpFunc = async () => {
     try {
@@ -96,6 +107,7 @@ const Signup = () => {
         }
       );
       console.log(res.data);
+      // setRegisteredMsg(res?.data?.msg)
     } catch (err) {
       console.log(err);
       setErrMsg(err?.response?.data?.errors)
@@ -201,6 +213,7 @@ const Signup = () => {
         <button type="submit" onClick={onSignUpHandler}>
           Sign Up
         </button>
+        {/* <p className="registered-msg">{registeredMsg}</p> */}
       </form>
     </main>
   );
