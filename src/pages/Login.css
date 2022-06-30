@@ -23,6 +23,7 @@ form.login h2 {
     font-weight: 200;
     letter-spacing: 3px;
     text-transform: uppercase;
+    align-self: flex-start;
 }
 form.login input {
     padding: .5rem .5rem;
