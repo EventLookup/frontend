@@ -36,6 +36,7 @@ const Signup = () => {
   };
   const organisatorHandler = (e) => {
     organisator === false ? setOrganisator(true) : setOrganisator(false);
+    // console.log(organisator);
   };
   const adressHandler = (e) => {
     setAdress(e.target.value);
@@ -43,7 +44,11 @@ const Signup = () => {
   const fullnameHandler = (e) => {
     setFullname(e.target.value);
   }
-
+  useEffect(()=> {
+    setOrganisator(organisator);
+    // console.log(organisator);
+  }, [organisator])
+ 
   useEffect( () => {
     // Error updating beim ersten klick
     if(errMsg) {
@@ -80,7 +85,8 @@ const Signup = () => {
         console.log("userErrMsgString",userErrMsgString)
       }
     }
-  }, [errMsg]);
+    setRegisteredMsg(registeredMsg);
+  }, [errMsg , registeredMsg]);
 
   // useEffect( () => {
   //   if(registeredMsg){
@@ -90,6 +96,7 @@ const Signup = () => {
   //   }
   // }, [registeredMsg]);
 
+ 
   const signUpFunc = async () => {
     try {
       const res = await axios.post(
@@ -107,7 +114,7 @@ const Signup = () => {
         }
       );
       console.log(res.data);
-      // setRegisteredMsg(res?.data?.msg)
+      setRegisteredMsg(res?.data)
     } catch (err) {
       console.log(err);
       setErrMsg(err?.response?.data?.errors)
@@ -117,8 +124,6 @@ const Signup = () => {
       // setErrMsg(err.response.data.errors); //alle error msgs
       // console.log(errMsg);
       // versuch1
-
-
 
     }
   };
@@ -214,6 +219,7 @@ const Signup = () => {
           Sign Up
         </button>
         {/* <p className="registered-msg">{registeredMsg}</p> */}
+        {registeredMsg && (<p className="registered-msg">Für {username} wurde ein Benutzerkonto angelegt!</p>)}
       </form>
     </main>
   );
