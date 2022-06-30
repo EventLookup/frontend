@@ -10,12 +10,12 @@ const Signup = () => {
   const [organisator, setOrganisator] = useState(false);
   const [adress, setAdress] = useState("");
   const [fullname, setFullname] = useState("");
-
-  const [errMsg, setErrMsg] = useState("");
-  const [usernameErr , setUsernameErr] = useState("");
-  const [emailErr , setEmailErr] = useState("");
+  // error messages 
+  const [errMsg, setErrMsg] = useState(""); //error from axios
+  const [usernameErr , setUsernameErr] = useState(""); 
+  const [emailErr , setEmailErr] = useState(""); 
   const [passwordErr , setPasswordErr] = useState("");
-  const [generallErr , setGenerallErr] = useState('');
+  const [frontendErr , setFrontendErr] = useState('');
 
   const usernameHandler = (e) => {
     setUsername(e.target.value);
@@ -28,12 +28,17 @@ const Signup = () => {
   const passwordHandler = (e) => {
     setPassword(e.target.value);
     setPasswordErr('');
-    setGenerallErr('');
+    setFrontendErr('');
   };
   const organisatorHandler = (e) => {
     organisator === false ? setOrganisator(true) : setOrganisator(false);
   };
-
+  const adressHandler = (e) => {
+    setAdress(e.target.value);
+  }
+  const fullnameHandler = (e) => {
+    setFullname(e.target.value);
+  }
   const signUpFunc = async () => {
     try {
       const res = await axios.post(
@@ -52,8 +57,9 @@ const Signup = () => {
       );
       console.log(res.data);
     } catch (err) {
-      setErrMsg(err?.response?.data?.errors)
+      setErrMsg(err)
       console.log(errMsg);
+      setErrMsg(err?.response?.data?.errors)
       // console.log(err.response); //allgemeiner error
       // setErrMsg(err.response.data.errors[1].msg); //error msg
       // setErrMsg(err.response.data.errors); //alle error msgs
@@ -62,10 +68,14 @@ const Signup = () => {
       if(errMsg) {
         // Username error ============
         const userErr = errMsg.find((obj) => obj.param === "username");
-        console.log(userErr)
+        if(userErr){
+          console.log(userErr)
+        }
         // Email error ==========
         const emailErr = errMsg.find( (obj) => obj.param === "email");
-        console.log(emailErr)
+        if(emailErr){
+          console.log(emailErr)
+        }
         // Password error =======
         const passwordErr = errMsg.find( (obj) => obj.param === "password");
         console.log(passwordErr)
@@ -94,17 +104,17 @@ const Signup = () => {
   };
   const onSignUpHandler = (e) => {
     if (!username || !email || !password) {
-      setGenerallErr('im frontend ist ein error man')
+      setFrontendErr('im frontend ist ein error man')
       if(!username){
-        setGenerallErr('Wie ist Ihr Name?');
+        setFrontendErr('Wie ist Ihr Name?');
       } else if(!email){
-        setGenerallErr('Ihre Email-Adresse bitte nicht vergessen');
+        setFrontendErr('Ihre Email-Adresse bitte nicht vergessen');
       } else if(!password){
-        setGenerallErr('Also password auch noch bitte');
+        setFrontendErr('Also password auch noch bitte');
       }
       return;
     } else {
-      signUpFunc();
+      console.log(signUpFunc());
       e.preventDefault();
     }
   };
@@ -149,7 +159,7 @@ const Signup = () => {
 
         <p className="err-msg">{passwordErr}</p>
 
-        <p className="err-msg">{generallErr}</p>
+        <p className="err-msg">{frontendErr}</p>
 
         <label htmlFor="veranstalter">
           {" "}
@@ -169,14 +179,14 @@ const Signup = () => {
               name="adress"
               id="adress"
               placeholder="Adresse"
-              onChange={(e) => setAdress(e.target.value)}
+              onChange={adressHandler}
             />
             <input
               type="text"
               name="fullname"
               id="fullname"
               placeholder="Vollständiger Name"
-              onChange={(e) => setFullname(e.target.value)}
+              onChange={fullnameHandler}
             />
           </>
         )}

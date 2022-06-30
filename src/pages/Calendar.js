@@ -151,7 +151,7 @@ const calArray = [
           return false;
         }
       })
-      console.log(todayCal);
+      // console.log(todayCal);
     
     function Calendar() {
       return (
