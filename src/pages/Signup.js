@@ -8,7 +8,7 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [organisator, setOrganisator] = useState(false);
+  const [organizer, setOrganizer] = useState(false);
   const [adress, setAdress] = useState("");
   const [fullname, setFullname] = useState("");
   // error messages 
@@ -35,19 +35,20 @@ const Signup = () => {
     setFrontendErr('');
   };
   const organisatorHandler = (e) => {
-    organisator === false ? setOrganisator(true) : setOrganisator(false);
-    // console.log(organisator);
+    organizer === false ? setOrganizer(true) : setOrganizer(false);
+    console.log(organizer);
   };
   const adressHandler = (e) => {
     setAdress(e.target.value);
+
   }
   const fullnameHandler = (e) => {
     setFullname(e.target.value);
   }
   useEffect(()=> {
-    setOrganisator(organisator);
-    // console.log(organisator);
-  }, [organisator])
+    setOrganizer(organizer);
+    console.log("organizer im useeffect",organizer);
+  }, [organizer])
  
   useEffect( () => {
     // Error updating beim ersten klick
@@ -105,7 +106,7 @@ const Signup = () => {
           username,
           email,
           password,
-          organisator,
+          organizer: organizer,
           adress,
           fullname,
         },
@@ -129,13 +130,19 @@ const Signup = () => {
   };
   const onSignUpHandler = (e) => {
     if (!username || !email || !password) {
-      setFrontendErr('im frontend ist ein error man')
+      setFrontendErr('Bitte füllen Sie die Pflichtpfelder aus.')
       if(!username){
-        setFrontendErr('Wie ist Ihr Name?');
+        setFrontendErr('Der Username muss zwischen 3 und 50 Zeichen lang sein.');
       } else if(!email){
-        setFrontendErr('Ihre Email-Adresse bitte nicht vergessen');
+        setFrontendErr('Bitte gib eine gültige Email-Adresse an.');
       } else if(!password){
-        setFrontendErr('Also password auch noch bitte');
+        setFrontendErr('Das Passwort muss mindestens 10 Zeichen lang sein.');
+      } else if(organizer && !adress){
+        // wartet auf das backend
+        setFrontendErr("Bitte tragen sie Ihre Adresse ein.")
+        return;
+      } else if(organizer && !fullname) {
+        setFrontendErr("Bitte tragen Sie Ihren vollständigen Namen ein.")
       }
       return;
     } else {
@@ -197,7 +204,7 @@ const Signup = () => {
           Veranstalter
         </label>
 
-        {organisator && (
+        {organizer && (
           <>
             <input
               type="text"
