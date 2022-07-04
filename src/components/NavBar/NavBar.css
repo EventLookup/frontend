@@ -58,7 +58,7 @@
     text-align: center;
 }
 .navbar .mobile-nav .mobile-navlinks a:hover{
-    background-color: black;
+    background-color: #11748e;
 }
 .navbar .mobile-nav .hamburger {
     position: absolute;
@@ -68,6 +68,17 @@
     
 }
 
+.navbar button {
+    background-color: transparent;
+    color: white;
+    font-size: 12pt;
+    height: 50px;
+    width: 100%;
+}
+
+.navbar button:hover {
+    background-color: #11748e;
+}
 
 
 @media (min-width: 90rem) {
