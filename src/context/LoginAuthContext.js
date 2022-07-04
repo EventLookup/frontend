@@ -1,18 +1,12 @@
-import { useState , createContext } from "react";
-import axios from 'axios';
+import { useState,  createContext } from "react";
+export const AuthContext = createContext();
 
-export const LoginAuthContext = createContext();
-
-export const LoginAuthContextProvider = ({children}) => {
-    const [ token , setToken ] = useState('');
-    // console.log("CONTEXT token " , token);
-
-    axios.defaults.headers.common['authorization'] = token || axios.defaults.headers.common.authorization;
-
-    // console.log('context', axios.defaults.headers.common.authorization);
+export const AuthContextProvider = ({children}) => {
+    const [loggedIn, setLoggedIn] = useState(false);
+    
     return (
-        <LoginAuthContext.Provider value={{token , setToken}}>
+        <AuthContext.Provider value={{loggedIn, setLoggedIn}}>
             {children}
-        </LoginAuthContext.Provider>
+        </AuthContext.Provider>
     )
 }
