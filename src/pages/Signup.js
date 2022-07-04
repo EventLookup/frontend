@@ -17,6 +17,8 @@ const Signup = () => {
   const [emailErr , setEmailErr] = useState(""); 
   const [passwordErr , setPasswordErr] = useState("");
   const [frontendErr , setFrontendErr] = useState("");
+  const [adresErr , setAdressErr] = useState("");
+  const [fullnameErr , setFullnameErr] = useState("");
   //successful registered message
   const [registeredMsg , setRegisteredMsg] = useState("");
 
@@ -36,7 +38,7 @@ const Signup = () => {
   };
   const organisatorHandler = (e) => {
     organizer === false ? setOrganizer(true) : setOrganizer(false);
-    console.log(organizer);
+    // console.log(organizer);
   };
   const adressHandler = (e) => {
     setAdress(e.target.value);
@@ -47,57 +49,23 @@ const Signup = () => {
   }
   useEffect(()=> {
     setOrganizer(organizer);
-    console.log("organizer im useeffect",organizer);
+    // console.log("organizer im useeffect",organizer);
   }, [organizer])
  
   useEffect( () => {
     // Error updating beim ersten klick
     if(errMsg) {
-      console.log(errMsg);
-      // Username error ============
-      const userErr = errMsg.find((obj) => obj.param === "username");
-      if(userErr){
-        console.log(userErr)
-      }
-      // Email error ==========
-      const emailErr = errMsg.find( (obj) => obj.param === "email");
-      if(emailErr){
-        console.log(emailErr)
-      }
-      // Password error =======
-      const passwordErr = errMsg.find( (obj) => obj.param === "password");
-      console.log(passwordErr)
+      setUsernameErr(errMsg.username);
+      setEmailErr(errMsg.email);
+      setPasswordErr(errMsg.password);
 
-
-      if(passwordErr){
-        const passwordErrMsgString = passwordErr?.msg;
-        console.log("passwordErrMsgString" ,passwordErrMsgString);
-        setPasswordErr(passwordErrMsgString);
-        console.log(passwordErrMsgString);
-      }
-      if(emailErr){
-        const emailErrMsgString = emailErr?.msg;
-        setEmailErr(emailErrMsgString);
-        console.log(emailErrMsgString);
-      } 
-      if(userErr){
-        const userErrMsgString = userErr?.msg;
-        setUsernameErr(userErrMsgString);
-        console.log("userErrMsgString",userErrMsgString)
-      }
+      setAdressErr(errMsg.adress);
+      setFullnameErr(errMsg.fullname);
+      setRegisteredMsg(registeredMsg);
     }
     setRegisteredMsg(registeredMsg);
   }, [errMsg , registeredMsg]);
 
-  // useEffect( () => {
-  //   if(registeredMsg){
-  //     const registeredMsgString = registeredMsg.find((obj) => obj === "msg");
-  //     setRegisteredMsg(registeredMsgString);
-  //     console.log(registeredMsg)
-  //   }
-  // }, [registeredMsg]);
-
- 
   const signUpFunc = async () => {
     try {
       const res = await axios.post(
@@ -118,14 +86,7 @@ const Signup = () => {
       setRegisteredMsg(res?.data)
     } catch (err) {
       console.log(err);
-      setErrMsg(err?.response?.data?.errors)
-      // console.log(errMsg);
-      // console.log(err.response); //allgemeiner error
-      // setErrMsg(err.response.data.errors[1].msg); //error msg
-      // setErrMsg(err.response.data.errors); //alle error msgs
-      // console.log(errMsg);
-      // versuch1
-
+      setErrMsg(err?.response?.data?.msg)
     }
   };
   const onSignUpHandler = (e) => {
@@ -137,13 +98,7 @@ const Signup = () => {
         setFrontendErr('Bitte gib eine gültige Email-Adresse an.');
       } else if(!password){
         setFrontendErr('Das Passwort muss mindestens 10 Zeichen lang sein.');
-      } else if(organizer && !adress){
-        // wartet auf das backend
-        setFrontendErr("Bitte tragen sie Ihre Adresse ein.")
-        return;
-      } else if(organizer && !fullname) {
-        setFrontendErr("Bitte tragen Sie Ihren vollständigen Namen ein.")
-      }
+      } 
       return;
     } else {
       signUpFunc();
@@ -204,6 +159,8 @@ const Signup = () => {
           Veranstalter
         </label>
 
+        <p className="err-msg">{errMsg}</p>
+        
         {organizer && (
           <>
             <input
