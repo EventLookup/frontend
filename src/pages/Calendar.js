@@ -1,74 +1,89 @@
 import "./calendar.css";
-import axios from "axios";
+import axios from "../api/axios";
 import { useEffect, useState } from "react";
 import SideNav from "../components/SideNav";
 import {
   BsFillArrowLeftCircleFill,
   BsArrowRightCircleFill,
+  BsFillCalendarMonthFill,
+  BsFillCalendarDateFill
 } from "react-icons/bs";
+import wochentag from "../helpers/weekdays";
+import {forwardDate, forwardDay} from "../helpers/calenderDateFunctions";
 
 const datum = new Date();
-const wochentag = [
-  "Sonntag",
-  "Montag",
-  "Dienstag",
-  "Mittwoch",
-  "Donnerstag",
-  "Freitag",
-  "Samstag",
-];
-let month = datum.getMonth() + 1;
 const year = `${datum.getFullYear()}`;
-
-let read_month = `${month <= 9 ? `0${month}` : `${month}`}`;
+const month = datum.getMonth() + 1;
+const read_month = `${month <= 9 ? `0${month}` : `${month}`}`;
 
 console.log("month: ", month);
 console.log("read_month: ", read_month);
 console.log("year: ", year);
-// console.log("dateToday: ", dateToday);
 
 function Calendar() {
-  
   const [events, setEvents] = useState([]);
   const [day, setDay] = useState(new Date().getDay());
   const [date, setDate] = useState(new Date().getDate());
 
-  const dateToday = `${date}.${month <= 9 ? `0${month}` : `${month}`}.${year}`;
-
-  let url = `http://eventlookup.herokuapp.com/events?day=${dateToday}`;
-  // let url2 = `http://eventlookup.herokuapp.com/events`;
-  let url3 = `http://eventlookup.herokuapp.com/events?month=${read_month}`;
-
-
-  function forwardDay(prev) {
-    day<6 ? setDay(prev => prev+=1) : setDay(0);
-  }
-  function forwardDate(elem) {
-    date<31 ? setDate(elem => elem+=1) : setDate(1);
-  }
-  const forwardClick = event => {
-    forwardDay();
-    forwardDate();
-  }
+  const forwardClick = (event) => {
+    forwardDay(day, setDay);
+  forwardDate(date, setDate);
+    setUrl(`/events?day=${date+1 <= 9 ? `0${date+1}` : `${date+1}`}.${read_month}.${year}`);
+  };
 
   function backDay(back) {
-    day>0 ? setDay(back => back-=1) : setDay(6);
+    day > 0 ? setDay((back) => (back -= 1)) : setDay(6);
   }
   function backDate(elem) {
-    date>1 ? setDate(elem => elem-=1) : setDate(30);
+    date > 1 ? setDate((elem) => (elem -= 1)) : setDate(30);
   }
-  const backClick = event => {
+  const backClick = (event) => {
     backDay();
     backDate();
+    setUrl(`/events?day=${date-1 <= 9 ? `0${date-1}` : `${date-1}`}.${read_month}.${year}`);
+  };
+
+  let dateToday = `${date <= 9 ? `0${date}` : `${date}`}.${read_month}.${year}`;
+  console.log("dateToday: ", dateToday);
+
+  // let dayOrMonth = `day=${dateToday}`;
+  // console.log(dayOrMonth);
+
+  const [dayOrMonth, setDayOrMonth] = useState(`day=${dateToday}`);
+
+  const [url, setUrl] = useState(
+    `/events?${dayOrMonth}`
+    // `/events?day=01.07.2022`
+  );
+
+  function showMonth() {
+    // dayOrMonth = `month=${read_month}`;
+    setUrl(prev => `/events?${dayOrMonth}`);
+    setDayOrMonth(prev => `month=${read_month}`);
+    console.log(url);
+  }
+
+  function showDay() {
+    // dayOrMonth = `day=${dateToday}`;
+    setUrl(prev => `/events?${dayOrMonth}`);
+    setDayOrMonth(prev => `day=${dateToday}`);
+    console.log(url);
   }
 
   useEffect(() => {
-    console.log(day);
-    axios.get(url).then((res) => {
-      console.log(res.data.events);
-      setEvents(res.data.events);
-    });
-  }, []);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(url);
+        console.log(res.data.events);
+        console.log("url: ", url);
+        setEvents(res.data.events);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [url]);
+
 
   return (
     <div className="Calendar">
@@ -80,24 +95,30 @@ function Calendar() {
             <SideNav />
           </div>
           <div id="h3_Cal">
-          <h3>
+            <h3>
               <span onClick={backClick}>
                 <BsFillArrowLeftCircleFill />
               </span>
-               {wochentag[day]}, {dateToday}
+              <span id="ausgabe">
+              {wochentag[day]}, {dateToday}
+              </span>
               <span onClick={forwardClick}>
                 <BsArrowRightCircleFill />
               </span>
             </h3>
+            <h3 onClick={showMonth}>
+              <BsFillCalendarMonthFill />
+            </h3>
+            <h3 onClick={showDay}>
+              <BsFillCalendarDateFill />
+            </h3>
             <div id="Cal">
               {events.map((event) => (
-                <>
-                  <div className="event">
-                    {event.host}
-                    <br />
-                    <p key={event._id}>{event.title}</p>
-                  </div>
-                </>
+                <div key={event._id} className="event">
+                  {event.host}
+                  <br />
+                  <p>{event.title}</p>
+                </div>
               ))}{" "}
             </div>
           </div>

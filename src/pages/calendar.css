@@ -12,6 +12,10 @@
 .Calendar h3 {
   color: #fff;
 }
+.Calendar #ausgabe {
+  width: 40em;
+  margin: 1em;
+}
 
 /* Mobile */
 .Calendar #SideNav {
