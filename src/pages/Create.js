@@ -22,6 +22,8 @@ const Create = () => {
     const [inputEmail, setInputEmail] = useState("")
 
     const[message, setMessage] = useState("");
+
+    const [errors , setErrors] = useState("")
     
     const capitalize = (string) => {
         let capitalized = string.charAt(0).toUpperCase() + string.slice(1);
@@ -93,6 +95,7 @@ const Create = () => {
 
     const handleSubmit = async (e) => {
         setMessage("");
+        setErrors("")
         e.preventDefault();
         try {
           let response = await axios.put("/events",
@@ -108,7 +111,10 @@ const Create = () => {
           // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
           // hier mach ich das erstmal nur mit einem console.error
           console.error(error?.response?.data?.errors);
+          if(error.response) setErrors(error.response.data.msg);
+          
         }
+        console.log(errors)
     }
 
     return (
@@ -117,21 +123,30 @@ const Create = () => {
             <main>
                 <h2>Trage eine Veranstaltung ein</h2>
                 <form onSubmit={handleSubmit}>
-                    <input onChange={onChangeHandlerVeranstaltungsName} type="text" placeholder="Name der Veranstaltung" required></input>
-                    <input onChange={onChangeHandlerLocation} type="text" placeholder="Location" required></input>
-                    <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" required></input>
-                    <input onChange={onChangeHandlerUhrzeit} type="text" placeholder="Uhrzeit" required></input>
-                    <textarea onChange={onChangeHandlerBeschreibung} placeholder="Beschreibung" required></textarea>
-                    <input onChange={onChangeHandlerEmail} type="text" placeholder="Email (Optional)" required></input>
+                    <input onChange={onChangeHandlerVeranstaltungsName} type="text" placeholder="Name der Veranstaltung" ></input>
+                    {errors.title && <h5 className="error-message">{errors.title}</h5>}
+                    <input onChange={onChangeHandlerLocation} type="text" placeholder="Location" ></input>
+                    {errors.host && <h5 className="error-message">{errors.host}</h5>}
+                    <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" ></input>
+                    <input onChange={onChangeHandlerUhrzeit} type="text" placeholder="Uhrzeit" ></input>
+                    {errors.eventTime && <h5 className="error-message">{errors.eventTime}</h5>}
+                    <textarea onChange={onChangeHandlerBeschreibung} placeholder="Beschreibung" ></textarea>
+                    <input onChange={onChangeHandlerEmail} type="text" placeholder="Email (Optional)" ></input>
                     <h5>Adresse</h5>
-                    <input onChange={onChangeHandlerStraße} type="text" placeholder="Straße" required></input>
-                    <input onChange={onChangeHandlerHausnr} type="text" placeholder="Hausnr." required></input>
-                    <input onChange={onChangeHandlerPLZ} type="text" placeholder="PLZ" required></input>
-                    <input onChange={onChangeHandlerStadt} type="text" placeholder="Stadt" required></input>
+                    <input onChange={onChangeHandlerStraße} type="text" placeholder="Straße" ></input>
+                    {errors.street && <h5 className="error-message">{errors.street}</h5>}
+                    <input onChange={onChangeHandlerHausnr} type="text" placeholder="Hausnr." ></input>
+                    {errors['location.houseNr'] && <h5 className="error-message">{errors['location.houseNr']}</h5>}
+                    <input onChange={onChangeHandlerPLZ} type="text" placeholder="PLZ" ></input>
+                    {errors['location.zip'] && <h5 className="error-message" >{errors['location.zip']}</h5>}
+                    <input onChange={onChangeHandlerStadt} type="text" placeholder="Stadt" ></input>
+                    {errors.city && <h5 className="error-message">{errors.city}</h5>}
                     <button type="submit">Absenden</button>
+                    <h5 style= {{color: "green"}}>{message}</h5>
                 </form>
+                
             </main>
-            <h4 style= {{color: "red"}}>{message}</h4>
+            
         </div>
     );
 }
