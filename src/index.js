@@ -11,7 +11,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Create from "./pages/Create";
 import Event from "./pages/Event";
-import Calendar from "./pages/Calendar";
+import Calendar from "./pages/Calender";
 import Impressum from "./pages/Impressum";
 
 // components
