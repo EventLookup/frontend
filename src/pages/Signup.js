@@ -7,7 +7,7 @@ import "./SignUp.css";
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(null);
   const [organizer, setOrganizer] = useState(false);
 
   const [firstname, setFirstname] = useState("");
@@ -115,7 +115,7 @@ const Signup = () => {
       console.log(res.data);
       setRegisteredMsg(res?.data);
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data.msg);
       setErrMsg(err?.response?.data?.msg);
     }
   };
