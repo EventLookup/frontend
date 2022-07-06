@@ -1,8 +1,7 @@
-import './SideNav.css';
 
-function SideNav(props) {
-    return (
-      <div className="SideNav">
+const FilterLinks = (props)=> {
+    return(
+        <div className="FilterLinks">
         <aside>
           <div onClick={props.today}>heute</div>
           <div onClick={props.tomorrow}>morgen</div>
@@ -15,6 +14,7 @@ function SideNav(props) {
           </div>
         </aside>
       </div>
-    );
-  }
-  export default SideNav;
+    )
+}
+
+export default FilterLinks;
