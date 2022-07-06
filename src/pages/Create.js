@@ -1,8 +1,14 @@
 import "./Create.css"
-import { useState } from "react"
-import axios from "axios";
+import { useState , useEffect, useContext } from "react"
+import axios from "../api/axios";
+import useAuth from '../hooks/useAuth';
+import { AuthContext } from "../context/LoginAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
+    const navigate = useNavigate();
+    const { setAuthOption } = useAuth();
+    const { loggedIn } = useContext(AuthContext);
 
     const [inputVeranstaltungsName, setInputVeranstaltungsName] = useState("")
     const [inputLocation, setInputLocation] = useState("")
@@ -13,25 +19,19 @@ const Create = () => {
     const [inputHausnr, setInputHausnr] = useState("")
     const [inputPLZ, setInputPLZ] = useState("")
     const [inputStadt, setInputStadt] = useState("")
+    const [inputEmail, setInputEmail] = useState("")
 
-    let body = {
-            title: inputVeranstaltungsName,
-            description: inputBeschreibung,
-            location: {
-                street: inputStraße,
-                houseNr: inputHausnr,
-                city: inputStadt,
-                zip: inputPLZ
-            },
-            host: inputLocation,
-            eventTime: inputUhrzeit,
-            eventDate: inputDatum,
-            cancelled: false,
-            postponend: false,
-            participants: [],
-            website: ""
+    const[message, setMessage] = useState("");
+    
+    const capitalize = (string) => {
+        let capitalized = string.charAt(0).toUpperCase() + string.slice(1);
+        return capitalized
+    }
 
-        }
+    
+    
+
+
 
     const onChangeHandlerVeranstaltungsName = (e) => {
         setInputVeranstaltungsName(e.target.value)
@@ -60,41 +60,69 @@ const Create = () => {
     const onChangeHandlerStadt = (e) => {
         setInputStadt(e.target.value)
     }
+    const onChangeHandlerEmail = (e) => {
+        setInputEmail(e.target.value)
+    }
+
+
+    useEffect(() => {
+      if(!loggedIn){
+         navigate('/login')
+      }
+      setAuthOption('refresh');
+    }, [loggedIn]);
+
+    let body = {
+        title: capitalize(inputVeranstaltungsName),
+        description: capitalize(inputBeschreibung),
+        location: {
+            street: capitalize(inputStraße),
+            houseNr: inputHausnr,
+            city: capitalize(inputStadt),
+            zip: inputPLZ
+        },
+        host: capitalize(inputLocation),
+        eventTime: inputUhrzeit,
+        eventDate: inputDatum,
+        cancelled: false,
+        postponed: false,
+        participants: [],
+        website: inputEmail
+
+    }
 
     const handleSubmit = async (e) => {
+        setMessage("");
         e.preventDefault();
-
-
-        const client = await axios.create({
-            baseURL: "https://eventlookup.herokuapp.com/events" 
-         });
-
-         const getEvents = async () => {
-            let response = await client.put("/", {
-                body
-            }, {
-                headers: {
-                            authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE4NTIwNTdhZWM4NjY3MTE1YTE1NDEiLCJuYW1lIjoiRGltYSIsInJvbGVzIjpbNTA1MCwxMTExXSwiaWF0IjoxNjU2MzIxOTkyLCJleHAiOjE2NTYzMjMxOTJ9.0H7h0p4QgXLkgqUh4ReEK_TKPHjhnoHUNhfUdqirbEo" 
-                        },
-                        withCredentials: true 
-            });
-            console.log(response);
-         };
-         getEvents();
-         
-         
+        try {
+          let response = await axios.put("/events",
+              body
+            , 
+            {
+              withCredentials: true 
+            }
+          );
+          console.log(response);
+          setMessage(response.data.msg)
+        } catch (error) {
+          // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
+          // hier mach ich das erstmal nur mit einem console.error
+          console.error(error?.response?.data?.errors);
+        }
     }
 
     return (
+      loggedIn &&
         <div className="create">
             <main>
                 <h2>Trage eine Veranstaltung ein</h2>
-                <form onSubmit={handleSubmit} action="" method="POST">
+                <form onSubmit={handleSubmit}>
                     <input onChange={onChangeHandlerVeranstaltungsName} type="text" placeholder="Name der Veranstaltung" required></input>
                     <input onChange={onChangeHandlerLocation} type="text" placeholder="Location" required></input>
                     <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" required></input>
                     <input onChange={onChangeHandlerUhrzeit} type="text" placeholder="Uhrzeit" required></input>
                     <textarea onChange={onChangeHandlerBeschreibung} placeholder="Beschreibung" required></textarea>
+                    <input onChange={onChangeHandlerEmail} type="text" placeholder="Email (Optional)" required></input>
                     <h5>Adresse</h5>
                     <input onChange={onChangeHandlerStraße} type="text" placeholder="Straße" required></input>
                     <input onChange={onChangeHandlerHausnr} type="text" placeholder="Hausnr." required></input>
@@ -103,6 +131,7 @@ const Create = () => {
                     <button type="submit">Absenden</button>
                 </form>
             </main>
+            <h4 style= {{color: "red"}}>{message}</h4>
         </div>
     );
 }
