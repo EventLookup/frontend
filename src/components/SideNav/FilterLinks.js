@@ -1,3 +1,4 @@
+import "./FilterLinks.css"; 
 
 const FilterLinks = (props)=> {
     return(

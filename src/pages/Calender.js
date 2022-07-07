@@ -1,14 +1,14 @@
 import "./Calender.css";
 import axios from "../api/axios";
 import { useEffect, useState } from "react";
-import SideNav from "../components/SideNav";
+import SideNav from "../components/SideNav/SideNav";
+import FilterSite from "../components/SideNav/FilterSite"
 import {
   BsFillArrowLeftCircleFill,
   BsArrowRightCircleFill,
   BsFillCalendarMonthFill,
   BsFillCalendarDateFill,
   BsFillCalendarEventFill,
-  BsFilterSquare
 } from "react-icons/bs";
 import { format, addDays, subDays, addMonths, subMonths, getDate } from "date-fns";
 import { de } from "date-fns/locale";
@@ -105,7 +105,7 @@ const Calendar = () => {
           <div id="Cal_Date_Cal">
           <section id="Date_Cal">
             <div>
-              <button>Filter <BsFilterSquare /></button>
+              <FilterSite /> 
               <BsFillArrowLeftCircleFill onClick={handleSubDate} />
               <span id="ausgabe">
                 {lookingForDay

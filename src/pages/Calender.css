@@ -3,6 +3,13 @@
   height: 90vH;
 }
 
+.Calendar .button {
+  background-color: #fff;
+  margin-right: 1em;
+  padding: 0.2em;
+
+}
+
 .Calendar .event {
    background-color: #e7e7e7;
    margin-top: 1em;
@@ -18,7 +25,11 @@
   font-weight: bold;
 }
 
-#Cal_Date_Cal {
+.Calender #Date_Cal button {
+  color: #fff;
+}
+
+.Calender #Cal_Date_Cal {
   display: flex;
   flex-direction: column;
 }
@@ -32,8 +43,8 @@
 
 /* Mobile */
 .Calendar #SideNav {
-  /* display: none; */
-  display: block;
+  display: none;
+  /* display: block; */
 }
 
 /* Tablet Landscape */
@@ -41,6 +52,7 @@
   .Calendar #SideNav {
     display: block;
   }
+
   .Calendar #SideNav_Cal {
     display: flex;
     flex-direction: row;
