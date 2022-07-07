@@ -55,6 +55,9 @@
     font-weight: 300;  
     z-index: +3;
 }
+.error-message {
+    color: red;
+}
 
 
 @media (min-width: 500px) {
