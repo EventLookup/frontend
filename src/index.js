@@ -13,6 +13,7 @@ import Create from "./pages/Create";
 import Event from "./pages/Event";
 import Calendar from "./pages/Calender";
 import Impressum from "./pages/Impressum";
+import VierNullVier from "./pages/VierNullVier";
 
 // components
 import Header from "./components/header/Header";
@@ -34,6 +35,7 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/impressum" element={<Impressum />} />
+        <Route path="*" element={<VierNullVier/>} />
       </Routes>
     </AuthContextProvider>
     <Footer />
