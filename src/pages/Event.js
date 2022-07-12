@@ -13,8 +13,9 @@ const Event = (props) => {
           </NavLink>
         </section>
         <div className="description" style={{border: "1px solid black"}}>
+        
           <time>Datum und Uhrzeit</time>
-          <h4>Titel des Events</h4>
+          <h4>Event Titel</h4>
           <p>Ort des Events</p>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -31,6 +32,7 @@ const Event = (props) => {
             incidunt? Sunt sint possimus voluptatem suscipit aut? Voluptatem
             laborum nobis dolore.
           </p>
+          
         </div>
         {/* <br />
         <div className="location" style={{border: "1px solid black"}}>

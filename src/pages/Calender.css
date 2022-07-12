@@ -4,6 +4,7 @@
 }
 
 .Calendar .button {
+  display: block;
   background-color: #fff;
   margin-right: 1em;
   padding: 0.2em;
@@ -51,6 +52,10 @@
 @media (min-width: 90em) {
   .Calendar #SideNav {
     display: block;
+  }
+
+  .Calendar .button {
+    display: none;
   }
 
   .Calendar #SideNav_Cal {
