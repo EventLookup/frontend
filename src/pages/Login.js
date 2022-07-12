@@ -1,5 +1,4 @@
-import { useState ,useEffect } from "react";
-import axios from "../api/axios";
+import { useEffect } from "react";
 // css
 import "./Login.css";
 
@@ -7,60 +6,36 @@ import "./Login.css";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-  const [emailLogin , setEmailLogin] = useState("")
-  const [passwordLogin, setPasswordLogin] = useState("");
-  const [frontendErr , setFrontendErr] = useState("");
-  const [backendErr, setBackendErr] = useState("");
-  //  handler
-const emailHandler = (e) => {
-  setEmailLogin(e.target.value);
-  setFrontendErr('');
-  setBackendErr('');
-};
-const passwordHandler = (e) => {
-  setPasswordLogin(e.target.value);
-  setFrontendErr('');
-  setBackendErr('');
-};
-useEffect( () => {
-  setBackendErr(backendErr)
-}, [backendErr])
   const {
     // optionen sind login, refresh, logout 
     setAuthOption, 
-    email, 
+    email,
+    setEmail, 
     password,
+    setPassword,
     // falls fehler existieren, gibt errors diese zurück
-    loginErrors 
-  } = useAuth();
+    loginErrors
+    } = useAuth();
 
-  const loginFunc = async () => {
-    try{
-      const res = await axios.post(
-        "/login" , {
-          emailLogin,
-          passwordLogin
-        }, {
-          withCredentials:true
-        }
-      );
-      console.log(res.data);
-    }catch(error){
-    console.log(error);
-    setBackendErr(error?.response?.data?.msg)
-  }
-  } 
+  //  handler
+const emailHandler = (e) => {
+  setEmail(e.target.value);
+};
+const passwordHandler = (e) => {
+  setPassword(e.target.value);
+};
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
     if (email && password) {
       setAuthOption('login');
     } else {
-      loginFunc();
+      console.log(loginErrors);
       e.preventDefault();
     }
   };
-
+  console.log()
   return (
     <main className="main-login">
       <form className="login">
@@ -82,8 +57,8 @@ useEffect( () => {
           onChange={passwordHandler}
         />
 
-        <p className="err-msg">{frontendErr}</p>
-        <p className="err-msg">{backendErr}</p>
+        <p className="err-msg">{loginErrors}</p>
+        {/* <p className="err-msg">{backendErr}</p> */}
 
         <button onClick={onSubmitHandler}>Login</button>
       </form>

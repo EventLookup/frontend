@@ -70,7 +70,11 @@ const useAuth = () => {
 
     } catch (err) { 
       // Das Error Handling muss noch Grafisch dargestellt werden
-      setLoginErrors(err?.response?.data?.errors)
+      const errors = err.response.data;
+      for (let [key, value] of Object.entries(errors)) {
+        console.log(`${key}: ${value}`)
+      }
+      setLoginErrors(err?.response?.data?.msg)
     }
   };
 
