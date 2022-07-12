@@ -5,7 +5,6 @@
 .create main {
     background-color:  #e7e7e7;
     margin:1em;
-    margin-bottom: 100px;
     border-radius: 5px;
     padding: 1em;
     font-family: Arial, Helvetica, sans-serif;
@@ -55,6 +54,12 @@
     letter-spacing: 3px;
     font-weight: 300;  
     z-index: +3;
+}
+.error-message {
+    color: red;
+    font-weight: 200;
+    align-self: flex-start;
+    font-size: 10pt;
 }
 
 

@@ -13,26 +13,34 @@ import Create from "./pages/Create";
 import Event from "./pages/Event";
 import Calendar from "./pages/Calender";
 import Impressum from "./pages/Impressum";
+import VierNullVier from "./pages/VierNullVier";
 
 // components
 import Header from "./components/header/Header";
 import Footer from "./components/Footer/Footer";
-import { LoginAuthContextProvider } from "./context/LoginAuthContext";
+
+// context
+import { AuthContextProvider } from "./context/LoginAuthContext";
+import { FilterContextProvider } from "./context/FilterContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <Header />
-    <LoginAuthContextProvider>
-      <Routes>
-        <Route path="/" element={<Calendar />} />
-        <Route path="/:id" element={<Event />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/impressum" element={<Impressum />} />
-      </Routes>
-    </LoginAuthContextProvider>
-    <Footer />
+    <FilterContextProvider>
+      <AuthContextProvider>
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<Calendar />} />
+          <Route path="/:id" element={<Event />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/impressum" element={<Impressum />} />
+          <Route path="*" element={<VierNullVier />} />
+        </Routes>
+      </AuthContextProvider>
+      <Footer />
+    </FilterContextProvider>
   </BrowserRouter>
 );
