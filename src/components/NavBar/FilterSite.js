@@ -7,8 +7,8 @@ import { useState } from "react";
 const FilterSite = () => {
 const [open, setOpen] = useState(false);
 
-const button = <button className="button" onClick={() => setOpen(!open)}>Filter <BsFilterSquare/></button>;
-const closeIcon = <CgClose onClick={() => setOpen(!open)} />;
+const button = <button className="filter-button" onClick={() => setOpen(!open)}>Filter <BsFilterSquare/></button>;
+const closeIcon = <CgClose className="filter-button" onClick={() => setOpen(!open)} />;
 
 return(
         <div>

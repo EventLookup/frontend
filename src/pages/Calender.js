@@ -1,8 +1,9 @@
 import "./Calender.css";
 import axios from "../api/axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { FilterContext } from "../context/FilterContext";
 import SideNav from "../components/SideNav/SideNav";
-import FilterSite from "../components/SideNav/FilterSite"
+import FilterSite from "../components/NavBar/FilterSite"
 import {
   BsFillArrowLeftCircleFill,
   BsArrowRightCircleFill,
@@ -26,10 +27,14 @@ import { de } from "date-fns/locale";
 */
 
 const Calendar = () => {
+ const {setIsOnCalender} = useContext(FilterContext)
+ setIsOnCalender(true);
+
   const [events, setEvents] = useState([]);
   const [date, setDate] = useState(new Date());
   const [lookingForDay, setLookingForDay] = useState(true);
   const [eventLimit, setEventLimit] = useState(20);
+
 
 
   const handleAddDate = () => {

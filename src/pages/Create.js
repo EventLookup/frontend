@@ -123,24 +123,24 @@ const Create = () => {
             <main>
                 <h2>Trage eine Veranstaltung ein</h2>
                 <form onSubmit={handleSubmit}>
-                    <input onChange={onChangeHandlerVeranstaltungsName} type="text" placeholder="Name der Veranstaltung" ></input>
-                    {errors.title && <h5 className="error-message">{errors.title}</h5>}
-                    <input onChange={onChangeHandlerLocation} type="text" placeholder="Location" ></input>
-                    {errors.host && <h5 className="error-message">{errors.host}</h5>}
-                    <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" ></input>
-                    <input onChange={onChangeHandlerUhrzeit} type="text" placeholder="Uhrzeit" ></input>
-                    {errors.eventTime && <h5 className="error-message">{errors.eventTime}</h5>}
-                    <textarea onChange={onChangeHandlerBeschreibung} placeholder="Beschreibung" ></textarea>
+                    <input onChange={onChangeHandlerVeranstaltungsName} type="text" placeholder="Name der Veranstaltung" required></input>
+                    {errors.title && <p className="error-message">{errors.title}</p>}
+                    <input onChange={onChangeHandlerLocation} type="text" placeholder="Location" required></input>
+                    {errors.host && <p className="error-message">{errors.host}</p>}
+                    <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" required></input>
+                    <input onChange={onChangeHandlerUhrzeit} type="text" placeholder="Uhrzeit" required></input>
+                    {errors.eventTime && <p className="error-message">{errors.eventTime}</p>}
+                    <textarea onChange={onChangeHandlerBeschreibung} placeholder="Beschreibung" required></textarea>
                     <input onChange={onChangeHandlerEmail} type="text" placeholder="Email (Optional)" ></input>
                     <h5>Adresse</h5>
-                    <input onChange={onChangeHandlerStraße} type="text" placeholder="Straße" ></input>
-                    {errors.street && <h5 className="error-message">{errors.street}</h5>}
-                    <input onChange={onChangeHandlerHausnr} type="text" placeholder="Hausnr." ></input>
-                    {errors['location.houseNr'] && <h5 className="error-message">{errors['location.houseNr']}</h5>}
-                    <input onChange={onChangeHandlerPLZ} type="text" placeholder="PLZ" ></input>
-                    {errors['location.zip'] && <h5 className="error-message" >{errors['location.zip']}</h5>}
-                    <input onChange={onChangeHandlerStadt} type="text" placeholder="Stadt" ></input>
-                    {errors.city && <h5 className="error-message">{errors.city}</h5>}
+                    <input onChange={onChangeHandlerStraße} type="text" placeholder="Straße" required></input>
+                    {errors.street && <p className="error-message">{errors.street}</p>}
+                    <input onChange={onChangeHandlerHausnr} type="text" placeholder="Hausnr." required></input>
+                    {errors['location.houseNr'] && <p className="error-message">{errors['location.houseNr']}</p>}
+                    <input onChange={onChangeHandlerPLZ} type="text" placeholder="PLZ" required></input>
+                    {errors['location.zip'] && <p className="error-message" >{errors['location.zip']}</p>}
+                    <input onChange={onChangeHandlerStadt} type="text" placeholder="Stadt" required></input>
+                    {errors.city && <p className="error-message">{errors.city}</p>}
                     <button type="submit">Absenden</button>
                     <h5 style= {{color: "green"}}>{message}</h5>
                 </form>
