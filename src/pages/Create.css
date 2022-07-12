@@ -57,6 +57,9 @@
 }
 .error-message {
     color: red;
+    font-weight: 200;
+    align-self: flex-start;
+    font-size: 10pt;
 }
 
 
