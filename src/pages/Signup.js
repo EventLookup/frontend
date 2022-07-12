@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import axios from "../api/axios";
+import axios from "axios";
 
 import "./SignUp.css";
 
@@ -78,48 +78,59 @@ const Signup = () => {
     // Error updating beim ersten klick
     if (errMsg) {
       if (errMsg.username) {
+        console.log("username error set")
         setUsernameErr(errMsg.username);
       }
       if (errMsg.email) {
+        console.log("email error set")
         setEmailErr(errMsg.email);
       }
       if (errMsg.password) {
+        console.log("password err set")
         setPasswordErr(errMsg.password);
       }
 
       setRegisteredMsg(registeredMsg);
+      console.log("set registered message ausgeführt")
     }
     setRegisteredMsg(registeredMsg);
-  }, [errMsg, registeredMsg]);
+  }, [errMsg, usernameErr, emailErr, passwordErr, registeredMsg]);
 
   const signUpFunc = async () => {
+    console.log("anfang signupfunc")
     try {
-      const res = await axios.post(
-        "/signup",
-        {
-          username,
-          email,
-          password,
-          organizer: organizer,
-          firstname,
-          lastname,
-          street,
-          housenr,
-          city,
-          zip,
-        },
-        {
-          withCredentials: true,
-        }
+      const body =     {
+        username,
+        email,
+        password,
+        organizer: organizer,
+        firstname,
+        lastname,
+        street,
+        housenr,
+        city,
+        zip
+      }
+      console.log(body)
+      const res = await axios({
+        method: "post",
+        url: "https://eventlookup.herokuapp.com/signup",
+        data: body,
+        validateStatus: () => true
+
+      }
+    
       );
+      console.log(res)
       console.log(res.data);
       setRegisteredMsg(res?.data);
     } catch (err) {
+      console.log(err)
       console.log(err.response.data.msg);
       setErrMsg(err?.response?.data?.msg);
     }
   };
-  const onSignUpHandler = (e) => {
+  const onSignUpHandler = async (e) => {
     if (!username || !email || !password) {
       setFrontendErr("Bitte füllen Sie die Pflichtpfelder aus.");
       if (!username) {
@@ -133,7 +144,7 @@ const Signup = () => {
       }
       return;
     } else {
-      signUpFunc();
+      await signUpFunc();
       e.preventDefault();
     }
   };
@@ -153,7 +164,7 @@ const Signup = () => {
           required
         />
 
-        <p className="err-msg">{usernameErr}</p>
+        {usernameErr && <p className="err-msg">{console.log(usernameErr)}</p>}
 
         <input
           type="email"
@@ -164,7 +175,7 @@ const Signup = () => {
           required
         />
 
-        <p className="err-msg">{emailErr}</p>
+        {emailErr && <p className="err-msg">{console.log(emailErr)}</p>}
 
         <input
           type="password"
@@ -176,9 +187,9 @@ const Signup = () => {
           onChange={passwordHandler}
         />
 
-        <p className="err-msg">{passwordErr}</p>
+       {passwordErr && <p className="err-msg">{console.log(passwordErr)}</p>}
 
-        <p className="err-msg">{frontendErr}</p>
+        {/* <p className="err-msg">{frontendErr}</p> */}
 
         <label htmlFor="veranstalter">
           {" "}
