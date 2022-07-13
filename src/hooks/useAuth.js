@@ -91,7 +91,12 @@ const useAuth = () => {
   
       if(authOption === 'logout'){
         axios.defaults.headers.common['authorization'] = "";
-        await axios.get('/logout');
+        try {
+          console.log("im try block")
+          await axios.get('/logout');
+        } catch (e) {
+          console.log("Error: ",  e) 
+        };
         setLoggedIn(false);
       }
     })();
