@@ -34,6 +34,7 @@ form.form-signup label {
  }
  /* same style as login.css */
  form.form-signup input {
+    width: 100%;
     padding: .5rem .5rem;
 
     border-radius: 7px;

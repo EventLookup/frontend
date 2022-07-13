@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import "./SignUp.css";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(null);
@@ -13,7 +16,7 @@ const Signup = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [street, setStreet] = useState("");
-  const [housenr, setHousenr] = useState("");
+  const [houseNr, setHouseNr] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
   // error messages
@@ -22,7 +25,7 @@ const Signup = () => {
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
   const [frontendErr, setFrontendErr] = useState("");
-
+  const [userAvailableErr , setUserAvailableErr] = useState("");
   const [firstnameErr, setFirstnameErr] = useState("");
   const [lastnameErr, setLastnameErr] = useState("");
   const [streetErr, setStreetErr] = useState("");
@@ -36,10 +39,12 @@ const Signup = () => {
   const usernameHandler = (e) => {
     setUsername(e.target.value);
     setUsernameErr("");
+    setRegisteredMsg('');
   };
   const emailHandler = (e) => {
     setEmail(e.target.value);
     setEmailErr("");
+    setRegisteredMsg('');
   };
   const passwordHandler = (e) => {
     setPassword(e.target.value);
@@ -48,26 +53,32 @@ const Signup = () => {
   };
   const organisatorHandler = (e) => {
     organizer === false ? setOrganizer(true) : setOrganizer(false);
-    // console.log(organizer);
   };
-
   const firstnameHandler = (e) => {
     setFirstname(e.target.value);
+    setFirstnameErr('');
+    setRegisteredMsg('');
   };
   const lastnameHandler = (e) => {
     setLastname(e.target.value);
+    setLastnameErr('');
+    setRegisteredMsg('');
   };
   const streetHandler = (e) => {
     setStreet(e.target.value);
+    setStreetErr('')
   };
   const housenrHandler = (e) => {
-    setHousenr(e.target.value);
+    setHouseNr(e.target.value);
+    setHousenrErr('');
   };
   const cityHandler = (e) => {
     setCity(e.target.value);
+    setCityErr('');
   };
   const zipHandler = (e) => {
-    setZip(e.target.value);
+    setZip(Number(e.target.value));
+    setZipErr('');
   };
   useEffect(() => {
     setOrganizer(organizer);
@@ -86,29 +97,37 @@ const Signup = () => {
         setPasswordErr(errMsg.password);
       }
       if(errMsg.firstname){
-        setFirstnameErr(errMsg.firstname);
+        setFirstnameErr(`Vorname muss enthalten sein`);
       }
       if(errMsg.lastname){
-        setLastnameErr(errMsg.lastname);
+        setLastnameErr(`Nachname muss enthalten sein`);
       }
-      // if(errMsg.address.street){
-      //   setStreetErr(errMsg.address.street)
-        // console.log( {errMsg:address.street})
-      // }
-      // if(errMsg.address.houseNr){
-      //   setHousenrErr(errMsg.address.houseNr)
-      // }
-      // if(errMsg.address.city){
-      //   setCityErr(errMsg.address.city)
-      // }
-      // if(errMsg.address.zip){
-      //   setZipErr(errMsg.address.zip)
-      // }
-      console.log(errMsg)
-      setRegisteredMsg(registeredMsg);
+      if(errMsg["address.street"]){
+        setStreetErr(`Straße muss enthalten sein`)
+      }
+      if(errMsg["address.houseNr"]){
+        setHousenrErr(`Haus Nr. muss enthalten sein`)
+      }
+      if(errMsg["address.city"]){
+        setCityErr(`Stadt muss enthalten sein`)
+      }
+      if(errMsg["address.zip"]){
+        setZipErr(`PLZ muss enthalten sein`)
+      }
+      if(typeof(errMsg) !== 'object'){
+        setUserAvailableErr(errMsg)
+      }
+      // console.log(errMsg["address.street"])
+      if(registeredMsg){
+        setRegisteredMsg(registeredMsg);
+        setTimeout( () => {
+          navigate('/')
+        }, 1000)
+
+      }
     }
-    setRegisteredMsg(registeredMsg);
-  }, [errMsg, registeredMsg]);
+    // setRegisteredMsg(registeredMsg);
+  }, [errMsg, registeredMsg, navigate]);
 
   const signUpFunc = async () => {
     try {
@@ -119,10 +138,13 @@ const Signup = () => {
         organizer: organizer,
         firstname,
         lastname,
-        street,
-        housenr,
+        address: {
+          street,
+        houseNr,
         city,
         zip,
+        }
+        
       };
       const res = await axios({
         method: "post",
@@ -209,8 +231,6 @@ const Signup = () => {
           Veranstalter
         </label>
 
-        {/* <p className="err-msg">{errMsg}</p> */}
-
         {organizer && (
           <>
             <input
@@ -239,7 +259,7 @@ const Signup = () => {
               onChange={streetHandler}
               required
             />
-            <p className="err-msg">{console.log(streetErr)}</p>
+            <p className="err-msg">{streetErr}</p>
             <input
               type="text"
               name="housenr"
@@ -262,7 +282,7 @@ const Signup = () => {
               type="text"
               name="zip"
               id="zip"
-              placeholder="Postleitzahl"
+              placeholder="PLZ"
               onChange={zipHandler}
               required
             />
@@ -272,12 +292,14 @@ const Signup = () => {
         <button type="submit" onClick={onSignUpHandler}>
           Sign Up
         </button>
-        {/* <p className="registered-msg">{registeredMsg}</p> */}
+
         {registeredMsg && (
           <p className="registered-msg">
             Für {username} wurde ein Benutzerkonto angelegt!
           </p>
         )}
+
+        {userAvailableErr && <p>{userAvailableErr}</p>}
       </form>
     </main>
   );
