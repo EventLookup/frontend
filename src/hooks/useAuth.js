@@ -69,6 +69,7 @@ const useAuth = () => {
       }
 
     } catch (err) { 
+      console.log(err)
       // Das Error Handling muss noch Grafisch dargestellt werden
       const errors = err.response.data;
       for (let [key, value] of Object.entries(errors)) {

@@ -33,6 +33,7 @@ form.login input {
     border: none;
     font-weight: 250;
     letter-spacing: 2px;
+    width: 100%;
 }
 form.login button {
     width: max-content;
