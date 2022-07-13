@@ -119,10 +119,11 @@ const Signup = () => {
       }
       // console.log(errMsg["address.street"])
       if(registeredMsg){
-        setRegisteredMsg(registeredMsg);
         setTimeout( () => {
           navigate('/')
-        }, 1000)
+          console.log('es geht')
+          setRegisteredMsg(registeredMsg);
+        }, 2000)
 
       }
     }
@@ -151,8 +152,16 @@ const Signup = () => {
         url: "https://eventlookup.herokuapp.com/signup",
         data: body,
       });
-      console.log(res.data.msg);
+      // console.log(res.data.msg);
       setRegisteredMsg(res?.data.msg);
+      if(res.data.msg){
+        setTimeout( () => {
+          navigate('/')
+          console.log('es geht')
+          setRegisteredMsg(res?.data.msg);
+        }, 3000)
+
+      }
     } catch (err) {
       console.log(err);
       console.log(err.response.data.msg);
