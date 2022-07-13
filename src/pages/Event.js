@@ -1,35 +1,42 @@
-import { NavLink } from "react-router-dom";
-import { IoIosArrowBack } from "react-icons/io";
+import { NavLink, useParams } from "react-router-dom";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import './Event.css';
+import { useEffect } from "react";
+import axios from "../api/axios";
+import { useState } from "react";
 
 const Event = (props) => {
+  const { id } = useParams();
+  const [event , setEvent] = useState('');
+
+  useEffect( () => {
+    const getSingleEvent = async () => {
+      try{
+        const res = await axios.get(`/events/${id}`)
+        console.log(res.data)
+        setEvent(res.data.event);
+      } catch(err){
+        console.log(err?.response)
+      }
+    }
+    getSingleEvent()
+  },[id])
+  
   return (
     <>
       <div className="single-event">
         <section className="back">
           <NavLink to="/" style={{textDecoration: "none"}}>
-            <span><IoIosArrowBack /></span>
+            <span><BsFillArrowLeftCircleFill /></span>
             <span>zurück</span>
           </NavLink>
         </section>
         <div className="description" style={{border: "1px solid black"}}>
-          <time>Datum und Uhrzeit</time>
-          <h4>Titel des Events</h4>
-          <p>Ort des Events</p>
+          <time>{event.eventDate} um {event.eventTime}</time>
+          <h4>{event.title}</h4>
+          {/* <p>{event.location.city}</p> */}
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus error illo, architecto, in dolorem magnam quidem
-            aspernatur tenetur fugiat hic cumque doloremque aliquam ipsam
-            ratione itaque reiciendis, nesciunt ipsa. Beatae adipisci
-            repudiandae doloremque, veniam, modi incidunt obcaecati blanditiis
-            exercitationem possimus labore, maxime pariatur laborum officiis ex
-            cum quas voluptate id! Impedit neque nulla deserunt inventore, aut
-            magni provident. Velit fuga vitae recusandae voluptatem dignissimos
-            esse consectetur itaque, blanditiis nobis ullam consequuntur beatae
-            iste vel. Necessitatibus sunt cupiditate sed dignissimos magni sit
-            inventore? Exercitationem sed perferendis vero quas sit quia
-            incidunt? Sunt sint possimus voluptatem suscipit aut? Voluptatem
-            laborum nobis dolore.
+            {event.description}
           </p>
         </div>
         {/* <br />
