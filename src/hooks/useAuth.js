@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 import axios from "../api/axios";
 // context
-import { AuthContext } from "../context/LoginAuthContext";
+import { LoginAuthContext } from "../context/LoginAuthContext";
 
 const useAuth = () => {
   // hooks
   const navigate = useNavigate();
-  const { setLoggedIn } = useContext(AuthContext);
+  const { setLoggedIn } = useContext(LoginAuthContext);
   // useStates
   const [authOption, setAuthOption] = useState(null);
   const [email, setEmail] = useState("");
