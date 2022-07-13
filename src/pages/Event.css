@@ -1,38 +1,43 @@
-div.single-event {
-    margin: 0 auto;
+ div.single-event {
+    height: 100vh;
+    margin: 0 5%;
 }
-section.back {
-    padding: 1.5em 0;
+ section.back {
+    margin: 1.5em 0;
     text-decoration: none;
-    ;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-section.back span {
+ section.back span {
     background-color: black;
     color: white;
-    margin:0.3em;
-    padding: 0.4em 0.4em;
+    padding: 0em 0.2em;
+    font-size: 1rem;
 }
-section.back span:first-child{
-    border-radius: 50%;
-    padding: 0.4rem 0.5em;
+ section.back span:first-child{
+    background: none;
+    color: black;
+    margin-right: .2em;
 }
-.active {
+ .active {
     text-decoration: none;
 }
 
-div.description {
+ div.description {
     background-color: rgb(242, 243, 244);
 
     border-radius: 5px;
 
-    padding: 1em .9em;
+    padding: .6em .6em;
+    
 }
-div.description time,
-div.description h4,
-div.description p:first-of-type {
+ div.description time,
+ div.description h4 {
     font-weight: bold;
     text-transform: uppercase;
+    margin: .5rem 0;
 }
-div.description time{
+ div.description time{
     color: teal;
 }
