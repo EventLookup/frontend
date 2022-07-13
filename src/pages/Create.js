@@ -22,6 +22,8 @@ const Create = () => {
     const [inputEmail, setInputEmail] = useState("")
 
     const[message, setMessage] = useState("");
+
+    const [errors , setErrors] = useState("")
     
     const capitalize = (string) => {
         let capitalized = string.charAt(0).toUpperCase() + string.slice(1);
@@ -93,6 +95,7 @@ const Create = () => {
 
     const handleSubmit = async (e) => {
         setMessage("");
+        setErrors("")
         e.preventDefault();
         try {
           let response = await axios.put("/events",
@@ -108,7 +111,10 @@ const Create = () => {
           // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
           // hier mach ich das erstmal nur mit einem console.error
           console.error(error?.response?.data?.errors);
+          if(error.response) setErrors(error.response.data.msg);
+          
         }
+        console.log(errors)
     }
 
     return (
@@ -118,20 +124,29 @@ const Create = () => {
                 <h2>Trage eine Veranstaltung ein</h2>
                 <form onSubmit={handleSubmit}>
                     <input onChange={onChangeHandlerVeranstaltungsName} type="text" placeholder="Name der Veranstaltung" required></input>
+                    {errors.title && <p className="error-message">{errors.title}</p>}
                     <input onChange={onChangeHandlerLocation} type="text" placeholder="Location" required></input>
+                    {errors.host && <p className="error-message">{errors.host}</p>}
                     <input onChange={onChangeHandlerDatum} type="text" placeholder="Datum" required></input>
                     <input onChange={onChangeHandlerUhrzeit} type="text" placeholder="Uhrzeit" required></input>
+                    {errors.eventTime && <p className="error-message">{errors.eventTime}</p>}
                     <textarea onChange={onChangeHandlerBeschreibung} placeholder="Beschreibung" required></textarea>
-                    <input onChange={onChangeHandlerEmail} type="text" placeholder="Email (Optional)" required></input>
+                    <input onChange={onChangeHandlerEmail} type="text" placeholder="Email (Optional)" ></input>
                     <h5>Adresse</h5>
                     <input onChange={onChangeHandlerStraße} type="text" placeholder="Straße" required></input>
+                    {errors.street && <p className="error-message">{errors.street}</p>}
                     <input onChange={onChangeHandlerHausnr} type="text" placeholder="Hausnr." required></input>
+                    {errors['location.houseNr'] && <p className="error-message">{errors['location.houseNr']}</p>}
                     <input onChange={onChangeHandlerPLZ} type="text" placeholder="PLZ" required></input>
+                    {errors['location.zip'] && <p className="error-message" >{errors['location.zip']}</p>}
                     <input onChange={onChangeHandlerStadt} type="text" placeholder="Stadt" required></input>
+                    {errors.city && <p className="error-message">{errors.city}</p>}
                     <button type="submit">Absenden</button>
+                    <h5 style= {{color: "green"}}>{message}</h5>
                 </form>
+                
             </main>
-            <h4 style= {{color: "red"}}>{message}</h4>
+            
         </div>
     );
 }

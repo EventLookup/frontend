@@ -4,6 +4,7 @@
     font-family: Arial, Helvetica, sans-serif;
     
     width: 100%;
+    display: flex;
 }
 
 
@@ -68,7 +69,8 @@
     
 }
 
-.navbar button {
+.navbar .log-button {
+    border: none;
     background-color: transparent;
     color: white;
     font-size: 12pt;
@@ -76,8 +78,14 @@
     width: 100%;
 }
 
-.navbar button:hover {
+.navbar .log-button:hover {
     background-color: #11748e;
+}
+
+.filter-button {
+    border: none;
+    background-color: transparent;
+    color: white;
 }
 
 
@@ -93,5 +101,7 @@
         display: none;
     }
    
-    
+    .filter-button {
+     display: none;
+    }
 }
