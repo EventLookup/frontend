@@ -20,14 +20,14 @@ import Header from "./components/header/Header";
 import Footer from "./components/Footer/Footer";
 
 // context
-import { AuthContextProvider } from "./context/LoginAuthContext";
+import { LoginAuthContextProvider } from "./context/LoginAuthContext";
 import { FilterContextProvider } from "./context/FilterContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <FilterContextProvider>
-      <AuthContextProvider>
+      <LoginAuthContextProvider>
         <Header />
 
         <Routes>
@@ -39,7 +39,7 @@ root.render(
           <Route path="/impressum" element={<Impressum />} />
           <Route path="*" element={<VierNullVier />} />
         </Routes>
-      </AuthContextProvider>
+      </LoginAuthContextProvider>
       <Footer />
     </FilterContextProvider>
   </BrowserRouter>
