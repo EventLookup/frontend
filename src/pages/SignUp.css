@@ -66,5 +66,4 @@ form.form-signup p.err-msg {
 }
 form.form-signup p.registered-msg {
     color: rgba(0, 128, 0, 0.694);
-    font-size: .5em;
 }
