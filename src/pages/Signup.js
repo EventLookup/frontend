@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 import "./SignUp.css";
@@ -147,9 +147,7 @@ const Signup = () => {
         }
         
       };
-      const res = await axios({
-        method: "post",
-        url: "https://eventlookup.herokuapp.com/signup",
+      const res = await axios.post("/signup",{
         data: body,
       });
       // console.log(res.data.msg);
