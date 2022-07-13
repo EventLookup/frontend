@@ -71,35 +71,48 @@ const Signup = () => {
   };
   useEffect(() => {
     setOrganizer(organizer);
-    // console.log("organizer im useeffect",organizer);
   }, [organizer]);
 
   useEffect(() => {
     // Error updating beim ersten klick
     if (errMsg) {
       if (errMsg.username) {
-        console.log("username error set")
         setUsernameErr(errMsg.username);
       }
       if (errMsg.email) {
-        console.log("email error set")
         setEmailErr(errMsg.email);
       }
       if (errMsg.password) {
-        console.log("password err set")
         setPasswordErr(errMsg.password);
       }
-
+      if(errMsg.firstname){
+        setFirstnameErr(errMsg.firstname);
+      }
+      if(errMsg.lastname){
+        setLastnameErr(errMsg.lastname);
+      }
+      // if(errMsg.address.street){
+      //   setStreetErr(errMsg.address.street)
+        // console.log( {errMsg:address.street})
+      // }
+      // if(errMsg.address.houseNr){
+      //   setHousenrErr(errMsg.address.houseNr)
+      // }
+      // if(errMsg.address.city){
+      //   setCityErr(errMsg.address.city)
+      // }
+      // if(errMsg.address.zip){
+      //   setZipErr(errMsg.address.zip)
+      // }
+      console.log(errMsg)
       setRegisteredMsg(registeredMsg);
-      console.log("set registered message ausgeführt")
     }
     setRegisteredMsg(registeredMsg);
-  }, [errMsg, usernameErr, emailErr, passwordErr, registeredMsg]);
+  }, [errMsg, registeredMsg]);
 
   const signUpFunc = async () => {
-    console.log("anfang signupfunc")
     try {
-      const body =     {
+      const body = {
         username,
         email,
         password,
@@ -109,28 +122,23 @@ const Signup = () => {
         street,
         housenr,
         city,
-        zip
-      }
-      console.log(body)
+        zip,
+      };
       const res = await axios({
         method: "post",
         url: "https://eventlookup.herokuapp.com/signup",
         data: body,
-        validateStatus: () => true
-
-      }
-    
-      );
-      console.log(res)
-      console.log(res.data);
-      setRegisteredMsg(res?.data);
+      });
+      console.log(res.data.msg);
+      setRegisteredMsg(res?.data.msg);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       console.log(err.response.data.msg);
       setErrMsg(err?.response?.data?.msg);
     }
   };
   const onSignUpHandler = async (e) => {
+    e.preventDefault();
     if (!username || !email || !password) {
       setFrontendErr("Bitte füllen Sie die Pflichtpfelder aus.");
       if (!username) {
@@ -145,7 +153,6 @@ const Signup = () => {
       return;
     } else {
       await signUpFunc();
-      e.preventDefault();
     }
   };
 
@@ -164,7 +171,7 @@ const Signup = () => {
           required
         />
 
-        {usernameErr && <p className="err-msg">{console.log(usernameErr)}</p>}
+        <p className="err-msg">{usernameErr}</p>
 
         <input
           type="email"
@@ -175,7 +182,7 @@ const Signup = () => {
           required
         />
 
-        {emailErr && <p className="err-msg">{console.log(emailErr)}</p>}
+        <p className="err-msg">{emailErr}</p>
 
         <input
           type="password"
@@ -187,7 +194,7 @@ const Signup = () => {
           onChange={passwordHandler}
         />
 
-       {passwordErr && <p className="err-msg">{console.log(passwordErr)}</p>}
+        <p className="err-msg">{passwordErr}</p>
 
         {/* <p className="err-msg">{frontendErr}</p> */}
 
@@ -202,7 +209,7 @@ const Signup = () => {
           Veranstalter
         </label>
 
-        <p className="err-msg">{errMsg}</p>
+        {/* <p className="err-msg">{errMsg}</p> */}
 
         {organizer && (
           <>
@@ -214,6 +221,7 @@ const Signup = () => {
               onChange={firstnameHandler}
               required
             />
+            <p className="err-msg">{firstnameErr}</p>
             <input
               type="text"
               name="lastname"
@@ -222,7 +230,7 @@ const Signup = () => {
               onChange={lastnameHandler}
               required
             />
-
+            <p className="err-msg">{lastnameErr}</p>
             <input
               type="text"
               name="street"
@@ -231,12 +239,34 @@ const Signup = () => {
               onChange={streetHandler}
               required
             />
-
-            <input type="text" name="housenr" id="housenr" placeholder="Haus Nr." onChange={housenrHandler} required/>
- 
-            <input type="text" name="city" id="city" placeholder="Stadt" onChange={cityHandler} required />
-
-            <input type="text" name="zip" id="zip" placeholder="Postleitzahl" onChange={zipHandler} required/>
+            <p className="err-msg">{console.log(streetErr)}</p>
+            <input
+              type="text"
+              name="housenr"
+              id="housenr"
+              placeholder="Haus Nr."
+              onChange={housenrHandler}
+              required
+            />
+            <p className="err-msg">{housenrErr}</p>
+            <input
+              type="text"
+              name="city"
+              id="city"
+              placeholder="Stadt"
+              onChange={cityHandler}
+              required
+            />
+            <p className="err-msg">{cityErr}</p>
+            <input
+              type="text"
+              name="zip"
+              id="zip"
+              placeholder="Postleitzahl"
+              onChange={zipHandler}
+              required
+            />
+            <p className="err-msg">{zipErr}</p>
           </>
         )}
         <button type="submit" onClick={onSignUpHandler}>
