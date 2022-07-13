@@ -2,19 +2,15 @@ import "./Calender.css";
 import axios from "../api/axios";
 import { useEffect, useState, useContext } from "react";
 import { FilterContext } from "../context/FilterContext";
+import { FilterOptionContext } from "../context/FilterOptionContext";
 import SideNav from "../components/SideNav/SideNav";
-import FilterSite from "../components/NavBar/FilterSite"
 import {
   BsFillArrowLeftCircleFill,
   BsArrowRightCircleFill,
-  // BsFillCalendarMonthFill,
-  // BsFillCalendarDateFill,
-  // BsFillCalendarEventFill,
 } from "react-icons/bs";
 import { format, addDays, subDays, addMonths, subMonths } from "date-fns";
 import { de } from "date-fns/locale";
 import { NavLink } from "react-router-dom";
-// import { BuildCityProvider } from "../context/CityContext";
 
 /* 
  TODOS im Kalender
@@ -29,15 +25,14 @@ import { NavLink } from "react-router-dom";
 */
 
 const Calendar = () => {
- const {setIsOnCalender} = useContext(FilterContext)
- setIsOnCalender(true);
-
+  const {setIsOnCalender} = useContext(FilterContext)
+  setIsOnCalender(true);
+  const [city] = useContext(FilterOptionContext);
+  
   const [events, setEvents] = useState([]);
   const [date, setDate] = useState(new Date());
   const [lookingForDay, setLookingForDay] = useState(true);
   const [eventLimit, setEventLimit] = useState(20);
-
-
 
   const handleAddDate = () => {
     if (lookingForDay) {
@@ -84,9 +79,9 @@ const Calendar = () => {
 
     const fetchData = async () => {
       if (lookingForDay) {
-        url = `/events?day=${format(date, `dd.MM.yyyy`)}&limit=${eventLimit}`;
+        url = `/events?day=${format(date, `dd.MM.yyyy`)}&limit=${eventLimit}&city=${city}`;
       } else {
-        url = `/events?month=${format(date, `MM.yyyy`)}&limit=${eventLimit}`;
+        url = `/events?month=${format(date, `MM.yyyy`)}&limit=${eventLimit}&city=${city}`;
       }
 
       console.log(url);
@@ -100,12 +95,12 @@ const Calendar = () => {
     };
 
     fetchData();
-  }, [lookingForDay, date, eventLimit]);
+  }, [lookingForDay, date, eventLimit, city]);
 
   return (
     <div className="Calendar">
       <main>
-        {/* <BuildCityProvider> */}
+        
         <div id="SideNav_Cal">
           <section id="SideNav">
             <SideNav
@@ -113,19 +108,11 @@ const Calendar = () => {
               tomorrow={handleNextDay}
               month={handleResetMonth}
               nextMonth={handleNextMonth}
-              city=""
             />
           </section>
           <div id="Cal_Date_Cal">
             <section id="Date_Cal">
               <div>
-                <FilterSite
-                  today={handleResetDate}
-                  tomorrow={handleNextDay}
-                  month={handleResetMonth}
-                  nextMonth={handleNextMonth}
-                  city=""
-                />
                 <BsFillArrowLeftCircleFill onClick={handleSubDate} />
                 <span id="ausgabe">
                   {lookingForDay
@@ -164,7 +151,7 @@ const Calendar = () => {
             </section>
           </div>
         </div>
-        {/* </BuildCityProvider> */}
+        
       </main>
     </div>
   );

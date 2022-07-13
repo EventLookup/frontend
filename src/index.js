@@ -22,23 +22,25 @@ import Footer from "./components/Footer/Footer";
 // context
 import { AuthContextProvider } from "./context/LoginAuthContext";
 import { FilterContextProvider } from "./context/FilterContext";
+import { FilterOptionContextProvider } from "./context/FilterOptionContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <FilterContextProvider>
       <AuthContextProvider>
-        <Header />
-
-        <Routes>
-          <Route path="/" element={<Calendar />} />
-          <Route path="/:id" element={<Event />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/impressum" element={<Impressum />} />
-          <Route path="*" element={<VierNullVier />} />
-        </Routes>
+        <FilterOptionContextProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Calendar />} />
+            <Route path="/:id" element={<Event />} />
+            <Route path="/create" element={<Create />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/impressum" element={<Impressum />} />
+            <Route path="*" element={<VierNullVier />} />
+          </Routes>
+        </FilterOptionContextProvider>
       </AuthContextProvider>
       <Footer />
     </FilterContextProvider>

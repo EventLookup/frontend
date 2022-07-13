@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { getMonth } from 'date-fns/esm';
 import "./FilterLinks.css";
+import { FilterOptionContext } from "../../context/FilterOptionContext";
 
 const FilterLinks = (props) => {
 
   const monat = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
 
-  const [city, setCity] = useState('');
+  const [city, setCity] = useContext(FilterOptionContext);
+  
 
   function cityChange(event) {
     setCity(event.target.value);
