@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 // css
 import "./Login.css";
 
@@ -8,13 +9,21 @@ const Login = () => {
   const {
     // optionen sind login, refresh, logout 
     setAuthOption, 
-    email, 
-    setEmail,
+    email,
+    setEmail, 
     password,
     setPassword,
     // falls fehler existieren, gibt errors diese zurück
-    loginErrors 
-  } = useAuth();
+    loginErrors
+    } = useAuth();
+
+  //  handler
+const emailHandler = (e) => {
+  setEmail(e.target.value);
+};
+const passwordHandler = (e) => {
+  setPassword(e.target.value);
+};
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -22,12 +31,11 @@ const Login = () => {
     if (email && password) {
       setAuthOption('login');
     } else {
-      // Hier sollte man dem Nutzer mitteilen was passiert wenn NICHT
-      // log reicht nicht
-      console.log('Bitte Email und/ oder Passwort eingeben!');
+      console.log(loginErrors);
+      e.preventDefault();
     }
   };
-
+  console.log()
   return (
     <main className="main-login">
       <form className="login">
@@ -38,7 +46,7 @@ const Login = () => {
           id="email"
           placeholder="Email"
           required
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={emailHandler}
         />
         <input
           type="password"
@@ -46,8 +54,12 @@ const Login = () => {
           id="password"
           placeholder="Passwort"
           required
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={passwordHandler}
         />
+
+        <p className="err-msg">{loginErrors}</p>
+        {/* <p className="err-msg">{backendErr}</p> */}
+
         <button onClick={onSubmitHandler}>Login</button>
       </form>
     </main>

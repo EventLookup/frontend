@@ -2,13 +2,13 @@ import "./Create.css"
 import { useState , useEffect, useContext } from "react"
 import axios from "../api/axios";
 import useAuth from '../hooks/useAuth';
-import { AuthContext } from "../context/LoginAuthContext";
+import { LoginAuthContext } from "../context/LoginAuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Create = () => {
     const navigate = useNavigate();
     const { setAuthOption } = useAuth();
-    const { loggedIn } = useContext(AuthContext);
+    const { loggedIn } = useContext(LoginAuthContext);
 
     const [inputVeranstaltungsName, setInputVeranstaltungsName] = useState("")
     const [inputLocation, setInputLocation] = useState("")

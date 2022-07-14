@@ -1,146 +1,187 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 import "./SignUp.css";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [organisator, setOrganisator] = useState(false);
-  const [adress, setAdress] = useState("");
-  const [fullname, setFullname] = useState("");
-  // error messages 
+  const [password, setPassword] = useState(null);
+  const [organizer, setOrganizer] = useState(false);
+
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [street, setStreet] = useState("");
+  const [houseNr, setHouseNr] = useState("");
+  const [city, setCity] = useState("");
+  const [zip, setZip] = useState("");
+  // error messages
   const [errMsg, setErrMsg] = useState(""); //error from axios
-  const [usernameErr , setUsernameErr] = useState(""); 
-  const [emailErr , setEmailErr] = useState(""); 
-  const [passwordErr , setPasswordErr] = useState("");
-  const [frontendErr , setFrontendErr] = useState("");
+  const [usernameErr, setUsernameErr] = useState("");
+  const [emailErr, setEmailErr] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
+  const [frontendErr, setFrontendErr] = useState("");
+  const [userAvailableErr , setUserAvailableErr] = useState("");
+  const [firstnameErr, setFirstnameErr] = useState("");
+  const [lastnameErr, setLastnameErr] = useState("");
+  const [streetErr, setStreetErr] = useState("");
+  const [housenrErr, setHousenrErr] = useState("");
+  const [cityErr, setCityErr] = useState("");
+  const [zipErr, setZipErr] = useState("");
   //successful registered message
-  const [registeredMsg , setRegisteredMsg] = useState("");
+  const [registeredMsg, setRegisteredMsg] = useState("");
 
   // handlers
   const usernameHandler = (e) => {
     setUsername(e.target.value);
-    setUsernameErr('');
+    setUsernameErr("");
+    setRegisteredMsg('');
   };
   const emailHandler = (e) => {
     setEmail(e.target.value);
-    setEmailErr('');
+    setEmailErr("");
+    setRegisteredMsg('');
   };
   const passwordHandler = (e) => {
     setPassword(e.target.value);
-    setPasswordErr('');
-    setFrontendErr('');
+    setPasswordErr("");
+    setFrontendErr("");
   };
   const organisatorHandler = (e) => {
-    organisator === false ? setOrganisator(true) : setOrganisator(false);
-    // console.log(organisator);
+    organizer === false ? setOrganizer(true) : setOrganizer(false);
   };
-  const adressHandler = (e) => {
-    setAdress(e.target.value);
-  }
-  const fullnameHandler = (e) => {
-    setFullname(e.target.value);
-  }
-  useEffect(()=> {
-    setOrganisator(organisator);
-    // console.log(organisator);
-  }, [organisator])
- 
-  useEffect( () => {
+  const firstnameHandler = (e) => {
+    setFirstname(e.target.value);
+    setFirstnameErr('');
+    setRegisteredMsg('');
+  };
+  const lastnameHandler = (e) => {
+    setLastname(e.target.value);
+    setLastnameErr('');
+    setRegisteredMsg('');
+  };
+  const streetHandler = (e) => {
+    setStreet(e.target.value);
+    setStreetErr('')
+  };
+  const housenrHandler = (e) => {
+    setHouseNr(e.target.value);
+    setHousenrErr('');
+  };
+  const cityHandler = (e) => {
+    setCity(e.target.value);
+    setCityErr('');
+  };
+  const zipHandler = (e) => {
+    setZip(Number(e.target.value));
+    setZipErr('');
+  };
+  useEffect(() => {
+    setOrganizer(organizer);
+  }, [organizer]);
+
+  useEffect(() => {
     // Error updating beim ersten klick
-    if(errMsg) {
-      console.log(errMsg);
-      // Username error ============
-      const userErr = errMsg.find((obj) => obj.param === "username");
-      if(userErr){
-        console.log(userErr)
+    if (errMsg) {
+      if (errMsg.username) {
+        setUsernameErr(errMsg.username);
       }
-      // Email error ==========
-      const emailErr = errMsg.find( (obj) => obj.param === "email");
-      if(emailErr){
-        console.log(emailErr)
+      if (errMsg.email) {
+        setEmailErr(errMsg.email);
       }
-      // Password error =======
-      const passwordErr = errMsg.find( (obj) => obj.param === "password");
-      console.log(passwordErr)
+      if (errMsg.password) {
+        setPasswordErr(errMsg.password);
+      }
+      if(errMsg.firstname){
+        setFirstnameErr(`Vorname muss enthalten sein`);
+      }
+      if(errMsg.lastname){
+        setLastnameErr(`Nachname muss enthalten sein`);
+      }
+      if(errMsg["address.street"]){
+        setStreetErr(`Straße muss enthalten sein`)
+      }
+      if(errMsg["address.houseNr"]){
+        setHousenrErr(`Haus Nr. muss enthalten sein`)
+      }
+      if(errMsg["address.city"]){
+        setCityErr(`Stadt muss enthalten sein`)
+      }
+      if(errMsg["address.zip"]){
+        setZipErr(`PLZ muss enthalten sein`)
+      }
+      if(typeof(errMsg) !== 'object'){
+        setUserAvailableErr(errMsg)
+      }
+      // console.log(errMsg["address.street"])
+      if(registeredMsg){
+        setTimeout( () => {
+          navigate('/')
+          console.log('es geht')
+          setRegisteredMsg(registeredMsg);
+        }, 2000)
 
-
-      if(passwordErr){
-        const passwordErrMsgString = passwordErr?.msg;
-        console.log("passwordErrMsgString" ,passwordErrMsgString);
-        setPasswordErr(passwordErrMsgString);
-        console.log(passwordErrMsgString);
-      }
-      if(emailErr){
-        const emailErrMsgString = emailErr?.msg;
-        setEmailErr(emailErrMsgString);
-        console.log(emailErrMsgString);
-      } 
-      if(userErr){
-        const userErrMsgString = userErr?.msg;
-        setUsernameErr(userErrMsgString);
-        console.log("userErrMsgString",userErrMsgString)
       }
     }
-    setRegisteredMsg(registeredMsg);
-  }, [errMsg , registeredMsg]);
+    // setRegisteredMsg(registeredMsg);
+  }, [errMsg, registeredMsg, navigate]);
 
-  // useEffect( () => {
-  //   if(registeredMsg){
-  //     const registeredMsgString = registeredMsg.find((obj) => obj === "msg");
-  //     setRegisteredMsg(registeredMsgString);
-  //     console.log(registeredMsg)
-  //   }
-  // }, [registeredMsg]);
-
- 
   const signUpFunc = async () => {
     try {
-      const res = await axios.post(
-        "/signup",
-        {
-          username,
-          email,
-          password,
-          organisator,
-          adress,
-          fullname,
-        },
-        {
-          withCredentials: true,
+      const body = {
+        username,
+        email,
+        password,
+        organizer: organizer,
+        firstname,
+        lastname,
+        address: {
+          street,
+        houseNr,
+        city,
+        zip,
         }
-      );
-      console.log(res.data);
-      setRegisteredMsg(res?.data)
+        
+      };
+      const res = await axios.post("/signup",{
+        data: body,
+      });
+      // console.log(res.data.msg);
+      setRegisteredMsg(res?.data.msg);
+      if(res.data.msg){
+        setTimeout( () => {
+          navigate('/')
+          console.log('es geht')
+          setRegisteredMsg(res?.data.msg);
+        }, 3000)
+
+      }
     } catch (err) {
       console.log(err);
-      setErrMsg(err?.response?.data?.errors)
-      // console.log(errMsg);
-      // console.log(err.response); //allgemeiner error
-      // setErrMsg(err.response.data.errors[1].msg); //error msg
-      // setErrMsg(err.response.data.errors); //alle error msgs
-      // console.log(errMsg);
-      // versuch1
-
+      console.log(err.response.data.msg);
+      setErrMsg(err?.response?.data?.msg);
     }
   };
-  const onSignUpHandler = (e) => {
+  const onSignUpHandler = async (e) => {
+    e.preventDefault();
     if (!username || !email || !password) {
-      setFrontendErr('im frontend ist ein error man')
-      if(!username){
-        setFrontendErr('Wie ist Ihr Name?');
-      } else if(!email){
-        setFrontendErr('Ihre Email-Adresse bitte nicht vergessen');
-      } else if(!password){
-        setFrontendErr('Also password auch noch bitte');
+      setFrontendErr("Bitte füllen Sie die Pflichtpfelder aus.");
+      if (!username) {
+        setFrontendErr(
+          "Der Username muss zwischen 3 und 50 Zeichen lang sein."
+        );
+      } else if (!email) {
+        setFrontendErr("Bitte gib eine gültige Email-Adresse an.");
+      } else if (!password) {
+        setFrontendErr("Das Passwort muss mindestens 10 Zeichen lang sein.");
       }
       return;
     } else {
-      signUpFunc();
-      e.preventDefault();
+      await signUpFunc();
     }
   };
 
@@ -184,7 +225,7 @@ const Signup = () => {
 
         <p className="err-msg">{passwordErr}</p>
 
-        <p className="err-msg">{frontendErr}</p>
+        {/* <p className="err-msg">{frontendErr}</p> */}
 
         <label htmlFor="veranstalter">
           {" "}
@@ -197,29 +238,75 @@ const Signup = () => {
           Veranstalter
         </label>
 
-        {organisator && (
+        {organizer && (
           <>
             <input
               type="text"
-              name="adress"
-              id="adress"
-              placeholder="Adresse"
-              onChange={adressHandler}
+              name="firstname"
+              id="firstname"
+              placeholder="Vorname"
+              onChange={firstnameHandler}
+              required
             />
+            <p className="err-msg">{firstnameErr}</p>
             <input
               type="text"
-              name="fullname"
-              id="fullname"
-              placeholder="Vollständiger Name"
-              onChange={fullnameHandler}
+              name="lastname"
+              id="lastname"
+              placeholder="Nachname"
+              onChange={lastnameHandler}
+              required
             />
+            <p className="err-msg">{lastnameErr}</p>
+            <input
+              type="text"
+              name="street"
+              id="street"
+              placeholder="Straße"
+              onChange={streetHandler}
+              required
+            />
+            <p className="err-msg">{streetErr}</p>
+            <input
+              type="text"
+              name="housenr"
+              id="housenr"
+              placeholder="Haus Nr."
+              onChange={housenrHandler}
+              required
+            />
+            <p className="err-msg">{housenrErr}</p>
+            <input
+              type="text"
+              name="city"
+              id="city"
+              placeholder="Stadt"
+              onChange={cityHandler}
+              required
+            />
+            <p className="err-msg">{cityErr}</p>
+            <input
+              type="text"
+              name="zip"
+              id="zip"
+              placeholder="PLZ"
+              onChange={zipHandler}
+              required
+            />
+            <p className="err-msg">{zipErr}</p>
           </>
         )}
         <button type="submit" onClick={onSignUpHandler}>
           Sign Up
         </button>
-        {/* <p className="registered-msg">{registeredMsg}</p> */}
-        {registeredMsg && (<p className="registered-msg">Für {username} wurde ein Benutzerkonto angelegt!</p>)}
+
+        {registeredMsg && (
+          <p className="registered-msg">
+            Für {username} wurde ein Benutzerkonto angelegt!
+          </p>
+        )}
+
+        {userAvailableErr && <p>{userAvailableErr}</p>}
       </form>
     </main>
   );
