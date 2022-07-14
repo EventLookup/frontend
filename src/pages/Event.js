@@ -1,49 +1,63 @@
-import { NavLink } from "react-router-dom";
-import { IoIosArrowBack } from "react-icons/io";
-import './Event.css';
+import { NavLink, useParams } from "react-router-dom";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import {BiLoader} from "react-icons/bi";
+import "./Event.css";
+import { useEffect } from "react";
+import axios from "../api/axios";
+import { useState } from "react";
 
 const Event = (props) => {
+  const { id } = useParams();
+  const [singleEvent, setSingleEvent] = useState("loading");
+
+  useEffect(() => {
+    const getSingleEvent = async () => {
+      try {
+        const res = await axios.get(`/events/${id}`);
+        // console.log(res.data);
+        setSingleEvent(res.data.event);
+        console.log("test: ", res.data.event)
+        // console.log(singleEvent);
+                
+      } catch (err) {
+        console.log(err?.response);
+        setSingleEvent(null);
+      }
+    };
+    getSingleEvent();
+  }, [id]);
+
+  
   return (
     <>
       <div className="single-event">
         <section className="back">
-          <NavLink to="/" style={{textDecoration: "none"}}>
-            <span><IoIosArrowBack /></span>
+          <NavLink to="/" style={{ textDecoration: "none" }}>
+            <span>
+              <BsFillArrowLeftCircleFill />
+            </span>
             <span>zurück</span>
           </NavLink>
         </section>
-        <div className="description" style={{border: "1px solid black"}}>
-        
-          <time>Datum und Uhrzeit</time>
-          <h4>Event Titel</h4>
-          <p>Ort des Events</p>
+        {singleEvent==="loading" ? <BiLoader /> : 
+          singleEvent===null? <p>kein Event gefunden</p> : 
+          typeof(singleEvent)==="object" ? 
+          <div className="description" style={{ border: "1px solid black" }}>
+          <time>
+            {singleEvent.eventDate} um {singleEvent.eventTime} Uhr
+          </time>
+          <h4>{singleEvent.title}</h4>
+          <p>{singleEvent.host}</p>
+          <p>{singleEvent.description}</p>
+          <br />
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus error illo, architecto, in dolorem magnam quidem
-            aspernatur tenetur fugiat hic cumque doloremque aliquam ipsam
-            ratione itaque reiciendis, nesciunt ipsa. Beatae adipisci
-            repudiandae doloremque, veniam, modi incidunt obcaecati blanditiis
-            exercitationem possimus labore, maxime pariatur laborum officiis ex
-            cum quas voluptate id! Impedit neque nulla deserunt inventore, aut
-            magni provident. Velit fuga vitae recusandae voluptatem dignissimos
-            esse consectetur itaque, blanditiis nobis ullam consequuntur beatae
-            iste vel. Necessitatibus sunt cupiditate sed dignissimos magni sit
-            inventore? Exercitationem sed perferendis vero quas sit quia
-            incidunt? Sunt sint possimus voluptatem suscipit aut? Voluptatem
-            laborum nobis dolore.
+            {singleEvent.location.zip} {singleEvent.location.city}
           </p>
-          
-        </div>
-        {/* <br />
-        <div className="location" style={{border: "1px solid black"}}>
-          <h4>Titel des Events</h4>
-          <p>Straße und Straßennummer,</p>
-          <p>Postleitzahl und Stadt</p>
-        </div>
-        <br />
-        <div className="kommentare" style={{border: "1px solid black"}}>
-            kommentare
-        </div> */}
+          <p>
+            {singleEvent.location.street} {singleEvent.location.houseNr}
+          </p>
+        </div> : setSingleEvent(null)
+        }
       </div>
     </>
   );

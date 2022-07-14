@@ -139,11 +139,12 @@ const Calendar = () => {
                 <p>keine Events vorhanden</p>
               ) : (
                 events.map((event) => (
-                  <NavLink to="/event" key={event._id} state={events}>
+                  <NavLink to={event._id} key={event._id} state={events}>
                     <div className="event">
                       {event.host}
                       <br />
                       <p>{event.title}</p>
+                      <p>{event.location.city}</p>
                     </div>
                   </NavLink>
                 ))

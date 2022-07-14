@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { MenuContext } from "../../context/MobileNavBarContext";
-import { AuthContext } from "../../context/LoginAuthContext";
+import { LoginAuthContext } from "../../context/LoginAuthContext";
 import { FilterContext } from "../../context/FilterContext";
 import useAuth from "../../hooks/useAuth";
 
 const NavLinks = () => {
     const {setOpen} = useContext(MenuContext);
-    const {loggedIn} = useContext(AuthContext)
+    const {loggedIn} = useContext(LoginAuthContext)
     const {setAuthOption} = useAuth()
 
     const {setIsOnCalender} = useContext(FilterContext)
