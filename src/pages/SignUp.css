@@ -34,6 +34,7 @@ form.form-signup label {
  }
  /* same style as login.css */
  form.form-signup input {
+    width: 100%;
     padding: .5rem .5rem;
 
     border-radius: 7px;
@@ -65,5 +66,4 @@ form.form-signup p.err-msg {
 }
 form.form-signup p.registered-msg {
     color: rgba(0, 128, 0, 0.694);
-    font-size: .5em;
 }
