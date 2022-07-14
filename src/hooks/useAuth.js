@@ -8,6 +8,7 @@ import axios from "../api/axios";
 import { AuthContext } from "../context/LoginAuthContext";
 
 const useAuth = () => {
+  
   // hooks
   const navigate = useNavigate();
   const { setLoggedIn } = useContext(AuthContext);
@@ -88,7 +89,6 @@ const useAuth = () => {
       if(authOption === 'logout'){
         axios.defaults.headers.common['authorization'] = "";
         try {
-          console.log("im try block")
           await axios.get('/logout');
         } catch (e) {
           console.log("Error: ",  e) 

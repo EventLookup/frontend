@@ -8,7 +8,7 @@ const FilterSite = () => {
 const [open, setOpen] = useState(false);
 
 const button = <button className="filter-button" onClick={() => setOpen(!open)}>Filter <BsFilterSquare/></button>;
-const closeIcon = <CgClose className="filter-button" onClick={() => setOpen(!open)} />;
+const closeIcon = <CgClose className="filter-close-button" onClick={() => setOpen(!open)} />;
 
 return(
         <div>

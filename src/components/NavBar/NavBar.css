@@ -86,7 +86,12 @@
     border: none;
     background-color: transparent;
     color: white;
+    font-size: 15pt;
 }
+.filter-close-button {
+    font-size: 25pt;
+}
+
 
 
 @media (min-width: 90rem) {

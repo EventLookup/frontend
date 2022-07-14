@@ -27,8 +27,8 @@ import { de } from "date-fns/locale";
 */
 
 const Calendar = () => {
- const {setIsOnCalender} = useContext(FilterContext)
- setIsOnCalender(true);
+ const {isOnCalender, setIsOnCalender} = useContext(FilterContext);
+ if(isOnCalender === false) {setIsOnCalender(true)};
 
   const [events, setEvents] = useState([]);
   const [date, setDate] = useState(new Date());
