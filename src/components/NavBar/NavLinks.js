@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { MenuContext } from "../../context/MobileNavBarContext";
 import { LoginAuthContext } from "../../context/LoginAuthContext";
 import { FilterContext } from "../../context/FilterContext";
