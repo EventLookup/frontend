@@ -1,11 +1,11 @@
 import { useEffect , useState } from "react";
-import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 import "./SignUp.css";
 
 const Signup = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -126,7 +126,7 @@ const Signup = () => {
 
       // }
     }
-    // setRegisteredMsg(registeredMsg);
+    setRegisteredMsg(registeredMsg);
   }, [errMsg, registeredMsg]);
 
   const signUpFunc = async () => {
@@ -147,9 +147,8 @@ const Signup = () => {
       
     };
     console.log("hier ist der", body)
-      const res = await axios.post("https://eventlookup.herokuapp.com/signup",{
-        data: body,
-      },
+      const res = await axios.post("/signup",
+        body,
       {
         withCredentials:true
       });
@@ -157,14 +156,14 @@ const Signup = () => {
       if(res.status === 400){
         setErrMsg(res?.data?.msg);
         console.log("error hier",res.data.msg)
+      } else if (res.status === 201){
+        setRegisteredMsg(res.data.msg)
+        setTimeout( () => {
+          navigate('/')
+          console.log('user wurde erfolgreich registriert und zu home navigiert')
+          setRegisteredMsg(res?.data.msg);
+        }, 3000)
       }
-      // if(res.data.msg){
-      //   setTimeout( () => {
-      //     navigate('/')
-      //     console.log('es geht')
-      //     setRegisteredMsg(res?.data.msg);
-      //   }, 3000)
-      // }
     } catch (err) {
       console.log(err);
       console.log(err.response.data.msg);
