@@ -23,6 +23,7 @@ import Footer from "./components/Footer/Footer";
 import { LoginAuthContextProvider } from "./context/LoginAuthContext";
 import { FilterContextProvider } from "./context/FilterContext";
 import { FilterOptionContextProvider } from "./context/FilterOptionContext";
+import { MenuContextProvider } from "./context/MobileNavBarContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -30,6 +31,7 @@ root.render(
     <FilterContextProvider>
       <LoginAuthContextProvider>
         <FilterOptionContextProvider>
+          <MenuContextProvider>
           <Header />
           <Routes>
             <Route path="/" element={<Calendar />} />
@@ -40,6 +42,7 @@ root.render(
             <Route path="/impressum" element={<Impressum />} />
             <Route path="*" element={<VierNullVier />} />
           </Routes>
+          </MenuContextProvider>
         </FilterOptionContextProvider>
       </LoginAuthContextProvider>
       <Footer />
