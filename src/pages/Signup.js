@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect , useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
@@ -20,11 +19,11 @@ const Signup = () => {
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
   // error messages
+  const [frontendErr, setFrontendErr] = useState("");
   const [errMsg, setErrMsg] = useState(""); //error from axios
   const [usernameErr, setUsernameErr] = useState("");
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
-  const [frontendErr, setFrontendErr] = useState("");
   const [userAvailableErr , setUserAvailableErr] = useState("");
   const [firstnameErr, setFirstnameErr] = useState("");
   const [lastnameErr, setLastnameErr] = useState("");
@@ -118,17 +117,17 @@ const Signup = () => {
         setUserAvailableErr(errMsg)
       }
       // console.log(errMsg["address.street"])
-      if(registeredMsg){
-        setTimeout( () => {
-          navigate('/')
-          console.log('es geht')
-          setRegisteredMsg(registeredMsg);
-        }, 2000)
+      // if(registeredMsg){
+      //   setTimeout( () => {
+      //     navigate('/')
+      //     console.log('es geht')
+      //     setRegisteredMsg(registeredMsg);
+      //   }, 2000)
 
-      }
+      // }
     }
-    // setRegisteredMsg(registeredMsg);
-  }, [errMsg, registeredMsg, navigate]);
+    setRegisteredMsg(registeredMsg);
+  }, [errMsg, registeredMsg]);
 
   const signUpFunc = async () => {
     try {
@@ -144,21 +143,32 @@ const Signup = () => {
         houseNr,
         city,
         zip,
-        }
-        
-      };
-      const res = await axios.post("/signup",{
-        data: body,
+      }
+      
+    };
+    console.log("hier ist der", body)
+      const res = await axios.post("/signup",
+        body,
+      {
+        withCredentials:true
       });
+<<<<<<< HEAD
       console.log(res.data.msg);
       setRegisteredMsg(res?.data.msg);
       if(res.data.msg){
+=======
+      console.log(res);
+      if(res.status === 400){
+        setErrMsg(res?.data?.msg);
+        console.log("error hier",res.data.msg)
+      } else if (res.status === 201){
+        setRegisteredMsg(res.data.msg)
+>>>>>>> 4318d5c7a5c99df28491cc8e03b5f9fb7d8a5dd9
         setTimeout( () => {
           navigate('/')
-          console.log('es geht')
+          console.log('user wurde erfolgreich registriert und zu home navigiert')
           setRegisteredMsg(res?.data.msg);
         }, 3000)
-
       }
     } catch (err) {
       console.log(err);
@@ -178,6 +188,8 @@ const Signup = () => {
         setFrontendErr("Bitte gib eine gültige Email-Adresse an.");
       } else if (!password) {
         setFrontendErr("Das Passwort muss mindestens 10 Zeichen lang sein.");
+      } else if (organizer && (!firstname || !lastname || !street || !houseNr || !city || !zip)){
+        setFrontendErr(`Bitte tragen Sie die fehlenden Informationen ein`)
       }
       return;
     } else {
@@ -225,7 +237,7 @@ const Signup = () => {
 
         <p className="err-msg">{passwordErr}</p>
 
-        {/* <p className="err-msg">{frontendErr}</p> */}
+        <p className="err-msg">{frontendErr}</p>
 
         <label htmlFor="veranstalter">
           {" "}
