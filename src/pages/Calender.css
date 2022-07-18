@@ -4,11 +4,13 @@
 }
 
 .Calendar .button {
-  display: block;
-  background-color: #fff;
-  margin-right: 1em;
+  position: absolute;
+  top: 1em;
+  left: 5em;
+  background-color: transparent;
+  color: white;
   padding: 0.2em;
-
+  cursor: pointer;
 }
 
 .Calendar .event {
@@ -16,10 +18,17 @@
    margin-top: 1em;
    padding: 1em;
    color: #11748e;
+   text-decoration: none;
 }
 .Calendar .event > p {
    color: black;
    margin-top: 1em;
+}
+.Calendar .event:hover {
+  background-color:aliceblue
+}
+.Calendar #Cal a{
+  text-decoration: none;
 }
 .Calendar #Date_Cal {
   color: #fff;
@@ -40,6 +49,25 @@
   margin: 1em;
   display: inline-block;
   text-align: center;
+  font-weight: bold;
+}
+
+.Calendar #notEvent {
+  color: #fff;
+  margin-top: 1em;
+}
+
+.Calendar .pfeile {
+  cursor: pointer;
+}
+
+.Calendar #los {
+  padding: 0 0.3em;
+  cursor: pointer;
+}
+
+.Calendar select {
+  cursor: pointer;
 }
 
 /* Mobile */
