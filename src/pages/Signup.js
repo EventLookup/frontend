@@ -159,7 +159,7 @@ const Signup = () => {
       } else if (res.status === 201){
         setRegisteredMsg(res.data.msg)
         setTimeout( () => {
-          navigate('/')
+          navigate('/login')
           console.log('user wurde erfolgreich registriert und zu home navigiert')
           setRegisteredMsg(res?.data.msg);
         }, 3000)
