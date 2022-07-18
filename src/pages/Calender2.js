@@ -147,13 +147,10 @@ const Calendar = () => {
               </div>
             </section>
             <section id="Cal">
-              {
-                events.length === 0 ? (
-                    <p id="notEvent">Wir haben kein Event für <b>{city}</b> an diesem Datum.</p>
-                ) : (<p></p>)
-              }
-              {
-                 events.map((event) => (
+              {events.length === 0 ? (
+                <p>keine Events vorhanden</p>
+              ) : (
+                events.map((event) => (
                   <NavLink to={event._id} key={event._id} state={events}>
                     <div className="event">
                       {event.host}
@@ -163,7 +160,7 @@ const Calendar = () => {
                     </div>
                   </NavLink>
                 ))
-            }{" "}
+              )}{" "}
             </section>
           </div>
         </div>
