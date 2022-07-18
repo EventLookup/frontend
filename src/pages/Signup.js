@@ -150,7 +150,7 @@ const Signup = () => {
       const res = await axios.post("/signup",{
         data: body,
       });
-      // console.log(res.data.msg);
+      console.log(res.data.msg);
       setRegisteredMsg(res?.data.msg);
       if(res.data.msg){
         setTimeout( () => {
