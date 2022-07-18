@@ -152,18 +152,12 @@ const Signup = () => {
       {
         withCredentials:true
       });
-<<<<<<< HEAD
-      console.log(res.data.msg);
-      setRegisteredMsg(res?.data.msg);
-      if(res.data.msg){
-=======
       console.log(res);
       if(res.status === 400){
         setErrMsg(res?.data?.msg);
         console.log("error hier",res.data.msg)
       } else if (res.status === 201){
         setRegisteredMsg(res.data.msg)
->>>>>>> 4318d5c7a5c99df28491cc8e03b5f9fb7d8a5dd9
         setTimeout( () => {
           navigate('/')
           console.log('user wurde erfolgreich registriert und zu home navigiert')
