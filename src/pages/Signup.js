@@ -1,12 +1,11 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import axios from "../api/axios";
-import { useNavigate } from "react-router-dom";
+import { useEffect , useState } from "react";
+import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 
 import "./SignUp.css";
 
 const Signup = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -20,11 +19,11 @@ const Signup = () => {
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
   // error messages
+  const [frontendErr, setFrontendErr] = useState("");
   const [errMsg, setErrMsg] = useState(""); //error from axios
   const [usernameErr, setUsernameErr] = useState("");
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
-  const [frontendErr, setFrontendErr] = useState("");
   const [userAvailableErr , setUserAvailableErr] = useState("");
   const [firstnameErr, setFirstnameErr] = useState("");
   const [lastnameErr, setLastnameErr] = useState("");
@@ -118,17 +117,17 @@ const Signup = () => {
         setUserAvailableErr(errMsg)
       }
       // console.log(errMsg["address.street"])
-      if(registeredMsg){
-        setTimeout( () => {
-          navigate('/')
-          console.log('es geht')
-          setRegisteredMsg(registeredMsg);
-        }, 2000)
+      // if(registeredMsg){
+      //   setTimeout( () => {
+      //     navigate('/')
+      //     console.log('es geht')
+      //     setRegisteredMsg(registeredMsg);
+      //   }, 2000)
 
-      }
+      // }
     }
     // setRegisteredMsg(registeredMsg);
-  }, [errMsg, registeredMsg, navigate]);
+  }, [errMsg, registeredMsg]);
 
   const signUpFunc = async () => {
     try {
@@ -144,22 +143,28 @@ const Signup = () => {
         houseNr,
         city,
         zip,
-        }
-        
-      };
-      const res = await axios.post("/signup",{
-        data: body,
-      });
-      // console.log(res.data.msg);
-      setRegisteredMsg(res?.data.msg);
-      if(res.data.msg){
-        setTimeout( () => {
-          navigate('/')
-          console.log('es geht')
-          setRegisteredMsg(res?.data.msg);
-        }, 3000)
-
       }
+      
+    };
+    console.log("hier ist der", body)
+      const res = await axios.post("https://eventlookup.herokuapp.com/signup",{
+        data: body,
+      },
+      {
+        withCredentials:true
+      });
+      console.log(res);
+      if(res.status === 400){
+        setErrMsg(res?.data?.msg);
+        console.log("error hier",res.data.msg)
+      }
+      // if(res.data.msg){
+      //   setTimeout( () => {
+      //     navigate('/')
+      //     console.log('es geht')
+      //     setRegisteredMsg(res?.data.msg);
+      //   }, 3000)
+      // }
     } catch (err) {
       console.log(err);
       console.log(err.response.data.msg);
@@ -178,6 +183,8 @@ const Signup = () => {
         setFrontendErr("Bitte gib eine gültige Email-Adresse an.");
       } else if (!password) {
         setFrontendErr("Das Passwort muss mindestens 10 Zeichen lang sein.");
+      } else if (organizer && (!firstname || !lastname || !street || !houseNr || !city || !zip)){
+        setFrontendErr(`Bitte tragen Sie die fehlenden Informationen ein`)
       }
       return;
     } else {
@@ -225,7 +232,7 @@ const Signup = () => {
 
         <p className="err-msg">{passwordErr}</p>
 
-        {/* <p className="err-msg">{frontendErr}</p> */}
+        <p className="err-msg">{frontendErr}</p>
 
         <label htmlFor="veranstalter">
           {" "}

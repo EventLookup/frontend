@@ -1,9 +1,9 @@
 import { useState , createContext } from "react";
 import axios from 'axios';
 
-export const AuthContext = createContext();
+export const LoginAuthContext = createContext();
 
-export const AuthContextProvider = ({children}) => {
+export const LoginAuthContextProvider = ({children}) => {
     const [ token , setToken ] = useState('');
     const [loggedIn , setLoggedIn] = useState(false);
     // console.log("CONTEXT token " , token);
@@ -15,6 +15,6 @@ export const AuthContextProvider = ({children}) => {
 
         <LoginAuthContext.Provider value={{token , setToken , loggedIn , setLoggedIn}}>
             {children}
-        </AuthContext.Provider>
+        </LoginAuthContext.Provider>
     )
 }
