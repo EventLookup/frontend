@@ -34,11 +34,11 @@ const Event = (props) => {
 
   const navigiereOderEingabe = (event) => {
     event.preventDefault();
-    // !loggedIn ? (
-    //   navigate('/Login')
-    //   ) : (
+    !loggedIn ? (
+      navigate('/Login')
+      ) : (
     setEingabe(event.target.value)
-      // )
+      )
   }
 
   
