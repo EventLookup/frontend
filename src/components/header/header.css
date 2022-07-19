@@ -20,19 +20,24 @@ header{
     margin-bottom: 20px;
 }
 
-header > img {
-    position:absolute;
-    left:5%;
-}
+
 
 header .logo{
     display: none;
     height: 50px;
     margin-top: 15px;
 }
+header .logo-link {
+    position: absolute;
+    left:  5%;
+}
 
 header .logo-mobile {
     height: 50px;
+    
+}
+header .logo-mobile-link{
+    position: absolute;
     left: calc(50% - 50px);
 }
 
