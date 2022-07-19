@@ -64,7 +64,7 @@ const useAuth = () => {
       if(res.data.accessToken){
         const timer = setAxiosDefaultHeader(res.data.accessToken);
         clearTimeout(timer);
-        navigate(-1);
+        navigate("/");
         setLoggedIn(true);
       }
 
@@ -102,6 +102,7 @@ const useAuth = () => {
       }
     })();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authOption]);
 
   return {
