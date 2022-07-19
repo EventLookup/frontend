@@ -35,7 +35,7 @@ root.render(
           <Header />
           <Routes>
             <Route path="/" element={<Calendar />} />
-            <Route path="/:id" element={<Event />} />
+            <Route path="/event/:id" element={<Event />} />
             <Route path="/create" element={<Create />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

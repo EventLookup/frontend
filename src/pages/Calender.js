@@ -155,7 +155,7 @@ const Calendar = () => {
               }
               {
                  events.map((event) => (
-                  <NavLink to={event._id} key={event._id} state={events}>
+                  <NavLink to={`/event/${event._id}`} key={event._id} state={events}>
                     <div className="event">
                       {event.host}
                       <br />
