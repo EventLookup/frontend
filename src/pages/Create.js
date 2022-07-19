@@ -72,6 +72,7 @@ const Create = () => {
          navigate('/login')
       }
       setAuthOption('refresh');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
 
     let body = {

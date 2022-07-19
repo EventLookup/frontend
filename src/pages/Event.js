@@ -2,17 +2,17 @@ import { NavLink, useParams } from "react-router-dom";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import {BiLoader} from "react-icons/bi";
 import "./Event.css";
-import { useEffect, useContext } from "react";
-import { LoginAuthContext } from "../context/LoginAuthContext";
+import { useEffect, /* useContext */ } from "react";
+// import { LoginAuthContext } from "../context/LoginAuthContext";
 import axios from "../api/axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Event = (props) => {
   const { id } = useParams();
   const [singleEvent, setSingleEvent] = useState("loading");
-  const {loggedIn} = useContext(LoginAuthContext);
-  const navigate = useNavigate();
+  // const {loggedIn} = useContext(LoginAuthContext);
+  // const navigate = useNavigate();
   const [eingabe, setEingabe] = useState("");
 
   useEffect(() => {
