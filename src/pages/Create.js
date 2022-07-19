@@ -109,6 +109,9 @@ const Create = () => {
           );
           console.log(response);
           setMessage(response.data.msg)
+          if(response.data.msg === 'Event wurde erstellt'){
+            navigate("/");
+          }
         } catch (error) {
           // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
           // hier mach ich das erstmal nur mit einem console.error
