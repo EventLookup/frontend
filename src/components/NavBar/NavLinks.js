@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { MenuContext } from "../../context/MobileNavBarContext";
 import { LoginAuthContext } from "../../context/LoginAuthContext";
-import { FilterContext } from "../../context/FilterContext";
+
 import useAuth from "../../hooks/useAuth";
 
 const NavLinks = () => {
@@ -10,27 +10,27 @@ const NavLinks = () => {
     const {loggedIn} = useContext(LoginAuthContext)
     const {setAuthOption} = useAuth()
 
-    const {setIsOnCalender} = useContext(FilterContext)
+ 
 
     return(
         <>
             <NavLink onClick={() => {
                 setOpen(false)
-                setIsOnCalender(true)
+                
                 }} to='/'>KALENDER</NavLink> { } {/* Diese Abstände müssten noch über CSS gelöst werden, finde ich! */}
             <NavLink onClick={() => {
                 setOpen(false)
-                setIsOnCalender(false)
+                
                 }} to='/create'>EINTRAGEN</NavLink> { }
             {!loggedIn ?
             <>
             <NavLink onClick={() => {
                 setOpen(false)
-                setIsOnCalender(false)
+                
                 }} to='/Login'>LOGIN</NavLink> { }
             <NavLink onClick={() => {
                 setOpen(false)
-                setIsOnCalender(false)
+                
                 }} to='/Signup'>REGISTRIEREN</NavLink> { }
             </>
             :

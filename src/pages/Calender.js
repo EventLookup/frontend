@@ -1,7 +1,6 @@
 import "./Calender.css";
 import axios from "../api/axios";
 import { useEffect, useState, useContext } from "react";
-import { FilterContext } from "../context/FilterContext";
 import { FilterOptionContext } from "../context/FilterOptionContext";
 import SideNav from "../components/SideNav/SideNav";
 import {
@@ -25,8 +24,7 @@ import { NavLink } from "react-router-dom";
 */
 
 const Calendar = () => {
-  const {setIsOnCalender} = useContext(FilterContext)
-  setIsOnCalender(true);
+ 
   const [city] = useContext(FilterOptionContext);
   
   const [events, setEvents] = useState([]);
