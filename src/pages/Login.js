@@ -5,6 +5,7 @@ import "./Login.css";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
+  document.title = "Eventlookup | Login";
   const {
     // optionen sind login, refresh, logout 
     setAuthOption, 

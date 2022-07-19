@@ -9,6 +9,7 @@ import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 
 const Event = (props) => {
+  document.title = "Eventlookup | Event";
   const { id } = useParams();
   const [singleEvent, setSingleEvent] = useState("loading");
   // const {loggedIn} = useContext(LoginAuthContext);

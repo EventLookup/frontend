@@ -26,6 +26,7 @@ import { NavLink } from "react-router-dom";
 */
 
 const Calendar = () => {
+  document.title = "Eventlookup | Kalender";
   const { setIsOnCalender } = useContext(FilterContext);
   setIsOnCalender(true);
   const [city] = useContext(FilterOptionContext);
