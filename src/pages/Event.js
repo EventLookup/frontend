@@ -2,13 +2,14 @@ import { NavLink, useParams } from "react-router-dom";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import {BiLoader} from "react-icons/bi";
 import "./Event.css";
-import { useEffect, useContext } from "react";
+import { useEffect, /* useContext */ } from "react";
 // import { LoginAuthContext } from "../context/LoginAuthContext";
 import axios from "../api/axios";
 import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 
 const Event = (props) => {
+  document.title = "Eventlookup | Event";
   const { id } = useParams();
   const [singleEvent, setSingleEvent] = useState("loading");
   // const {loggedIn} = useContext(LoginAuthContext);

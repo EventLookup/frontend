@@ -14,6 +14,7 @@ import { de } from "date-fns/locale";
 import { NavLink } from "react-router-dom";
 
 const Calendar = () => {
+  document.title = "Eventlookup | Kalender";
   const { setIsOnCalender } = useContext(FilterContext);
   setIsOnCalender(true);
   const [city] = useContext(FilterOptionContext);
@@ -142,7 +143,7 @@ const Calendar = () => {
               }
               {
                  events.map((event) => (
-                  <NavLink to={event._id} key={event._id} state={events}>
+                  <NavLink to={`/event/${event._id}`} key={event._id} state={events}>
                     <div className="event">
                       {event.host}
                       <br />

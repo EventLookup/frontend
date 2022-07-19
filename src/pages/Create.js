@@ -6,6 +6,7 @@ import { LoginAuthContext } from "../context/LoginAuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Create = () => {
+    document.title = "Eventlookup | Create";
     const navigate = useNavigate();
     const { setAuthOption } = useAuth();
     const { loggedIn } = useContext(LoginAuthContext);
@@ -72,6 +73,7 @@ const Create = () => {
          navigate('/login')
       }
       setAuthOption('refresh');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
 
     let body = {
