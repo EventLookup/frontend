@@ -1,7 +1,6 @@
 import "./Calender.css";
 import axios from "../api/axios";
 import { useEffect, useState, useContext } from "react";
-// import { FilterContext } from "../context/FilterContext";
 import { FilterOptionContext } from "../context/FilterOptionContext";
 import FilterSite from "../components/NavBar/FilterSite";
 import SideNav from "../components/SideNav/SideNav";
@@ -14,9 +13,8 @@ import { de } from "date-fns/locale";
 import { NavLink } from "react-router-dom";
 
 const Calendar = () => {
+ 
   document.title = "Eventlookup | Kalender";
-  // const { setIsOnCalender } = useContext(FilterContext);
-  // setIsOnCalender(true);
   const [city] = useContext(FilterOptionContext);
 
   const [events, setEvents] = useState([]);
