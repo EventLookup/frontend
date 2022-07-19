@@ -14,7 +14,7 @@ const Event = (props) => {
   const [singleEvent, setSingleEvent] = useState("loading");
   // const {loggedIn} = useContext(LoginAuthContext);
   // const navigate = useNavigate();
-  const [eingabe, setEingabe] = useState("");
+  // const [eingabe, setEingabe] = useState("");
 
   useEffect(() => {
     const getSingleEvent = async () => {
@@ -33,14 +33,14 @@ const Event = (props) => {
     getSingleEvent();
   }, [id]);
 
-  const navigiereOderEingabe = (event) => {
-    event.preventDefault();
+  // const navigiereOderEingabe = (event) => {
+    // event.preventDefault();
     // !loggedIn ? (
     //   navigate('/Login')
     //   ) : (
-    setEingabe(event.target.value)
+    // setEingabe(event.target.value)
       // )
-  }
+  // }
 
   
   return (
