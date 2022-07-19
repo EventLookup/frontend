@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
 const Signup = () => {
+  document.title = "Eventlookup | Signup";
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
