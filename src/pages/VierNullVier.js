@@ -1,6 +1,7 @@
 import "./VierNullVier.css"
 
 const VierNullVier = () =>{
+    document.title = "Eventlookup | 404";
     return (
         <div className="vier-null-vier">
             <main>

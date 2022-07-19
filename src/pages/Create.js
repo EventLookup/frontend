@@ -6,6 +6,7 @@ import { LoginAuthContext } from "../context/LoginAuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Create = () => {
+    document.title = "Eventlookup | Create";
     const navigate = useNavigate();
     const { setAuthOption } = useAuth();
     const { loggedIn } = useContext(LoginAuthContext);
@@ -72,6 +73,7 @@ const Create = () => {
          navigate('/login')
       }
       setAuthOption('refresh');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
 
     let body = {
@@ -107,6 +109,9 @@ const Create = () => {
           );
           console.log(response);
           setMessage(response.data.msg)
+          if(response.data.msg === 'Event wurde erstellt'){
+            navigate("/");
+          }
         } catch (error) {
           // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
           // hier mach ich das erstmal nur mit einem console.error

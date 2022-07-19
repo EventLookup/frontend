@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
 const Signup = () => {
+  document.title = "Eventlookup | Signup";
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -303,7 +304,7 @@ const Signup = () => {
           </>
         )}
         <button type="submit" onClick={onSignUpHandler}>
-          Sign Up
+          Neu anmelden
         </button>
 
         {registeredMsg && (
@@ -312,7 +313,9 @@ const Signup = () => {
           </p>
         )}
 
+        <p className="login-now">Schon registriert? <a href="/login">Jetzt anmelden</a></p>
         {userAvailableErr && <p>{userAvailableErr}</p>}
+
       </form>
     </main>
   );
