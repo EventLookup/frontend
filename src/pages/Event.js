@@ -3,16 +3,16 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import {BiLoader} from "react-icons/bi";
 import "./Event.css";
 import { useEffect, useContext } from "react";
-import { LoginAuthContext } from "../context/LoginAuthContext";
+// import { LoginAuthContext } from "../context/LoginAuthContext";
 import axios from "../api/axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Event = (props) => {
   const { id } = useParams();
   const [singleEvent, setSingleEvent] = useState("loading");
-  const {loggedIn} = useContext(LoginAuthContext);
-  const navigate = useNavigate();
+  // const {loggedIn} = useContext(LoginAuthContext);
+  // const navigate = useNavigate();
   const [eingabe, setEingabe] = useState("");
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Event = (props) => {
         const res = await axios.get(`/events/${id}`);
         // console.log(res.data);
         setSingleEvent(res.data.event);
-        console.log("test: ", res.data.event)
+        // console.log("test: ", res.data.event)
         // console.log(singleEvent);
                 
       } catch (err) {
@@ -72,7 +72,7 @@ const Event = (props) => {
           </p>
         </div> : setSingleEvent(null)
         }
-        <div className="input">
+        {/* <div className="input">
           <p>Verabredet euch hier (Login erforderlich):</p>
           <form onSubmit={navigiereOderEingabe}>
             <textarea onChange={(event) => setEingabe(event.target.value)
@@ -80,7 +80,7 @@ const Event = (props) => {
             <input type="submit"></input>
           </form>
         </div>
-        <div className="output">{eingabe}</div>
+        <div className="output">{eingabe}</div> */}
       </div>
     </>
   );
