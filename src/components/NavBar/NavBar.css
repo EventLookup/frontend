@@ -73,9 +73,11 @@
     border: none;
     background-color: transparent;
     color: white;
-    font-size: 12pt;
+    font-size: 15pt;
     height: 50px;
     width: 100%;
+    cursor: pointer;
+    padding: 0 15px 0 15px;
 }
 
 .navbar .log-button:hover {

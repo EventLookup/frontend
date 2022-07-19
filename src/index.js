@@ -21,14 +21,12 @@ import Footer from "./components/Footer/Footer";
 
 // context
 import { LoginAuthContextProvider } from "./context/LoginAuthContext";
-import { FilterContextProvider } from "./context/FilterContext";
 import { FilterOptionContextProvider } from "./context/FilterOptionContext";
 import { MenuContextProvider } from "./context/MobileNavBarContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <FilterContextProvider>
       <LoginAuthContextProvider>
         <FilterOptionContextProvider>
           <MenuContextProvider>
@@ -46,6 +44,5 @@ root.render(
         </FilterOptionContextProvider>
       </LoginAuthContextProvider>
       <Footer />
-    </FilterContextProvider>
   </BrowserRouter>
 );
