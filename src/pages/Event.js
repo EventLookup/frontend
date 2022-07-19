@@ -22,7 +22,7 @@ const Event = (props) => {
         const res = await axios.get(`/events/${id}`);
         // console.log(res.data);
         setSingleEvent(res.data.event);
-        console.log("test: ", res.data.event)
+        // console.log("test: ", res.data.event)
         // console.log(singleEvent);
                 
       } catch (err) {
@@ -73,7 +73,7 @@ const Event = (props) => {
           </p>
         </div> : setSingleEvent(null)
         }
-        <div className="input">
+        {/* <div className="input">
           <p>Verabredet euch hier (Login erforderlich):</p>
           <form onSubmit={navigiereOderEingabe}>
             <textarea onChange={(event) => setEingabe(event.target.value)
@@ -81,7 +81,7 @@ const Event = (props) => {
             <input type="submit"></input>
           </form>
         </div>
-        <div className="output">{eingabe}</div>
+        <div className="output">{eingabe}</div> */}
       </div>
     </>
   );
