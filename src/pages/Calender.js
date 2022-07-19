@@ -13,18 +13,6 @@ import { format, addDays, subDays, addMonths, subMonths } from "date-fns";
 import { de } from "date-fns/locale";
 import { NavLink } from "react-router-dom";
 
-/* 
- TODOS im Kalender
-
- limit 20, 50, 100 +
- page (pagination)
- css styling (Footer) +
- semantik +
- console.log() im useEffect entfernen
- err handling, bzw. was soll angezeigt werden wenn an dem Tag keine Events sind oder gar in dem gesamten
- Monat?
-*/
-
 const Calendar = () => {
   document.title = "Eventlookup | Kalender";
   const { setIsOnCalender } = useContext(FilterContext);
