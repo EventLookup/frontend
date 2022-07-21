@@ -9,7 +9,7 @@ const Create = () => {
     document.title = "Eventlookup | Create";
     const navigate = useNavigate();
     const { setAuthOption } = useAuth();
-    const { loggedIn } = useContext(LoginAuthContext);
+    const { loggedIn, organizer } = useContext(LoginAuthContext);
 
     const [inputVeranstaltungsName, setInputVeranstaltungsName] = useState("")
     const [inputLocation, setInputLocation] = useState("")
@@ -120,8 +120,17 @@ const Create = () => {
           
         }
         console.log(errors)
-    }
-
+    }  
+    if(loggedIn && !organizer) {
+        return (
+            loggedIn &&
+            <div className="create">
+                <main>
+                    <p>Bitte erstelle ein Konto für Veranstalter.</p>
+                </main>
+            </div>
+        )
+    } else {
     return (
       loggedIn &&
         <div className="create">
@@ -154,6 +163,7 @@ const Create = () => {
             
         </div>
     );
+    }
 }
 
 export default Create;
