@@ -24,7 +24,7 @@
     text-decoration: none;
 }
 
- div.description {
+ div.description, div.input, div.output {
     background-color: rgb(242, 243, 244);
 
     border-radius: 5px;
@@ -40,4 +40,18 @@
 }
  div.description time{
     color: teal;
+}
+
+div.input, div.output {
+    margin-top: 2em;
+    max-width: 70vW;
+}
+
+textarea {
+    max-width: 65vW;
+    margin: 1em 0;
+}
+textarea:focus {
+    outline: none;
+    border: 1px solid teal;
 }

@@ -59,3 +59,7 @@ form.login p.err-msg {
 form.login p.registered-msg {
     color: rgba(0, 128, 0, 0.694);
 }
+form.login p.signup-now a{
+    /* text-decoration: none; */
+    color: #11748e;
+}

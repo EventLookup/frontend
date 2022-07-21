@@ -17,6 +17,7 @@
 .FilterLinks > aside div {
     width: 100vw;
     padding:0.5em;
+    cursor: pointer;
 }
 
 .FilterLinks > aside div:hover {
