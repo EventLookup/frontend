@@ -6,11 +6,12 @@ import jwt_decode from 'jwt-decode';
 import axios from "../api/axios";
 // context
 import { LoginAuthContext } from "../context/LoginAuthContext";
+// import { BsBoxArrowInDownLeft } from "react-icons/bs";
 
 const useAuth = () => {
   // hooks
   const navigate = useNavigate();
-  const { setLoggedIn } = useContext(LoginAuthContext);
+  const { setLoggedIn, setOrganizer } = useContext(LoginAuthContext);
   // useStates
   const [authOption, setAuthOption] = useState(null);
   const [email, setEmail] = useState("");
@@ -64,9 +65,13 @@ const useAuth = () => {
       if(res.data.accessToken){
         const timer = setAxiosDefaultHeader(res.data.accessToken);
         clearTimeout(timer);
-        navigate(-1);
+        navigate("/");
         setLoggedIn(true);
       }
+
+      if(res.data.user.organizer === true) {
+        setOrganizer(true);
+      };
 
     } catch (err) { 
       console.log(err)
@@ -102,6 +107,7 @@ const useAuth = () => {
       }
     })();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authOption]);
 
   return {
@@ -110,6 +116,7 @@ const useAuth = () => {
     setEmail,
     password,
     setPassword,
+    setOrganizer,
     loginErrors
   };
 }

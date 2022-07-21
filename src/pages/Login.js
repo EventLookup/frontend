@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 // css
 import "./Login.css";
 
@@ -6,6 +5,7 @@ import "./Login.css";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
+  document.title = "Eventlookup | Login";
   const {
     // optionen sind login, refresh, logout 
     setAuthOption, 
@@ -60,7 +60,8 @@ const passwordHandler = (e) => {
         <p className="err-msg">{loginErrors}</p>
         {/* <p className="err-msg">{backendErr}</p> */}
 
-        <button onClick={onSubmitHandler}>Login</button>
+        <button onClick={onSubmitHandler}>Einloggen</button>
+        <p className="signup-now">Noch kein Konto? <a href="/signup">Jetzt registrieren</a></p>
       </form>
     </main>
   );

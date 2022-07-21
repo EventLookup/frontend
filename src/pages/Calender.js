@@ -2,6 +2,7 @@ import "./Calender.css";
 import axios from "../api/axios";
 import { useEffect, useState, useContext } from "react";
 import { FilterOptionContext } from "../context/FilterOptionContext";
+import FilterSite from "../components/NavBar/FilterSite";
 import SideNav from "../components/SideNav/SideNav";
 import {
   BsFillArrowLeftCircleFill,
@@ -11,22 +12,11 @@ import { format, addDays, subDays, addMonths, subMonths } from "date-fns";
 import { de } from "date-fns/locale";
 import { NavLink } from "react-router-dom";
 
-/* 
- TODOS im Kalender
-
- limit 20, 50, 100 +
- page (pagination)
- css styling (Footer) +
- semantik +
- console.log() im useEffect entfernen
- err handling, bzw. was soll angezeigt werden wenn an dem Tag keine Events sind oder gar in dem gesamten
- Monat?
-*/
-
 const Calendar = () => {
  
+  document.title = "Eventlookup | Kalender";
   const [city] = useContext(FilterOptionContext);
-  
+
   const [events, setEvents] = useState([]);
   const [date, setDate] = useState(new Date());
   const [lookingForDay, setLookingForDay] = useState(true);
@@ -76,10 +66,20 @@ const Calendar = () => {
     let url;
 
     const fetchData = async () => {
-      if (lookingForDay) {
-        url = `/events?day=${format(date, `dd.MM.yyyy`)}&limit=${eventLimit}&city=${city}`;
+      if (lookingForDay && city === "") {
+        url = `/events?day=${format(date, `dd.MM.yyyy`)}&limit=${eventLimit}`;
+      } else if (lookingForDay) {
+        url = `/events?day=${format(
+          date,
+          `dd.MM.yyyy`
+        )}&limit=${eventLimit}&city=${city}`;
+      } else if (city === "") {
+        url = `/events?month=${format(date, `MM.yyyy`)}&limit=${eventLimit}`;
       } else {
-        url = `/events?month=${format(date, `MM.yyyy`)}&limit=${eventLimit}&city=${city}`;
+        url = `/events?month=${format(
+          date,
+          `MM.yyyy`
+        )}&limit=${eventLimit}&city=${city}`;
       }
 
       console.log(url);
@@ -98,7 +98,6 @@ const Calendar = () => {
   return (
     <div className="Calendar">
       <main>
-        
         <div id="SideNav_Cal">
           <section id="SideNav">
             <SideNav
@@ -110,14 +109,26 @@ const Calendar = () => {
           </section>
           <div id="Cal_Date_Cal">
             <section id="Date_Cal">
+              <FilterSite
+                today={handleResetDate}
+                tomorrow={handleNextDay}
+                month={handleResetMonth}
+                nextMonth={handleNextMonth}
+              />
               <div>
-                <BsFillArrowLeftCircleFill onClick={handleSubDate} />
+                <BsFillArrowLeftCircleFill
+                  onClick={handleSubDate}
+                  className="pfeile"
+                />
                 <span id="ausgabe">
                   {lookingForDay
                     ? format(date, "EEEE, dd.MM.yyyy", { locale: de })
                     : format(date, "MMMM yyyy", { locale: de })}
                 </span>
-                <BsArrowRightCircleFill onClick={handleAddDate} />
+                <BsArrowRightCircleFill
+                  onClick={handleAddDate}
+                  className="pfeile"
+                />
               </div>
               <div>
                 <label htmlFor="amount-select">Anzahl der Events: </label>
@@ -134,23 +145,29 @@ const Calendar = () => {
             </section>
             <section id="Cal">
               {events.length === 0 ? (
-                <p>keine Events vorhanden</p>
+                <p id="notEvent">
+                  Wir haben kein Event an diesem Datum.
+                </p>
               ) : (
-                events.map((event) => (
-                  <NavLink to={event._id} key={event._id} state={events}>
-                    <div className="event">
-                      {event.host}
-                      <br />
-                      <p>{event.title}</p>
-                      <p>{event.location.city}</p>
-                    </div>
-                  </NavLink>
-                ))
-              )}{" "}
+                <p></p>
+              )}
+              {events.map((event) => (
+                <NavLink
+                  to={`/event/${event._id}`}
+                  key={event._id}
+                  state={events}
+                >
+                  <div className="event">
+                    {event.host}
+                    <br />
+                    <p>{event.title}</p>
+                    <p>{event.location.city}</p>
+                  </div>
+                </NavLink>
+              ))}{" "}
             </section>
           </div>
         </div>
-        
       </main>
     </div>
   );

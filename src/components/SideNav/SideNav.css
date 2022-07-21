@@ -9,3 +9,19 @@
     margin-top: 1em;
     width: 1em;
 }
+.SideNav > aside div {
+    cursor: pointer;
+}
+.SideNav > aside div:hover {
+    background-color: white;
+    color: black;
+}
+.SideNav form {
+    display: flex;
+    flex-direction: row;
+}
+.SideNav #los {
+    padding: 0.2em;
+    margin-left: 0.8em;
+    cursor: pointer;
+}
