@@ -108,7 +108,8 @@ const Create = () => {
           if(response.status === 400) {
             setErrors(response.data.msg);
           } else if(response.status === 201) {
-            setMessage(response.data.msg)
+            const msg = `${response.data.msg}, Weiterleitung zum Kalender...`
+            setMessage(msg)
           }
         //   if(response.data) setErrors(response.data.msg)
           if(response.data.msg === 'Event wurde erstellt'){
@@ -158,7 +159,7 @@ const Create = () => {
                     <input onChange={onChangeHandlerStadt} type="text" placeholder="Stadt" required></input>
                     {errors.city && <p className="error-message">{errors.city}</p>}
                     <button type="submit">Absenden</button>
-                    <h5 style= {{color: "green"}}>{message}, Weiterleitung zum Kalender...</h5>
+                    <h5 style= {{color: "green"}}>{message}</h5>
                 </form>
                 
             </main>
