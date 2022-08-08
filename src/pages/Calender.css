@@ -73,7 +73,6 @@
 /* Mobile */
 .Calendar #SideNav {
   display: none;
-  /* display: block; */
 }
 
 /* Tablet Landscape */
@@ -99,7 +98,6 @@
    flex-wrap: wrap;
   }
   .Calendar .event {
-   /* flex: 1; */
    flex-basis: 20%;
    margin-right: 1em;
 }
