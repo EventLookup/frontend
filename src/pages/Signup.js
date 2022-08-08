@@ -117,15 +117,6 @@ const Signup = () => {
       if(typeof(errMsg) !== 'object'){
         setUserAvailableErr(errMsg)
       }
-      // console.log(errMsg["address.street"])
-      // if(registeredMsg){
-      //   setTimeout( () => {
-      //     navigate('/')
-      //     console.log('es geht')
-      //     setRegisteredMsg(registeredMsg);
-      //   }, 2000)
-
-      // }
     }
     setRegisteredMsg(registeredMsg);
   }, [errMsg, registeredMsg]);
@@ -147,27 +138,21 @@ const Signup = () => {
       }
       
     };
-    console.log("hier ist der", body)
       const res = await axios.post("/signup",
         body,
       {
         withCredentials:true
       });
-      console.log(res);
       if(res.status === 400){
         setErrMsg(res?.data?.msg);
-        console.log("error hier",res.data.msg)
       } else if (res.status === 201){
         setRegisteredMsg(res.data.msg)
         setTimeout( () => {
           navigate('/login')
-          console.log('user wurde erfolgreich registriert und zu home navigiert')
           setRegisteredMsg(res?.data.msg);
         }, 3000)
       }
     } catch (err) {
-      console.log(err);
-      console.log(err.response.data.msg);
       setErrMsg(err?.response?.data?.msg);
     }
   };
@@ -191,8 +176,6 @@ const Signup = () => {
       await signUpFunc();
     }
   };
-
-  // die errmsg erhalten (Arr) => und durch filter schauen in welchen input der Fehler stattfindet... und dann unter die passende stelle des inputs den Fehler anzeigen lassen
 
   return (
     <main className="main-signup">
@@ -235,7 +218,6 @@ const Signup = () => {
         <p className="err-msg">{frontendErr}</p>
 
         <label htmlFor="veranstalter">
-          {" "}
           <input
             type="checkbox"
             name="veranstalter"
