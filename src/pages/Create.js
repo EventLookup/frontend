@@ -9,7 +9,7 @@ const Create = () => {
     document.title = "Eventlookup | Create";
     const navigate = useNavigate();
     const { setAuthOption } = useAuth();
-    const { loggedIn } = useContext(LoginAuthContext);
+    const { loggedIn, organizer } = useContext(LoginAuthContext);
 
     const [inputVeranstaltungsName, setInputVeranstaltungsName] = useState("")
     const [inputLocation, setInputLocation] = useState("")
@@ -30,10 +30,6 @@ const Create = () => {
         let capitalized = string.charAt(0).toUpperCase() + string.slice(1);
         return capitalized
     }
-
-    
-    
-
 
 
     const onChangeHandlerVeranstaltungsName = (e) => {
@@ -99,6 +95,7 @@ const Create = () => {
         setMessage("");
         setErrors("")
         e.preventDefault();
+        console.log(body);
         try {
           let response = await axios.put("/events",
               body
@@ -107,21 +104,36 @@ const Create = () => {
               withCredentials: true 
             }
           );
-          console.log(response);
-          setMessage(response.data.msg)
+          console.log('msg: ', response)
+          if(response.status === 400) {
+            setErrors(response.data.msg);
+          } else if(response.status === 201) {
+            const msg = `${response.data.msg}, Weiterleitung zum Kalender...`
+            setMessage(msg)
+          }
+        //   if(response.data) setErrors(response.data.msg)
           if(response.data.msg === 'Event wurde erstellt'){
-            navigate("/");
+            setTimeout(() => {
+                navigate("/");
+            }, 3000);
           }
         } catch (error) {
-          // mit dem error objekt muss man im frontend weiter arbeiten und fehler ausgeben
-          // hier mach ich das erstmal nur mit einem console.error
-          console.error(error?.response?.data?.errors);
+         console.error(error?.response?.data?.errors);
           if(error.response) setErrors(error.response.data.msg);
           
         }
         console.log(errors)
-    }
-
+    }  
+    if(loggedIn && !organizer) {
+        return (
+            loggedIn &&
+            <div className="create">
+                <main>
+                    <p>Bitte erstelle ein Konto für Veranstalter.</p>
+                </main>
+            </div>
+        )
+    } else {
     return (
       loggedIn &&
         <div className="create">
@@ -141,9 +153,9 @@ const Create = () => {
                     <input onChange={onChangeHandlerStraße} type="text" placeholder="Straße" required></input>
                     {errors.street && <p className="error-message">{errors.street}</p>}
                     <input onChange={onChangeHandlerHausnr} type="text" placeholder="Hausnr." required></input>
-                    {errors['location.houseNr'] && <p className="error-message">{errors['location.houseNr']}</p>}
+                    {errors["location.houseNr"] && <p className="error-message">{errors["location.houseNr"]}</p>}
                     <input onChange={onChangeHandlerPLZ} type="text" placeholder="PLZ" required></input>
-                    {errors['location.zip'] && <p className="error-message" >{errors['location.zip']}</p>}
+                    {errors["location.zip"] && <p className="error-message" >{errors["location.zip"]}</p>}
                     <input onChange={onChangeHandlerStadt} type="text" placeholder="Stadt" required></input>
                     {errors.city && <p className="error-message">{errors.city}</p>}
                     <button type="submit">Absenden</button>
@@ -154,6 +166,7 @@ const Create = () => {
             
         </div>
     );
+    }
 }
 
 export default Create;

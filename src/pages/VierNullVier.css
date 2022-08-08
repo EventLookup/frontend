@@ -17,3 +17,9 @@
     color: #11748e;
     font-size: 250px;
 }
+/* mobile-second */
+@media screen and (max-width: 90rem) {
+    .vier-null-vier h1 {
+        font-size: 100px;
+    }
+}

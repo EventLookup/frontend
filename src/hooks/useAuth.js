@@ -6,11 +6,12 @@ import jwt_decode from 'jwt-decode';
 import axios from "../api/axios";
 // context
 import { LoginAuthContext } from "../context/LoginAuthContext";
+// import { BsBoxArrowInDownLeft } from "react-icons/bs";
 
 const useAuth = () => {
   // hooks
   const navigate = useNavigate();
-  const { setLoggedIn } = useContext(LoginAuthContext);
+  const { setLoggedIn, setOrganizer } = useContext(LoginAuthContext);
   // useStates
   const [authOption, setAuthOption] = useState(null);
   const [email, setEmail] = useState("");
@@ -68,6 +69,10 @@ const useAuth = () => {
         setLoggedIn(true);
       }
 
+      if(res.data.user.organizer === true) {
+        setOrganizer(true);
+      };
+
     } catch (err) { 
       console.log(err)
       // Das Error Handling muss noch Grafisch dargestellt werden
@@ -111,6 +116,7 @@ const useAuth = () => {
     setEmail,
     password,
     setPassword,
+    setOrganizer,
     loginErrors
   };
 }
