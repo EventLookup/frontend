@@ -26,7 +26,7 @@ function SideNav(props) {
           <div id="Suche">
             <form onSubmit={cityChange}>
               <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder='Ort' size="10" maxLength="20"/>
-              <input type="submit" value="los" id="los" />
+              {/* <input type="submit" value="los" id="los" /> */}
             </form>
           </div>
         </aside>
