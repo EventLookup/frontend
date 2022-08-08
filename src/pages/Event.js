@@ -6,24 +6,18 @@ import { useEffect, /* useContext */ } from "react";
 // import { LoginAuthContext } from "../context/LoginAuthContext";
 import axios from "../api/axios";
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 const Event = (props) => {
   document.title = "Eventlookup | Event";
   const { id } = useParams();
   const [singleEvent, setSingleEvent] = useState("loading");
   // const {loggedIn} = useContext(LoginAuthContext);
-  // const navigate = useNavigate();
-  // const [eingabe, setEingabe] = useState("");
 
   useEffect(() => {
     const getSingleEvent = async () => {
       try {
         const res = await axios.get(`/events/${id}`);
-        // console.log(res.data);
         setSingleEvent(res.data.event);
-        // console.log("test: ", res.data.event)
-        // console.log(singleEvent);
                 
       } catch (err) {
         console.log(err?.response);
@@ -32,16 +26,6 @@ const Event = (props) => {
     };
     getSingleEvent();
   }, [id]);
-
-  // const navigiereOderEingabe = (event) => {
-    // event.preventDefault();
-    // !loggedIn ? (
-    //   navigate('/Login')
-    //   ) : (
-    // setEingabe(event.target.value)
-      // )
-  // }
-
   
   return (
     <>
@@ -73,15 +57,6 @@ const Event = (props) => {
           </p>
         </div> : setSingleEvent(null)
         }
-        {/* <div className="input">
-          <p>Verabredet euch hier (Login erforderlich):</p>
-          <form onSubmit={navigiereOderEingabe}>
-            <textarea onChange={(event) => setEingabe(event.target.value)
-            }></textarea>
-            <input type="submit"></input>
-          </form>
-        </div>
-        <div className="output">{eingabe}</div> */}
       </div>
     </>
   );
