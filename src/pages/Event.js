@@ -20,7 +20,7 @@ const Event = (props) => {
         setSingleEvent(res.data.event);
                 
       } catch (err) {
-        console.log(err?.response);
+        // console.log(err?.response);
         setSingleEvent(null);
       }
     };

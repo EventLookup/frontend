@@ -3,9 +3,7 @@ import DesktopNavigation from "./DesktopNavigation";
 import "./NavBar.css";
 import { MenuContextProvider } from "../../context/MobileNavBarContext";
 
-
 const NavBar = (props) => {
-
 
   return (
     <div className="navbar">

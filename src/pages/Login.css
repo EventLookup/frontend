@@ -24,7 +24,6 @@ form.login h2 {
     font-weight: 200;
     letter-spacing: 3px;
     text-transform: uppercase;
-    /* align-self: flex-start; */
 }
 form.login input {
     padding: .5rem .5rem;
@@ -60,6 +59,5 @@ form.login p.registered-msg {
     color: rgba(0, 128, 0, 0.694);
 }
 form.login p.signup-now a{
-    /* text-decoration: none; */
     color: #11748e;
 }

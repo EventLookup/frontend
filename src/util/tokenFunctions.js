@@ -30,7 +30,6 @@ const setAxiosDefaultHeader = (token, testComp) => {
     return setTimeout(() => {
       axios.defaults.headers.common['authorization'] = "";
       axios.get('/logout');
-      console.log('ausgeloggt', testComp);
     }, timeTillExpInMs);
 
   } else {

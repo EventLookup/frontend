@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
 
-  
-
   return ( 
     <footer>
     <NavLink to='/impressum'>IMPRESSUM</NavLink>

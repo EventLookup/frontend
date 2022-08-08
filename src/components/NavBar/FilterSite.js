@@ -24,7 +24,6 @@ const FilterSite = (props) => {
   const [city, setCity] = useContext(FilterOptionContext);
 
   function cityChange(event) {
-    // setCity(event.target.value);
     event.preventDefault();
   }
 

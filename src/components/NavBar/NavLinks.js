@@ -10,8 +10,6 @@ const NavLinks = () => {
     const {loggedIn} = useContext(LoginAuthContext)
     const {setAuthOption} = useAuth()
 
- 
-
     return(
         <>
             <NavLink onClick={() => {

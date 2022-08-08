@@ -1,13 +1,9 @@
-
-
 .navbar {
     font-family: Arial, Helvetica, sans-serif;
     
     width: 100%;
     display: flex;
 }
-
-
 
 .navbar .desktop-nav {
     display: none;
@@ -65,8 +61,7 @@
     position: absolute;
     right: 5%;
     cursor: pointer;
-    font-size: 25pt;
-    
+    font-size: 25pt; 
 }
 
 .navbar .log-button {
@@ -90,19 +85,14 @@
     color: white;
 }
 
-
 @media (min-width: 90rem) {
     .navbar .desktop-nav {
         display:flex;
-        align-items: center;
-        
-        
+        align-items: center; 
     }
-
     .navbar .mobile-nav {
         display: none;
     }
-   
     .filter-button {
      display: none;
     }

@@ -82,13 +82,11 @@ const Calendar = () => {
         )}&limit=${eventLimit}&city=${city}`;
       }
 
-      console.log(url);
-
       try {
         const res = await axios.get(url);
         setEvents(res.data.events);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
 
