@@ -95,7 +95,6 @@ const Create = () => {
         setMessage("");
         setErrors("")
         e.preventDefault();
-        console.log(body);
         try {
           let response = await axios.put("/events",
               body
@@ -104,25 +103,22 @@ const Create = () => {
               withCredentials: true 
             }
           );
-          console.log('msg: ', response)
           if(response.status === 400) {
             setErrors(response.data.msg);
           } else if(response.status === 201) {
             const msg = `${response.data.msg}, Weiterleitung zum Kalender...`
             setMessage(msg)
           }
-        //   if(response.data) setErrors(response.data.msg)
           if(response.data.msg === 'Event wurde erstellt'){
             setTimeout(() => {
                 navigate("/");
             }, 3000);
           }
         } catch (error) {
-         console.error(error?.response?.data?.errors);
+        //  console.error(error?.response?.data?.errors);
           if(error.response) setErrors(error.response.data.msg);
           
         }
-        console.log(errors)
     }  
     if(loggedIn && !organizer) {
         return (

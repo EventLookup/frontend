@@ -20,7 +20,7 @@ const Event = (props) => {
         setSingleEvent(res.data.event);
                 
       } catch (err) {
-        console.log(err?.response);
+        // console.log(err?.response);
         setSingleEvent(null);
       }
     };
@@ -50,7 +50,7 @@ const Event = (props) => {
           <p>{singleEvent.description}</p>
           <br />
           <p>
-            {singleEvent.location.zip} {singleEvent.location.city}
+            {singleEvent.location.zip.length===5 ? singleEvent.location.zip : `0${singleEvent.location.zip}`} {singleEvent.location.city}
           </p>
           <p>
             {singleEvent.location.street} {singleEvent.location.houseNr}

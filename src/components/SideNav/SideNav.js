@@ -10,11 +10,6 @@ function SideNav(props) {
 
   const [city, setCity] = useContext(FilterOptionContext);
 
-  function cityChange(e) {
-    e.preventDefault();
-    // setCity(e.target.value);
-    console.log(city);
-  }
     return (
       <div className="SideNav">
         {/* <FilterLinks /> */}
@@ -24,9 +19,8 @@ function SideNav(props) {
           <div onClick={props.month}>{monat[getMonth(new Date())]}</div>
           <div onClick={props.nextMonth}>{monat[getMonth(new Date())+1]}</div>
           <div id="Suche">
-            <form onSubmit={cityChange}>
+            <form>
               <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder='Ort' size="10" maxLength="20"/>
-              {/* <input type="submit" value="los" id="los" /> */}
             </form>
           </div>
         </aside>

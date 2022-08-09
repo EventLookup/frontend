@@ -43,14 +43,12 @@ const useAuth = () => {
       return setTimeout( async () => {
         axios.defaults.headers.common['authorization'] = "";
         await axios.get('/logout');
-        console.log('ausgeloggt');
       }, timeTillExpInMs);
   
     } else {
       navigate('/login');
     }
   }
-
 
   const login = async () => {
     try {
@@ -74,12 +72,6 @@ const useAuth = () => {
       };
 
     } catch (err) { 
-      console.log(err)
-      // Das Error Handling muss noch Grafisch dargestellt werden
-      const errors = err.response.data;
-      for (let [key, value] of Object.entries(errors)) {
-        console.log(`${key}: ${value}`)
-      }
       setLoginErrors(err?.response?.data?.msg)
     }
   };
@@ -98,10 +90,9 @@ const useAuth = () => {
       if(authOption === 'logout'){
         axios.defaults.headers.common['authorization'] = "";
         try {
-          console.log("im try block")
           await axios.get('/logout');
-        } catch (e) {
-          console.log("Error: ",  e) 
+        } catch(e) {
+          console.error(e) 
         };
         setLoggedIn(false);
       }

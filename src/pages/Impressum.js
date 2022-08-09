@@ -2,6 +2,7 @@ import './Impressum.css';
 
 const Impressum = () => {
   document.title = "Eventlookup | Impressum";
+  
   return (
     <main className="impressum">
       <div className='impressum-scroll'>

@@ -6,7 +6,6 @@
 
 h2 {
     display: table;
-    
 }
 header{
     display: flex;
@@ -20,13 +19,12 @@ header{
     margin-bottom: 20px;
 }
 
-
-
 header .logo{
     display: none;
     height: 50px;
     margin-top: 15px;
 }
+
 header .logo-link {
     position: absolute;
     left:  5%;
@@ -36,11 +34,11 @@ header .logo-mobile {
     height: 50px;
     
 }
+
 header .logo-mobile-link{
     position: absolute;
     left: calc(50% - 50px);
 }
-
 
 @media (min-width: 90rem) {
     header .logo {

@@ -31,11 +31,9 @@ const passwordHandler = (e) => {
     if (email && password) {
       setAuthOption('login');
     } else {
-      console.log(loginErrors);
       e.preventDefault();
     }
   };
-  console.log()
   return (
     <main className="main-login">
       <form className="login">
@@ -58,7 +56,6 @@ const passwordHandler = (e) => {
         />
 
         <p className="err-msg">{loginErrors}</p>
-        {/* <p className="err-msg">{backendErr}</p> */}
 
         <button onClick={onSubmitHandler}>Einloggen</button>
         <p className="signup-now">Noch kein Konto? <a href="/signup">Jetzt registrieren</a></p>
