@@ -57,6 +57,15 @@ const Event = (props) => {
         </div> : setSingleEvent(null)
         }
       </div>
+       <div className="input">
+          <p>Verabredet euch hier (Login erforderlich):</p>
+          <form onSubmit={navigiereOderEingabe}>
+            <textarea onChange={(event) => setEingabe(event.target.value)
+            }></textarea>
+            <input type="submit"></input>
+          </form>
+        </div>
+        <div className="output">{eingabe}</div> 
     </>
   );
 };
