@@ -13,6 +13,7 @@ const Event = (props) => {
   const { id } = useParams();
   const [singleEvent, setSingleEvent] = useState("loading");
   const {loggedIn} = useContext(LoginAuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getSingleEvent = async () => {
@@ -68,8 +69,7 @@ const Event = (props) => {
           </p>
         </div> : setSingleEvent(null)
         }
-      </div>
-      <div className="input">
+        <div className="input">
           <p>Verabredet euch hier (Login erforderlich):</p>
           <form onSubmit={navigiereOderEingabe}>
             <textarea onChange={(event) => setEingabe(event.target.value)
@@ -77,7 +77,8 @@ const Event = (props) => {
             <input type="submit"></input>
           </form>
         </div>
-        <div className="output">{eingabe}</div>
+        {/* <div className="output">{eingabe}</div> */}
+      </div>
       
     </>
   );
