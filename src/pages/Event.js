@@ -41,6 +41,7 @@ const Event = (props) => {
 
   return (
     <>
+    {console.log(eingabe)}
       <div className="single-event">
         <section className="back">
           <NavLink to="/" style={{ textDecoration: "none" }}>
