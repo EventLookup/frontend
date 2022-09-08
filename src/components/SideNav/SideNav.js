@@ -20,7 +20,11 @@ function SideNav(props) {
           <div onClick={props.nextMonth}>{monat[getMonth(new Date())+1]}</div>
           <div id="Suche">
             <form>
+<<<<<<< HEAD
               <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder='Ort' size="10" maxLength="20"/>
+=======
+              <input type="text" value={city} onChange={(event) => setCity(event.target.value.substring(0,1).toUpperCase() + event.target.value.substring(1).toLowerCase())} placeholder='Ort' size="10" maxLength="20"/>
+>>>>>>> 339872f (build created)
             </form>
           </div>
         </aside>

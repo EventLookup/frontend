@@ -2,16 +2,29 @@ import { NavLink, useParams } from "react-router-dom";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import {BiLoader} from "react-icons/bi";
 import "./Event.css";
+<<<<<<< HEAD
 import { useEffect, /* useContext */ } from "react";
 // import { LoginAuthContext } from "../context/LoginAuthContext";
 import axios from "../api/axios";
 import { useState } from "react";
+=======
+import { useEffect, useContext  } from "react";
+import { LoginAuthContext } from "../context/LoginAuthContext";
+import axios from "../api/axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+>>>>>>> 339872f (build created)
 
 const Event = (props) => {
   document.title = "Eventlookup | Event";
   const { id } = useParams();
   const [singleEvent, setSingleEvent] = useState("loading");
+<<<<<<< HEAD
   // const {loggedIn} = useContext(LoginAuthContext);
+=======
+  const {loggedIn} = useContext(LoginAuthContext);
+  const navigate = useNavigate();
+>>>>>>> 339872f (build created)
 
   useEffect(() => {
     const getSingleEvent = async () => {
@@ -26,8 +39,25 @@ const Event = (props) => {
     getSingleEvent();
   }, [id]);
   
+<<<<<<< HEAD
   return (
     <>
+=======
+  const [eingabe, setEingabe] = useState("");
+
+  const navigiereOderEingabe = (event) => {
+    event.preventDefault();
+    !loggedIn ? (
+      navigate('/Login')
+      ) : (
+    setEingabe(event.target.value)
+      )
+  }
+
+  return (
+    <>
+    {console.log(eingabe)}
+>>>>>>> 339872f (build created)
       <div className="single-event">
         <section className="back">
           <NavLink to="/" style={{ textDecoration: "none" }}>
@@ -56,7 +86,21 @@ const Event = (props) => {
           </p>
         </div> : setSingleEvent(null)
         }
+<<<<<<< HEAD
       </div>
+=======
+        <div className="input">
+          <p>Verabredet euch hier (Login erforderlich):</p>
+          <form onSubmit={navigiereOderEingabe}>
+            <textarea onChange={(event) => setEingabe(event.target.value)
+            }></textarea>
+            <input type="submit"></input>
+          </form>
+        </div>
+        {/* <div className="output">{eingabe}</div> */}
+      </div>
+      
+>>>>>>> 339872f (build created)
     </>
   );
 };
