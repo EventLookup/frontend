@@ -61,11 +61,7 @@ const FilterSite = (props) => {
                     placeholder="Ort"
                     size="10"
                     maxLength="20"
-<<<<<<< HEAD
-                    onChange={(event) => setCity(event.target.value)}
-=======
                     onChange={(event) => setCity(event.target.value.substring(0,1).toUpperCase() + event.target.value.substring(1).toLowerCase())}
->>>>>>> 339872f (build created)
                   />
                   <button id="los" onClick={()=>setOpen(false)}>los</button>
                 </form>
